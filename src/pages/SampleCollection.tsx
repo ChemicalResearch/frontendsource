@@ -1,0 +1,7 @@
+function SampleCollection() {
+  return (
+    <h1>Job Creation</h1>
+  )
+}
+
+export default SampleCollection;
