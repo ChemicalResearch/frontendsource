@@ -1,6 +1,6 @@
 function SampleCollection() {
   return (
-    <h1>Job Creation</h1>
+    <h1>Sample Collection</h1>
   )
 }
 
