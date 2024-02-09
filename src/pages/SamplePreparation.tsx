@@ -1,6 +1,23 @@
 function SamplePreparation() {
   return (
-    <h1>Sample Preparation</h1>
+    <div>
+      <section className="antialiased bg-gray-100 text-gray-600">
+        <div className="flex flex-col">
+          <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
+            <header className="px-5 py-4 border-b border-gray-100">
+              <h2 className="font-semibold text-gray-800">Job Number: 123456789</h2>
+              <h2 className="font-semibold text-gray-800">Assigned On: 12-December-2023 12:00:00</h2>
+              <div className="flex flex-col gap-2 mt-4 items-start">
+                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Scan QR</button>
+                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Barcode</button>
+              </div>
+              <h2 className="font-semibold text-gray-800">QR Code: 97761231111089236</h2>
+              <h2 className="font-semibold text-gray-800">Barcode: ABC-abc-1234</h2>
+            </header>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
 
