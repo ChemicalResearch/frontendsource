@@ -3,6 +3,7 @@ import ChemistAction from "./pages/ChemistAction";
 // Layout
 import MainLayout from "./layouts/MainLayout";
 // Pages
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
@@ -16,7 +17,7 @@ import TestResult from "./pages/TestResult";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="job-creation" element={<JobCreation />} />
         <Route path="sample-collection" element={<SampleCollection />} />
@@ -28,6 +29,7 @@ function App() {
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
+      <Route path="login" element={<Login />} />
     </Routes>
   )
 }
