@@ -8,6 +8,9 @@ import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
 import SamplePreparation from "./pages/SamplePreparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
+import LabHeadProgress from "./pages/LabHeadProgress";
+import LabCertificate from "./pages/LabCERtificate";
+import TestResult from "./pages/TestResult";
 
 
 function App() {
@@ -20,6 +23,9 @@ function App() {
         <Route path="sample-preparation" element={<SamplePreparation />} />
         <Route path="lab-head-assignment" element={<LabHeadAssignment />} />
         <Route path="chemist-action" element={<ChemistAction />} />
+        <Route path="test-result" element={<TestResult />} />
+        <Route path="lab-head-progress" element={<LabHeadProgress />} />
+        <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
     </Routes>
