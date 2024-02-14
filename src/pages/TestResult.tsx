@@ -1,4 +1,8 @@
+import { useState } from "react";
+import data from "../mock-data/assignedtochemist";
+
 function TestResult() {
+    const [results] = useState(data);
     return (
         <div>
             <section className="antialiased bg-gray-100 text-gray-600">
@@ -43,7 +47,53 @@ function TestResult() {
                                         </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-100">
-                                        <tr>
+                                        {results.map(r => (
+                                            <tr key={r.id}>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="flex items-center">
+                                                        <div className="font-medium text-gray-800">Test1</div>
+                                                    </div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="text-left">{r.commodityGrp}</div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="text-left">{r.commodity}</div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="text-left">{r.parameter}</div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="text-left">{r.testMethod}</div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <select value={r.status} id="countries" className="max-w-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                                        <option selected>Choose a Parameter</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="text-left">{r.verifiedBy}</div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="w-20 bg-white border border-gray-200 rounded-lg mx-auto" data-hs-input-number>
+                                                        <div className="w-full flex justify-between items-center gap-x-1">
+                                                            <div className="grow py-2 px-3">
+                                                                <input className="w-full p-0 bg-transparent border-0 text-gray-800 focus:ring-0 text-center" type="text" value={r.result ?? ""} data-hs-input-number-input />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="p-2 whitespace-nowrap">
+                                                    <div className="flex items-center justify-center">
+                                                        <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Draft</button>
+                                                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Complete</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                        {/* <tr>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <div className="font-medium text-gray-800">Test1</div>
@@ -88,8 +138,8 @@ function TestResult() {
                                                     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Complete</button>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        {/* <tr>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <div className="font-medium text-gray-800">Test1</div>
@@ -134,8 +184,8 @@ function TestResult() {
                                                     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Complete</button>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        {/* <tr>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <div className="font-medium text-gray-800">Test1</div>
@@ -180,8 +230,8 @@ function TestResult() {
                                                     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Complete</button>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        {/* <tr>
                                             <td className="p-2 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <div className="font-medium text-gray-800">Test1</div>
@@ -226,7 +276,7 @@ function TestResult() {
                                                     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Complete</button>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> */}
                                     </tbody>
                                 </table>
                             </div>
