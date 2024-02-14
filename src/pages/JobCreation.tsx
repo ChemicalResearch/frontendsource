@@ -33,16 +33,16 @@ const mines = [
   }
 ];
 
-const jobtypes = [
-  {
-    "name": "Rake",
-    "identifier": "10000"
-  },
-  {
-    "name": "Truk",
-    "identifier": "10001"
-  }
-];
+// const jobtypes = [
+//   {
+//     "name": "Rake",
+//     "identifier": "10000"
+//   },
+//   {
+//     "name": "Truk",
+//     "identifier": "10001"
+//   }
+// ];
 
 function JobCreation() {
   return (
