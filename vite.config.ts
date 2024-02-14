@@ -11,6 +11,7 @@ export default defineConfig({
         content: [
           './index.html',
           './src/**/*.{jsx,tsx}',
+          './node_modules/react-tailwindcss-select/dist/index.esm.js'
         ],
       })],
     },
