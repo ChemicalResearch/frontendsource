@@ -10,7 +10,7 @@ import SampleCollection from "./pages/SampleCollection";
 import SamplePreparation from "./pages/SamplePreparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
 import LabHeadProgress from "./pages/LabHeadProgress";
-import LabCertificate from "./pages/LabCERtificate";
+import LabCertificate from "./pages/LabCertificate";
 import TestResult from "./pages/TestResult";
 
 
