@@ -9,7 +9,6 @@ function SamplePreparation() {
               <h2 className="font-semibold text-gray-800">Assigned On: 12-December-2023 12:00:00</h2>
               <div className="flex flex-col gap-2 mt-4 items-start">
                 <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Scan QR</button>
-                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Barcode</button>
               </div>
               <h2 className="font-semibold text-gray-800">QR Code: 97761231111089236</h2>
               <h2 className="font-semibold text-gray-800">Barcode: ABC-abc-1234</h2>

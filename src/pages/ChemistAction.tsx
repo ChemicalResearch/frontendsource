@@ -47,7 +47,7 @@ function ChemistAction() {
                     {actions.map(a => (
                       <tr key={a.id}>
                         <td className="p-2 whitespace-nowrap">
-                          <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
+                          <div className="text-left">Details</div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left">{a.commodityGrp}</div>

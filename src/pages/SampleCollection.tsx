@@ -9,7 +9,7 @@ function SampleCollection() {
               <h2 className="font-semibold text-gray-800">Assigned On: 12-December-2023 12:00:00</h2>
               <div className="flex items-center gap-4 mb-2">
                 <div>
-                  <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job List</label>
+                  <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Vehicle Type</label>
                 </div>
                 <div>
                   <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -22,7 +22,7 @@ function SampleCollection() {
               </div>
               <div className="flex items-center gap-4 mb-2">
                 <div>
-                  <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vehicle Number</label>
+                  <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Vehicle Number</label>
                 </div>
                 <div>
                 <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
