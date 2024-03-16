@@ -1,5 +1,7 @@
 import PhoneInput from 'react-phone-number-input/input';
 import { FC, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import {login} from "../services";
 
 interface PhoneNumberSignupProps {
     setData: React.Dispatch<React.SetStateAction<{
@@ -9,15 +11,21 @@ interface PhoneNumberSignupProps {
 }
 
 const PhoneNumberSignup: FC<PhoneNumberSignupProps> = ({ setData }) => {
-    const [phone, setPhone] = useState<string | undefined>("");
+    const [phone, setPhone] = useState<string | undefined>("+918697352251");
 
+    const mutation = useMutation({
+        mutationFn: login
+      })
+      
     const _handlePhoneNumberChange = (value?: string) => {
         setPhone(value)
     }
 
     const _handleSentOTP = () => {
         if (!phone) return;
-        setData({ isOtpSent: true, phone })
+        console.log({ phone: phone.slice(-10) })
+        mutation.mutate(phone.slice(-10));
+        // setData({ isOtpSent: true, phone })
     }
 
     return (

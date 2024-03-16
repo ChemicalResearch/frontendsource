@@ -17,6 +17,7 @@ import TestResult from "./pages/TestResult";
 function App() {
   return (
     <Routes>
+      <Route path="login" element={<Login />} />
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="job-creation" element={<JobCreation />} />
@@ -29,7 +30,6 @@ function App() {
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
-      <Route path="login" element={<Login />} />
     </Routes>
   )
 }

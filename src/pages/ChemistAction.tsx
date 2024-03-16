@@ -1,8 +1,17 @@
 import { useState } from "react";
-import data from "../mock-data/assignedtochemist";
+import { useQuery } from '@tanstack/react-query'
+import { getChemistAction } from "../services";
+import data1 from "../mock-data/assignedtochemist";
 
 function ChemistAction() {
-  const [actions] = useState(data);
+  const { isPending, error, data } = useQuery({
+    queryKey: ['chemist-actions'],
+    queryFn: () => {
+      return getChemistAction(201568)
+    }
+  })
+  console.log({isPending, error, data})
+  const [actions] = useState(data1);
   return (
     <div>
       <section className="antialiased bg-gray-100 text-gray-600">

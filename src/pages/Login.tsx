@@ -3,7 +3,7 @@ import PhoneNumberSignup from "../components/PhoneNumberSignup";
 import OTPVerification from "../components/OTPVerification";
 
 const Login = () => {
-    const [{ phone, isOtpSent }, setData] = useState<{ phone: string, isOtpSent: boolean }>({ phone: "", isOtpSent: false });
+    const [{ phone, isOtpSent }, setData] = useState<{ phone: string, isOtpSent: boolean }>({ phone: "8697352251", isOtpSent: false });
 
     return (
         <div className="h-screen w-screen flex items-center justify-center">

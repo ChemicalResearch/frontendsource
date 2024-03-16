@@ -1,14 +1,23 @@
 import { useState } from "react";
 import { ChemistDropdown, getTranformData } from "../components/dropdown";
 import mokedata from "../mock-data/lab-head-assignment";
+import { useQuery } from '@tanstack/react-query'
+import { getLabHeadAssignment } from "../services";
 
 const LabHeadAssignment = () => {
-  const [data] = useState(mokedata);
+  const { isPending, error, data } = useQuery({
+    queryKey: ['lab-head-assignment'],
+    queryFn: () => {
+      return getLabHeadAssignment(1)
+    }
+  })
+  console.log({isPending, error, data})
+  const [data1] = useState(mokedata);
   return (
     <div>
       <section className="antialiased bg-gray-100 text-gray-600">
         <div className="flex flex-col">
-          {data?.map(d => (
+          {data1?.map(d => (
             <div key={d.labHeadId} className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
               <header className="px-5 py-4 border-b border-gray-100">
                 <h2 className="font-semibold text-gray-800">Assigned QR: {d.qrcode}</h2>

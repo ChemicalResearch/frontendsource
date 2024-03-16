@@ -1,8 +1,17 @@
 import { useState } from "react";
-import data from "../mock-data/assignedtochemist";
+import data1 from "../mock-data/assignedtochemist";
+import {getVerifyTestResult} from "../services";
+import { useQuery } from "@tanstack/react-query";
 
 function TestResult() {
-    const [results] = useState(data);
+    const { isPending, error, data } = useQuery({
+        queryKey: ['verify-test-result'],
+        queryFn: () => {
+            return getVerifyTestResult(201568)
+        }
+    })
+    console.log({isPending, error, data})
+    const [results] = useState(data1);
     return (
         <div>
             <section className="antialiased bg-gray-100 text-gray-600">
