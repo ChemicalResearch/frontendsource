@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { useQuery } from '@tanstack/react-query'
-import { ChemistAction as ApiResponseChemistAction, getChemistAction } from "../services";
+import { getChemistAction } from "../services";
+import ChemistActionTableHead from "../components/ChemistActionTableHead";
 
 function ChemistAction() {
   const { data } = useQuery({
@@ -10,12 +10,7 @@ function ChemistAction() {
       return data;
     }
   })
-  const [finalData, setData1] = useState<Array<ApiResponseChemistAction>>([]);
-  useEffect(() => {
-    if (data !== undefined && data.length > 0) {
-      setData1(data);
-    }
-  }, [data])
+
   return (
     <div>
       <section className="antialiased bg-gray-100 text-gray-600">
@@ -28,36 +23,9 @@ function ChemistAction() {
             <div className="p-3">
               <div className="overflow-x-auto">
                 <table className="table-auto w-full">
-                  <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                    <tr>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Test Details</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Commodity Group</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Commodity</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Parameters</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-left">Test Mehod</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-center">Status</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-center">Result</div>
-                      </th>
-                      <th className="p-2 whitespace-nowrap">
-                        <div className="font-semibold text-center">Actions</div>
-                      </th>
-                    </tr>
-                  </thead>
+                  <ChemistActionTableHead/>
                   <tbody className="text-sm divide-y divide-gray-100">
-                    {finalData.map(a => (
+                    {data?.map(a => (
                       <tr key={a.id}>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left">Details</div>
