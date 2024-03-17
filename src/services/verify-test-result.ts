@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
-type VerifyTestResult = {
+export type VerifyTestResult = {
     id: number;
     sampleQr: number;
     chemist: number;

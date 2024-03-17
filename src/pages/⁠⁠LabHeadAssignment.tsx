@@ -1,24 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChemistDropdown, getTranformData } from "../components/dropdown";
-import mokedata from "../mock-data/lab-head-assignment";
 import { useQuery } from '@tanstack/react-query'
-import { getLabHeadAssignment } from "../services";
+import { ApiResponseLabHeadAssignment, getLabHeadAssignment } from "../services";
 
 const LabHeadAssignment = () => {
-  const { isPending, error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ['lab-head-assignment'],
     queryFn: async () => {
       const { data } = await getLabHeadAssignment(1);
       return data;
     }
   })
-  console.log({ isPending, error, data })
-  const [data1] = useState(mokedata);
+  const [finalData, setData1] = useState<Array<ApiResponseLabHeadAssignment>>([]);
+  useEffect(() => {
+    if (data !== undefined && data.length > 0) {
+      setData1(data);
+    }
+  }, [data])
   return (
     <div>
       <section className="antialiased bg-gray-100 text-gray-600">
         <div className="flex flex-col">
-          {data1?.map(d => (
+          {finalData?.map((d) => (
             <div key={d.labHeadId} className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
               <header className="px-5 py-4 border-b border-gray-100">
                 <h2 className="font-semibold text-gray-800">Assigned QR: {d.qrcode}</h2>
@@ -66,10 +69,10 @@ const LabHeadAssignment = () => {
                             <div className="text-left">{de.commodityText}</div>
                           </td>
                           <td className="p-2 whitespace-nowrap">
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
+                            <input type="text" value={de.parameterText} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
                           </td>
                           <td className="p-2 whitespace-nowrap">
-                            <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
+                            <input type="text" value={de.testmethodText} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
                           </td>
                           <td className="p-2 whitespace-nowrap">
                             <ChemistDropdown value={getTranformData(de.chemist)} primaryColor="" onChange={console.log} />

@@ -38,6 +38,13 @@ type LabHeadAssignment = {
     jobNumber: string;
     labDetails: Array<LabDetails>;
 }
+export type ApiResponseLabHeadAssignment = {
+    labHeadName: string;
+    labHeadId: string;
+    qrcode: string;
+    jobNumber: string;
+    labDetails: Array<LabDetails>;
+}
 
 export const getLabHeadAssignment = (employee_id: number) => {
     return apiClient.get<any, AxiosResponse<Array<LabHeadAssignment>>>(`/assignedtolabhead/${employee_id}`)

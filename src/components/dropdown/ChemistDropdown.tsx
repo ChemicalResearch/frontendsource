@@ -24,7 +24,7 @@ const ChemistDropdown: FC<Omit<SelectProps, "options">> = ({ ...props }) => {
 export default ChemistDropdown;
 
 interface Chemist {
-    "employeeid": string;
+    "employeeid": number;
     "name": string;
 }
 

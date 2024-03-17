@@ -1,6 +1,5 @@
-import { useState } from "react";
-import data1 from "../mock-data/assignedtochemist";
-import { getVerifyTestResult } from "../services";
+import { useEffect, useState } from "react";
+import { VerifyTestResult as ApiResponseVerifyTestResult, getVerifyTestResult } from "../services";
 import { useQuery } from "@tanstack/react-query";
 
 function TestResult() {
@@ -12,7 +11,13 @@ function TestResult() {
         }
     })
     console.log({ isPending, error, data })
-    const [results] = useState(data1);
+    // const [results] = useState(data1);
+    const [results, setData1] = useState<Array<ApiResponseVerifyTestResult>>([]);
+    useEffect(() => {
+        if (data !== undefined && data.length > 0) {
+            setData1(data);
+        }
+    }, [data])
     return (
         <div>
             <section className="antialiased bg-gray-100 text-gray-600">

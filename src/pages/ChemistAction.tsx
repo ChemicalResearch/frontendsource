@@ -1,18 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from '@tanstack/react-query'
-import { getChemistAction } from "../services";
-import data1 from "../mock-data/assignedtochemist";
+import { ChemistAction as ApiResponseChemistAction, getChemistAction } from "../services";
 
 function ChemistAction() {
-  const { isPending, error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ['chemist-actions'],
     queryFn: async () => {
       const { data } = await getChemistAction(201568);
       return data;
     }
   })
-  console.log({ isPending, error, data })
-  const [actions] = useState(data1);
+  const [finalData, setData1] = useState<Array<ApiResponseChemistAction>>([]);
+  useEffect(() => {
+    if (data !== undefined && data.length > 0) {
+      setData1(data);
+    }
+  }, [data])
   return (
     <div>
       <section className="antialiased bg-gray-100 text-gray-600">
@@ -54,7 +57,7 @@ function ChemistAction() {
                     </tr>
                   </thead>
                   <tbody className="text-sm divide-y divide-gray-100">
-                    {actions.map(a => (
+                    {finalData.map(a => (
                       <tr key={a.id}>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left">Details</div>
