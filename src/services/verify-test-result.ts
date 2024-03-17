@@ -26,8 +26,6 @@ type VerifyTestResult = {
     verificationStatusDsc: string;
 }
 
-type VerifyTestResultResponse = Array<VerifyTestResult>
-
 export const getVerifyTestResult = (employee_id: number) => {
-    return apiClient.get<any, AxiosResponse<VerifyTestResultResponse>>(`/assignedtoqa/${employee_id}`)
+    return apiClient.get<any, AxiosResponse<Array<VerifyTestResult>>>(`/assignedtoqa/${employee_id}`)
 }

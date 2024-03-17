@@ -6,11 +6,12 @@ import data1 from "../mock-data/assignedtochemist";
 function ChemistAction() {
   const { isPending, error, data } = useQuery({
     queryKey: ['chemist-actions'],
-    queryFn: () => {
-      return getChemistAction(201568)
+    queryFn: async () => {
+      const { data } = await getChemistAction(201568);
+      return data;
     }
   })
-  console.log({isPending, error, data})
+  console.log({ isPending, error, data })
   const [actions] = useState(data1);
   return (
     <div>

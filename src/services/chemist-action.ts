@@ -26,8 +26,6 @@ type ChemistAction = {
     verificationStatusDsc: string;
 }
 
-type ChemistActionResponse = Array<ChemistAction>
-
-export const getChemistAction = (employee_id: number) => {
-    return apiClient.get<any, AxiosResponse<ChemistActionResponse>>(`/assignedtochemist/${employee_id}`)
+export const getChemistAction = async (employee_id: number) => {
+    return apiClient.get<any, AxiosResponse<Array<ChemistAction>>>(`/assignedtochemist/${employee_id}`)
 }

@@ -1,16 +1,17 @@
 import { useState } from "react";
 import data1 from "../mock-data/assignedtochemist";
-import {getVerifyTestResult} from "../services";
+import { getVerifyTestResult } from "../services";
 import { useQuery } from "@tanstack/react-query";
 
 function TestResult() {
     const { isPending, error, data } = useQuery({
         queryKey: ['verify-test-result'],
-        queryFn: () => {
-            return getVerifyTestResult(201568)
+        queryFn: async () => {
+            const { data } = await getVerifyTestResult(201568);
+            return data;
         }
     })
-    console.log({isPending, error, data})
+    console.log({ isPending, error, data })
     const [results] = useState(data1);
     return (
         <div>

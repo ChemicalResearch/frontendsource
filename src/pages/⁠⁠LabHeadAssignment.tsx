@@ -7,11 +7,12 @@ import { getLabHeadAssignment } from "../services";
 const LabHeadAssignment = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['lab-head-assignment'],
-    queryFn: () => {
-      return getLabHeadAssignment(1)
+    queryFn: async () => {
+      const { data } = await getLabHeadAssignment(1);
+      return data;
     }
   })
-  console.log({isPending, error, data})
+  console.log({ isPending, error, data })
   const [data1] = useState(mokedata);
   return (
     <div>
