@@ -9,6 +9,7 @@ type LoginResponse = {
     email: string;
 }
 
-export const login = (phone: string) => {
+export const login = async (phone: string) => {
     return apiClient.get<any, AxiosResponse<LoginResponse>>(`/login/${phone}`)
+        .then(({ data }) => data);
 }

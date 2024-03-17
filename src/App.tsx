@@ -13,12 +13,18 @@ import LabHeadProgress from "./pages/LabHeadProgress";
 import LabCertificate from "./pages/LabCertificate";
 import TestResult from "./pages/TestResult";
 
+import RequiredAuth from "./components/RequiredAuth";
+
 
 function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
-      <Route element={<MainLayout />}>
+      <Route element={
+        <RequiredAuth>
+          <MainLayout />
+        </RequiredAuth>
+      }>
         <Route index element={<Home />} />
         <Route path="job-creation" element={<JobCreation />} />
         <Route path="sample-collection" element={<SampleCollection />} />
