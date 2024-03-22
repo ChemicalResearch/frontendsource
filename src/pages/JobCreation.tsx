@@ -1,8 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
-import { getCreateJob } from "../services";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Formik, FormikHelpers } from "formik";
+import { getCreateJob, submitJob } from "../services";
+
+type CreateJobFormInputes = {
+  jobNumber: string;
+  commodity: string;
+  commodityGroup: string;
+  customer: string;
+  jobType: string;
+  mine: string;
+  createdBy: string;
+}
 
 function JobCreation() {
-  const { data, isPending } = useQuery({
+  const { data, isPending,refetch } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
       const { data } = await getCreateJob();
@@ -10,100 +21,157 @@ function JobCreation() {
     }
   })
 
+  const mutation = useMutation({
+    mutationFn: submitJob,
+    onSuccess: (data) => {
+
+    },
+  })
+
   if (isPending) return <p>Loading...</p>
+
+  const initialValues: CreateJobFormInputes = {
+    "jobNumber": `${data?.id}`,
+    "commodity": "",
+    "commodityGroup": "",
+    "customer": "",
+    "jobType": "",
+    "mine": "",
+    "createdBy": `${data?.createdBy}`,
+  }
+
+  const onSubmit = (values: CreateJobFormInputes, formikHelpers: FormikHelpers<CreateJobFormInputes>) => {
+    mutation.mutate(values, {
+      onSuccess(data) {
+        if (data) {
+          formikHelpers.resetForm();
+          formikHelpers.setSubmitting(false);
+        }
+      },
+    });
+  }
+
   return (
-    <div>
-      <section className="antialiased bg-gray-100 text-gray-600">
-        <div className="flex flex-col">
-          <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
-            <header className="px-5 py-4 border-b border-gray-100">
-              <div className="flex items-center justify-start mt-4">
-                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Job Number</button>
-              </div>
-              <h2 className="font-semibold text-gray-800">Jon No: {data?.id}</h2>
-              <h2 className="font-semibold text-gray-800">Created On: 12-December-2023 12:00:00</h2>
-            </header>
-            <form className="max-w-md m-4">
-              <div className="mb-2">
-                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Customer</label>
-                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  <option value="">Select</option>
-                  {data?.customers?.map(c => (
-                    <option key={c.identifier} value={c.identifier}>{c.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-2">
-                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Mines</label>
-                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  <option value="">Select</option>
-                  {data?.mines?.map(c => (
-                    <option key={c.identifier} value={c.identifier}>{c.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-2">
-                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Included</label>
-                <div className="flex gap-4 my-2">
-                  <div className="flex items-center">
-                    <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                    <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lab Operation</label>
+    <Formik
+      initialValues={initialValues}
+      enableReinitialize
+      onSubmit={onSubmit}
+    >
+      {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
+        <div>
+          <section className="antialiased bg-gray-100 text-gray-600">
+            <div className="flex flex-col">
+              <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
+                <header className="px-5 py-4 border-b border-gray-100">
+                  <div className="flex items-center justify-start mt-4">
+                    <button onClick={() => refetch()} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Job Number</button>
                   </div>
-                  <div className="flex items-center">
-                    <input checked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                    <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sampling</label>
+                  <h2 className="font-semibold text-gray-800">Job No: {data?.id}</h2>
+                  <h2 className="font-semibold text-gray-800">Created On: 12-December-2023 12:00:00</h2>
+                </header>
+                <form className="max-w-md m-4">
+                  <div className="mb-2">
+                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Customer</label>
+                    <select
+                      name="customer"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.customer}
+                    >
+                      <option value="">Select</option>
+                      {data?.customers?.map(c => (
+                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Mines</label>
+                    <select
+                      name="mine"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.mine}
+                    >
+                      <option value="">Select</option>
+                      {data?.mines?.map(c => (
+                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Included</label>
+                    <div className="flex gap-4 my-2">
+                      <div className="flex items-center">
+                        <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
+                        <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lab Operation</label>
+                      </div>
+                      <div className="flex items-center">
+                        <input checked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
+                        <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sampling</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Type</label>
+                    <div className="flex gap-4 my-2">
+                      {data?.jobtypes?.map((jobtype) => (
+                        <div className="flex items-center" key={jobtype.identifier}>
+                          <input
+                            type="checkbox"
+                            value={jobtype.identifier}
+                            checked={values.jobType === jobtype.identifier}
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-50 focus:ring-2"
+                            onChange={() => setFieldValue("jobType", jobtype.identifier)}
+                          />
+                          <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{jobtype.name}</label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mb-2">
+                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commodity Group</label>
+                    <select
+                      name="commodityGroup"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.commodityGroup}
+                    >
+                      <option>Select</option>
+                      {data?.commoditygroups?.map(c => (
+                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commodity</label>
+                    <select
+                      name="commodity"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.commodity}
+                    >
+                      <option value="">Select</option>
+                      {data?.commodities?.map(c => (
+                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </form>
+                <div className="p-3">
+                  <div className="flex items-center justify-start mt-5">
+                    <button onClick={handleSubmit as any} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Submit</button>
                   </div>
                 </div>
-              </div>
-              <div className="mb-2">
-                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Type</label>
-                <div className="flex gap-4 my-2">
-                  <div className="flex items-center">
-                    <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                    <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stack</label>
-                  </div>
-                  <div className="flex items-center">
-                    <input checked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                    <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Submited Sample</label>
-                  </div>
-                  <div className="flex items-center">
-                    <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                    <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Rake Job</label>
-                  </div>
-                  <div className="flex items-center">
-                    <input checked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                    <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Container</label>
-                  </div>
-                </div>
-              </div>
-              <div className="mb-2">
-                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commodity Group</label>
-                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  <option>Select</option>
-                  {data?.commoditygroups?.map(c => (
-                    <option key={c.identifier} value={c.identifier}>{c.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commodity</label>
-                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  <option value="">Select</option>
-                  {data?.commodities?.map(c => (
-                    <option key={c.identifier} value={c.identifier}>{c.name}</option>
-                  ))}
-                </select>
-              </div>
-            </form>
-            <div className="p-3">
-              <div className="flex items-center justify-start mt-5">
-                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Submit</button>
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
-    </div>
+      )}
+    </Formik>
   )
 }
 

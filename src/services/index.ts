@@ -5,3 +5,4 @@ export * from "./lab-head-assignment";
 export * from "./sample-collection";
 export * from "./sample-preparation";
 export * from "./createjob";
+export * from "./submitjob";

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSamplePreparation } from "../services";
+import SamplePreparationRow from "../components/SamplePreparationRow";
 
 function SamplePreparation() {
   const { data } = useQuery({
@@ -35,10 +36,10 @@ function SamplePreparation() {
                             <div className="font-semibold text-left">image</div>
                           </th>
                           <th className="p-2 whitespace-nowrap">
-                            <div className="font-semibold text-left">Despatch Date</div>
+                            <div className="font-semibold text-left">type</div>
                           </th>
                           <th className="p-2 whitespace-nowrap">
-                            <div className="font-semibold text-left">type</div>
+                            <div className="font-semibold text-left">Despatch Date</div>
                           </th>
                           <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-center">Actions</div>
@@ -47,31 +48,8 @@ function SamplePreparation() {
                       </thead>
                       <tbody className="text-sm divide-y divide-gray-100">
                         {preparation?.preparationModels?.map((model, key) => (
-                          <tr key={key}>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="flex items-center">
-                                <div className="font-medium text-gray-800">{model.qrcode}</div>
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">{model.image}</div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="" value={model.despatchDate || ""} />
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">{model.type}</div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="flex items-center justify-center">
-                                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save</button>
-                              </div>
-                            </td>
-                          </tr>
+                          <SamplePreparationRow key={key} jobNumber={preparation.jobNumber} collectionNumber={preparation.collectionNumber} {...model} />
                         ))}
-
                       </tbody>
                     </table>
                   </div>
