@@ -42,6 +42,9 @@ function SamplePreparation() {
                             <div className="font-semibold text-left">Despatch Date</div>
                           </th>
                           <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold text-left">Lab</div>
+                          </th>
+                          <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-center">Actions</div>
                           </th>
                         </tr>

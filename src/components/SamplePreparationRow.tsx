@@ -27,8 +27,8 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
     }
 
     const onSubmit = (values: SamplePreparationFormInput, formikHelpers: FormikHelpers<SamplePreparationFormInput>) => {
-        const {despatchDate, ...rest} = values;
-        const body = {despatchDate: despatchDate?.startDate, ...rest};
+        const { despatchDate, ...rest } = values;
+        const body = { despatchDate: despatchDate?.startDate, ...rest };
         console.log(body);
     }
 
@@ -62,6 +62,15 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                                 containerClassName="relative w-44"
                             />
                         </div>
+                    </td>
+                    <td className="p-2 whitespace-nowrap">
+                        <select id="countries" className="max-w-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choose a Parameter</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="FR">France</option>
+                            <option value="DE">Germany</option>
+                        </select>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                         <div className="flex items-center justify-center">
