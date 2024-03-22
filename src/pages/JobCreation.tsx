@@ -100,7 +100,7 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                  <div className="mb-2">
+                  {/* <div className="mb-2">
                     <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Included</label>
                     <div className="flex gap-4 my-2">
                       <div className="flex items-center">
@@ -112,7 +112,7 @@ function JobCreation() {
                         <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sampling</label>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="mb-2">
                     <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Type</label>
                     <div className="flex gap-4 my-2">

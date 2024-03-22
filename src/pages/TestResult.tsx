@@ -32,9 +32,9 @@ function TestResult() {
                                 <table className="table-auto w-full">
                                     <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                         <tr>
-                                            <th className="p-2 whitespace-nowrap">
+                                            {/* <th className="p-2 whitespace-nowrap">
                                                 <div className="font-semibold text-left">Test Details</div>
-                                            </th>
+                                            </th> */}
                                             <th className="p-2 whitespace-nowrap">
                                                 <div className="font-semibold text-left">Commodity Group</div>
                                             </th>
@@ -64,11 +64,11 @@ function TestResult() {
                                     <tbody className="text-sm divide-y divide-gray-100">
                                         {results.map(r => (
                                             <tr key={r.id}>
-                                                <td className="p-2 whitespace-nowrap">
+                                                {/* <td className="p-2 whitespace-nowrap">
                                                     <div className="flex items-center">
                                                         <div className="font-medium text-gray-800">Test1</div>
                                                     </div>
-                                                </td>
+                                                </td> */}
                                                 <td className="p-2 whitespace-nowrap">
                                                     <div className="text-left">{r.commodityGrp}</div>
                                                 </td>
