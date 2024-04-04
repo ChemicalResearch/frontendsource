@@ -1,13 +1,15 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
+export type Collection = {
+    jobNumber: string;
+    commodityName: string;
+    customerName: string;
+    totalSampleCount: string;
+}
+
 type SampleCollectionResponse = {
-    collectionSummaries: Array<{
-        jobNumber: string;
-        commodityName: string;
-        customerName: string;
-        totalSampleCount: string;
-    }>,
+    collectionSummaries: Array<Collection>;
     vehicleType: Array<{
         number: string;
         name: string;
