@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getSamplePreparation } from "../services";
-import SamplePreparationRow from "../components/SamplePreparationRow";
+import { getSamplePreparation } from "../../services";
+import SamplePreparationRow from "../../components/SamplePreparationRow";
 
 function SamplePreparation() {
   const { data } = useQuery({
@@ -16,6 +16,8 @@ function SamplePreparation() {
         <section key={preparation.jobNumber} className="antialiased bg-gray-100 text-gray-600">
           <div className="flex flex-col">
             <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
+
+
               <header className="px-5 py-4 border-b border-gray-100">
                 <h2 className="font-semibold text-gray-800">Job Number: {preparation.jobNumber}</h2>
                 {/* <h2 className="font-semibold text-gray-800">Assigned On: 12-December-2023 12:00:00</h2> */}
@@ -51,7 +53,13 @@ function SamplePreparation() {
                       </thead>
                       <tbody className="text-sm divide-y divide-gray-100">
                         {preparation?.preparationModels?.map((model, key) => (
-                          <SamplePreparationRow key={key} jobNumber={preparation.jobNumber} collectionNumber={preparation.collectionNumber} {...model} />
+                          <SamplePreparationRow
+                            key={key}
+                            jobNumber={preparation.jobNumber}
+                            collectionNumber={preparation.collectionNumber}
+                            commodity={preparation.commodity}
+                            {...model}
+                          />
                         ))}
                       </tbody>
                     </table>

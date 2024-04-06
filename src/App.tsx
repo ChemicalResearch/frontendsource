@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
-import SamplePreparation from "./pages/SamplePreparation";
+import SamplePreparation from "./pages/sample-preparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
 import LabHeadProgress from "./pages/LabHeadProgress";
 import LabCertificate from "./pages/LabCertificate";

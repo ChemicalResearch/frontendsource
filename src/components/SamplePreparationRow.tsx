@@ -1,7 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Formik, FormikHelpers } from "formik";
-import { Model } from "../services";
+import { Model, submitSamplePreparation } from "../services";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+import { LabMastersDropdown } from "../components/dropdown";
+import { useMutation } from "@tanstack/react-query";
+
 
 
 type SamplePreparationFormInput = {
@@ -13,23 +16,33 @@ type SamplePreparationFormInput = {
     labNumber: string;
 }
 
-const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: string }> = ({ jobNumber, collectionNumber, qrcode, image, type, despatchDate }) => {
+const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: string; commodity: string; }> = ({ jobNumber, collectionNumber, commodity, qrcode, image, type, despatchDate }) => {
+    const mutation = useMutation({
+        mutationFn: submitSamplePreparation,
+        onSuccess: (data) => {
+            if (data) {
+
+            }
+        },
+    })
+
     const initialValues: SamplePreparationFormInput = {
         jobNumber,
         qrcode,
         despatchDate: {
-            startDate: null,
+            startDate: despatchDate,
             endDate: null
         },
         collectionNumber,
-        commodity: "",
+        commodity,
         labNumber: ""
     }
 
     const onSubmit = (values: SamplePreparationFormInput, formikHelpers: FormikHelpers<SamplePreparationFormInput>) => {
         const { despatchDate, ...rest } = values;
-        const body = { despatchDate: despatchDate?.startDate, ...rest };
+        const body = { despatchDate: despatchDate?.startDate as string, ...rest };
         console.log(body);
+        mutation.mutateAsync(body)
     }
 
     return (
@@ -37,7 +50,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
             initialValues={initialValues}
             onSubmit={onSubmit}
         >
-            {({ values, handleSubmit, setFieldValue }) => (
+            {({ values, handleSubmit, setFieldValue, handleChange }) => (
                 <tr>
                     <td className="p-2 whitespace-nowrap">
                         <div className="flex items-center">
@@ -45,7 +58,9 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                         </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{image}</div>
+                        <div className="text-left">
+                            <img src={image} />
+                        </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                         <div className="text-left">{type}</div>
@@ -53,7 +68,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                     <td className="p-2 whitespace-nowrap">
                         <div className="text-left">
                             <Datepicker
-                                primaryColor="blue"
+                                // primaryColor="blue"
                                 useRange={false}
                                 asSingle={true}
                                 displayFormat={"DD-MM-YYYY"}
@@ -64,13 +79,11 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                         </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                        <select id="countries" className="max-w-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Choose a Parameter</option>
-                            <option value="US">United States</option>
-                            <option value="CA">Canada</option>
-                            <option value="FR">France</option>
-                            <option value="DE">Germany</option>
-                        </select>
+                        <LabMastersDropdown
+                            name="labNumber"
+                            value={values.labNumber}
+                            onChange={handleChange}
+                        />
                     </td>
                     <td className="p-2 whitespace-nowrap">
                         <div className="flex items-center justify-center">

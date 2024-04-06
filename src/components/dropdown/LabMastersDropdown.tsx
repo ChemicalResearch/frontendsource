@@ -1,23 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { FC, useMemo } from "react";
-import { getSampleCollection } from "../../services";
+import { getSamplePreparation } from "../../services";
 
-type VehicleTypeDropdownProps = {
+type LabMastersDropdownProps = {
     name?: string | undefined;
     value?: string | number | readonly string[] | undefined;
     onChange?: React.ChangeEventHandler<HTMLSelectElement> | undefined;
 }
 
-export const VehicleTypeDropdown: FC<VehicleTypeDropdownProps> = ({ name,value, onChange }) => {
+export const LabMastersDropdown: FC<LabMastersDropdownProps> = ({ name,value, onChange }) => {
     const { data } = useQuery({
-        queryKey: ["vehicle-types"],
+        queryKey: ["lab-masters"],
         queryFn: async () => {
-            const { data } = await getSampleCollection();
-            return data.vehicleType;
+          const { data } = await getSamplePreparation();
+          return data.labMasters;
         }
-    })
+      })
 
-    const renderVehicleTypes = useMemo(() => data?.map((vehicle) => <option key={vehicle.number} value={vehicle.number}>{vehicle.name}</option>)
+    const renderLabMasters = useMemo(() => data?.map((lab) => <option key={lab.id} value={lab.id}>{lab.labName}</option>)
         , [data])
 
     return (
@@ -28,7 +28,7 @@ export const VehicleTypeDropdown: FC<VehicleTypeDropdownProps> = ({ name,value, 
             onChange={onChange}
         >
             <option value=""></option>
-            {renderVehicleTypes}
+            {renderLabMasters}
         </select>
     )
 }
