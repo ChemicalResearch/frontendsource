@@ -1,26 +1,36 @@
-import { Chart, ArcElement } from 'chart.js'
-import { Pie } from "react-chartjs-2";
+import { useState } from 'react';
+import Chart from 'react-apexcharts'
 
-Chart.register(ArcElement);
+const options = {
+  labels: ['Job Completed', 'Sampling In Progress', 'Analysis In Progress']
+}
+const series = [30, 5, 10];
 
-const labels = ["January", "February", "March", "April", "May", "June"];
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: "rgb(255, 99, 132)",
-      borderColor: "rgb(0,0,255)",
-      data: [0, 10, 5, 2, 20, 30, 45],
-    },
-  ],
-};
 
 function Home() {
+  const [charts] = useState([
+    {
+        "type": "piechart",
+        "description": "Total Count",
+        "values": [
+            {
+                "value": "30",
+                "text": "Job Completed"
+            },
+            {
+                "value": "5",
+                "text": "Sampling In Progress"
+            },
+            {
+                "value": "10",
+                "text": "Analysis In Progress"
+            }
+        ]
+    }
+])
   return (
     <div>
-      <h1>Home</h1>
-      <Pie data={data} />
+      <Chart options={options} series={series} type="pie" width="380" />
     </div>
   )
 }
