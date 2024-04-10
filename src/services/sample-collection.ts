@@ -37,5 +37,9 @@ type SubmitSampleCollectionBody = {
 };
 
 export const submitSampleCollection = (body: SubmitSampleCollectionBody) => {
-    return apiClient.post('/submitcollection', body)
+    return apiClient.post<any, AxiosResponse<{
+        jobNumber: string;
+        totalCollectionNumber: number | null;
+        imageUrl: string;
+    }>>('/submitcollection', body)
 }

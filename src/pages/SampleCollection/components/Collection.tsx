@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Formik, FormikHelpers } from "formik";
 import { submitSampleCollection, type Collection } from "../../../services";
 import { VehicleTypeDropdown, UnitDropdown } from "../../../components/dropdown";
 import { useAuth } from "../../../context/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import QRImage from "../../../components/QRImage";
+import { sampleCollectionOptions } from "../index";
 
 interface CollectionProps extends Collection {
 
@@ -19,20 +21,64 @@ interface InitialValues {
     createdBy: string;
 }
 
-const CollectionCard: FC<CollectionProps> = ({ jobNumber, commodityName,collectionNumber, customerName, totalSampleCount }) => {
-    const {user} = useAuth();
-
+const CollectionCard: FC<CollectionProps> = ({ jobNumber, commodityName, collectionNumber, customerName, totalSampleCount }) => {
+    const queryClient = useQueryClient()
+    const { user } = useAuth();
     const mutation = useMutation({
         mutationFn: submitSampleCollection,
-        onSuccess: (data) => {
-            if(data) {
-                
+        // onMutate: async () => {
+        //     // Cancel any outgoing refetch
+        //     // (so they don't overwrite our optimistic update)
+        //     await queryClient.cancelQueries(sampleCollectionOptions);
+        //     // Snapshot the previous value
+        //     const previousData = queryClient.getQueryData(sampleCollectionOptions.queryKey);
+        //     const collectionSummaries = previousData?.collectionSummaries?.map(x => {
+        //         if (x.jobNumber === jobNumber) {
+        //             return ({
+        //                 ...x,
+        //                 totalSampleCount: (Number(x.totalSampleCount) + 1).toString()
+        //             })
+        //         }
+        //         return x;
+        //     }) || [];
+        //     console.log({collectionSummaries})
+        //     // Optimistically update to the new value
+        //     if (previousData) {
+        //         queryClient.setQueryData(sampleCollectionOptions.queryKey, {
+        //             ...previousData,
+        //             collectionSummaries
+        //         })
+        //     }
+        //     return { previousData }
+        // }
+        onSuccess(data, variables, context) {
+            const previousData = queryClient.getQueryData(sampleCollectionOptions.queryKey);
+            const collectionSummaries = previousData?.collectionSummaries?.map(x => {
+                if (x.jobNumber === jobNumber) {
+                    return ({
+                        ...x,
+                        totalSampleCount: (Number(x.totalSampleCount) + 1).toString()
+                    })
+                }
+                return x;
+            }) || [];
+            console.log({ collectionSummaries })
+            // Optimistically update to the new value
+            if (previousData) {
+                queryClient.setQueryData(sampleCollectionOptions.queryKey, {
+                    ...previousData,
+                    collectionSummaries
+                })
             }
         },
     })
-    
+
+
     const onSubmit = (values: InitialValues, formikHelpers: FormikHelpers<InitialValues>) => {
-        mutation.mutate(values);
+        mutation.mutateAsync(values).then(() => {
+            formikHelpers.resetForm();
+            formikHelpers.setSubmitting(false);
+        });
     }
 
     const initialValues: InitialValues = {
@@ -52,20 +98,8 @@ const CollectionCard: FC<CollectionProps> = ({ jobNumber, commodityName,collecti
             onSubmit={onSubmit}
         >
             {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-
-
                 <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-
-
-
-
-
-
-
-
                     <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-3">
-
-
                         <div className="lg:col-span-2">
                             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                                 <div className="md:col-span-3">
@@ -131,71 +165,17 @@ const CollectionCard: FC<CollectionProps> = ({ jobNumber, commodityName,collecti
 
                                 <div className="md:col-span-5 text-left">
                                     <div className="inline-flex items-end">
-                                        <button disabled={isSubmitting} onClick={() => handleSubmit()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                                        <button disabled={isSubmitting} onClick={() => handleSubmit()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            {mutation.isPending ? "Submitting...": "Submit"}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div className="text-gray-600">
-                            <div className="flex flex-col gap-2 mt-4 items-start">
-                                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Generate QR</button>
-                            </div>
-                            <h2 className="font-semibold text-gray-800">Vehicle No: ABC-abc-1234</h2>
-                            <h2 className="font-semibold text-gray-800">QR Code: 97761231111089236</h2>
+                            {mutation.data?.data?.imageUrl ? <QRImage image={mutation.data?.data?.imageUrl} /> : null}
                         </div>
                     </div>
-
-
-
-
-
-
-
-                    {/* <h2 className="font-semibold text-gray-800">Job Number: {jobNumber}</h2>
-                        <h2 className="font-semibold text-gray-800">Commodity Name: {commodityName}</h2>
-                        <h2 className="font-semibold text-gray-800">Customer Name: {customerName}</h2>
-                        <h2 className="font-semibold text-gray-800">Total Sample Count: {totalSampleCount}</h2>
-                        <div className="flex items-center gap-4 mb-2">
-                            <div>
-                                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Vehicle Type</label>
-                            </div>
-                            <div>
-                                <VehicleTypeDropdown />
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 mb-2">
-                            <div>
-                                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Vehicle Number</label>
-                            </div>
-                            <div>
-                                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-4 mb-2">
-                            <div>
-                                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
-                            </div>
-                            <div>
-                                <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" />
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 mb-2">
-                            <div>
-                                <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Unit</label>
-                            </div>
-                            <div>
-                                <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    {renderVehicleTypes}
-                                </select>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-2 mt-4 items-start">
-                            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Submit</button>
-                        </div> */}
-
-
                 </div>
             )}
         </Formik>
