@@ -4,6 +4,7 @@ import { Model, submitSamplePreparation } from "../services";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 import { LabMastersDropdown } from "../components/dropdown";
 import { useMutation } from "@tanstack/react-query";
+import QRImage from "./QRImage";
 
 
 
@@ -58,9 +59,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                         </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">
-                            <img src={image} />
-                        </div>
+                        <QRImage image={image}/>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                         <div className="text-left">{type}</div>
