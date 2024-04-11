@@ -1,15 +1,29 @@
 import { FC } from "react";
 
+function getFileNameFromUrl(url: string): string {
+    try {
+        const parsedUrl = new URL(url);
+        const path = parsedUrl.pathname;
+        const parts = path.split('/');
+        const fileName = parts[parts.length - 1];
+        return fileName;
+    } catch (error) {
+        console.error('Error parsing URL:', error);
+        return Date.now() + ".jpg";
+    }
+}
+
 const QRImage: FC<{ image: string }> = ({ image }) => {
 
     const handleDownload = () => {
         fetch(image) // Replace with the URL of your image
             .then(response => response.blob())
             .then(blob => {
+
                 const url = window.URL.createObjectURL(new Blob([blob]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'image.jpg'); // Set the filename here
+                link.setAttribute('download', getFileNameFromUrl(image)); // Set the filename here
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
