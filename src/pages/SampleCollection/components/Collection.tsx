@@ -169,6 +169,11 @@ const CollectionCard: FC<CollectionProps> = ({ jobNumber, commodityName, collect
                                             {mutation.isPending ? "Submitting...": "Submit"}
                                         </button>
                                     </div>
+                                    <div className="inline-flex items-end">
+                                    <a href="/sample-collection-details">
+                                        <button  style={{marginLeft: "15px"}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Details</button>
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

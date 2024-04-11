@@ -12,6 +12,7 @@ import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
 import LabHeadProgress from "./pages/LabHeadProgress";
 import LabCertificate from "./pages/LabCertificate";
 import TestResult from "./pages/TestResult";
+import SampleCollectionDetails from "./pages/SampleCollection/Details";
 
 import RequiredAuth from "./components/RequiredAuth";
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="test-result" element={<TestResult />} />
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
+        <Route path="sample-collection-details" element={<SampleCollectionDetails />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
     </Routes>
