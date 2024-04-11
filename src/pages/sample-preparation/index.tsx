@@ -1,15 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getSamplePreparation } from "../../services";
-import SamplePreparationRow from "../../components/SamplePreparationRow";
+import SamplePreparationRow from "./components/SamplePreparationRow";
+
+export const samplePreparationOptions = queryOptions({
+  queryKey: ["sample-preparation"],
+  queryFn: async () => {
+    const { data } = await getSamplePreparation();
+    return data.models;
+  }
+})
 
 function SamplePreparation() {
-  const { data } = useQuery({
-    queryKey: ["sample-preparation"],
-    queryFn: async () => {
-      const { data } = await getSamplePreparation();
-      return data.models;
-    }
-  })
+  const { data } = useQuery(samplePreparationOptions)
   return (
     <div>
       {data?.map((preparation) => (
