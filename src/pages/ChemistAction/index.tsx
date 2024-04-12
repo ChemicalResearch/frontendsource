@@ -27,7 +27,6 @@ function ChemistAction() {
                     <ChemistActionTableHead />
                     <tbody className="text-sm divide-y divide-gray-100">
                       {chemist.labDetails?.map((lab, key) => (
-                        
                         <ChemistLabDetails key={key} jobNumber={chemist.jobNumber} qrcode={chemist.qrcode}{...lab}/>
                       ))}
                     </tbody>

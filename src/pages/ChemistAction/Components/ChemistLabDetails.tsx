@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Formik, FormikHelpers, Field } from "formik";
 type Unit = {
   identifier: string;
@@ -55,96 +55,124 @@ const ChemistLabDetails: FC<
   testmethodText,
   verificationStatus,
   result,
+  unit,
 }) => {
-  const initialValues: ChemistResultForm = {
-    jobNumber,
-    qrcode,
-    commodityId,
-    parameterId,
-    testMethodId: "",
-    testResult: result,
-    unitId: "",
-    unitText: "",
-    flag: "",
-  };
-  const onSubmit = (
-    values: ChemistResultForm,
-    formikHelpers: FormikHelpers<ChemistResultForm>
-  ) => {
-    console.log({values})
-    // mutation.mutate(values, {
-    //   onSuccess(data) {
-    //     if (data) {
-    //       formikHelpers.resetForm();
-    //       formikHelpers.setSubmitting(false);
-    //     }
-    //   },
-    // });
-  };
-  return (
-    <Formik
-      initialValues={initialValues}
-      enableReinitialize
-      onSubmit={onSubmit}
-    >
-      {({handleSubmit}) => (
-        <tr>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">Details</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{commodityGroupText}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{commodityText}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{parameterText}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{testmethodText}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-center">{verificationStatus}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div
-              className="w-20 bg-white border border-gray-200 rounded-lg mx-auto"
-              data-hs-input-number
-            >
-              <div className="w-full flex justify-between items-center gap-x-1">
-                <div className="grow py-2 px-3">
-                  <Field
-                    className="w-full p-0 bg-transparent border-0 text-gray-800 focus:ring-0 text-center"
-                    type="text"
-                    name="testResult"
-                  />
+    const initialValues: ChemistResultForm = {
+      jobNumber,
+      qrcode,
+      commodityId,
+      parameterId,
+      testMethodId: "",
+      testResult: result,
+      unitId: "",
+      unitText: "",
+      flag: "",
+    };
+    const onSubmit = (
+      values: ChemistResultForm,
+      formikHelpers: FormikHelpers<ChemistResultForm>
+    ) => {
+      const [unitId, unitText] = values.unitId.split(",");
+      values.unitId = unitId;
+      values.unitText = unitText;
+      console.log({ values, formikHelpers })
+      // mutation.mutate(values, {
+      //   onSuccess(data) {
+      //     if (data) {
+      //       formikHelpers.resetForm();
+      //       formikHelpers.setSubmitting(false);
+      //     }
+      //   },
+      // });
+    };
+
+    const renderUnit = useMemo(() => {
+      return unit.map((d) => (
+        <option value={[d.identifier.toString(), d.name]}>{d.name}</option>
+      ))
+    }, [unit])
+
+    return (
+      <Formik
+        initialValues={initialValues}
+        enableReinitialize
+        onSubmit={onSubmit}
+      >
+        {({ submitForm, setFieldValue }) => (
+          <tr>
+            <td className="p-2 whitespace-nowrap">
+              <div className="text-left">Details</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <div className="text-left">{commodityGroupText}</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <div className="text-left">{commodityText}</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <div className="text-left">{parameterText}</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <div className="text-left">{testmethodText}</div>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <div className="text-center">{verificationStatus}</div>
+            </td>
+
+            <td className="p-2 whitespace-nowrap">
+              <div
+                className="w-20 bg-white border border-gray-200 rounded-lg mx-auto"
+                data-hs-input-number
+              >
+                <div className="w-full flex justify-between items-center gap-x-1">
+                  <div className="grow py-2 px-3">
+                    <Field
+                      className="w-full p-0 bg-transparent border-0 text-gray-800 focus:ring-0 text-center"
+                      type="text"
+                      name="testResult"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="flex items-center justify-center">
-              <button
-               type="button"
-               onClick={handleSubmit as any}
-                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <Field
+                as="select"
+                name="unitId"
+                className="max-w-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
-                Draft
-              </button>
-              <button
-                type="button"
-                onClick={handleSubmit as any}
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              >
-                Complete
-              </button>
-            </div>
-          </td>
-        </tr>
-      )}
-    </Formik>
-  );
-};
+                <option selected>Select</option>
+                {renderUnit}
+              </Field>
+            </td>
+            <td className="p-2 whitespace-nowrap">
+              <div className="flex items-center justify-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFieldValue("flag", "Draft");
+                    submitForm();
+                  }}
+                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                >
+                  Draft
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFieldValue("flag", "Complete");
+                    submitForm();
+                  }}
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                >
+                  Complete
+                </button>
+              </div>
+            </td>
+          </tr>
+        )}
+      </Formik>
+    );
+  };
 
 export default ChemistLabDetails;

@@ -24,6 +24,9 @@ const ChemistActionTableHead = () => {
                     <div className="font-semibold text-center">Result</div>
                 </th>
                 <th className="p-2 whitespace-nowrap">
+                    <div className="font-semibold text-center">Unit</div>
+                </th>
+                <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-center">Actions</div>
                 </th>
             </tr>
