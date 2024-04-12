@@ -31,7 +31,7 @@ type LabDetails = {
     unit: string;
 }
 
-type LabHeadAssignment = {
+export type LabHeadAssignment = {
     labHeadName: string;
     labHeadId: string;
     qrcode: string;
