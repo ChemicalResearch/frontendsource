@@ -1,29 +1,40 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
-export type ChemistAction = {
-    id: number;
-    sampleQr: number;
-    chemist: number;
+type Unit = {
+    identifier: string;
+    name: string;
+    selected: boolean;
+}
+
+export type LabDetails = {
+    commodityGroupText: string;
+    commodityGroupId: string;
+    commodityText: string;
+    commodityId: string;
+    parameterText: string;
+    parameterId: string;
+    testmethodText: string;
+    testmethodId: string;
     chemistAssignedOn: string;
-    commodityGrp: number;
-    commodity: number;
-    parameter: number;
-    testMethod: number;
-    result: number;
-    resultUnit: number;
+    chemistActivityStatus: string;
+    verificationStatus: string;
+    verifiedon: string;
+    chemist: string;
+    qa: string;
+    result: string;
+    resultsubmitDate: string
+    unit: Array<Unit>;
+    chemistAssignedDate: string;
     resultSubmitDate: string;
-    status: number;
-    verifiedBy: number;
-    verificationStatus: number;
-    verifiedOn: string;
-    commodityGrpName: string;
-    commodityName: string;
-    parameterName: string;
-    methodName: string;
-    unitName: string;
-    statusName: string;
-    verificationStatusDsc: string;
+    verifiicationDate: string;
+}
+export type ChemistAction = {
+    labHeadName: string;
+    labHeadId: string;
+    qrcode: string;
+    jobNumber: string;
+    labDetails: Array<LabDetails>
 }
 
 export const getChemistAction = async (employee_id: number) => {
