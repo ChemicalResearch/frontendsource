@@ -6,7 +6,7 @@ function TestResult() {
     const { isPending, error, data } = useQuery({
         queryKey: ['verify-test-result'],
         queryFn: async () => {
-            const { data } = await getVerifyTestResult(201568);
+            const { data } = await getVerifyTestResult(201572);
             return data;
         }
     })
