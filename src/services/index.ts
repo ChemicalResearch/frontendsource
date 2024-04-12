@@ -6,3 +6,4 @@ export * from "./sample-collection";
 export * from "./sample-preparation";
 export * from "./createjob";
 export * from "./submitjob";
+export * from "./lab-certificates";
