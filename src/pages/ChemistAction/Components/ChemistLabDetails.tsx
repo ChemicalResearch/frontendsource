@@ -1,5 +1,8 @@
 import { FC, useMemo } from "react";
 import { Formik, FormikHelpers, Field } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import { submitChemistAction } from "../../../services";
+
 type Unit = {
   identifier: string;
   name: string;
@@ -57,6 +60,10 @@ const ChemistLabDetails: FC<
   result,
   unit,
 }) => {
+
+    const mutation = useMutation({
+      mutationFn: submitChemistAction
+    })
     const initialValues: ChemistResultForm = {
       jobNumber,
       qrcode,
@@ -75,15 +82,15 @@ const ChemistLabDetails: FC<
       const [unitId, unitText] = values.unitId.split(",");
       values.unitId = unitId;
       values.unitText = unitText;
-      console.log({ values, formikHelpers })
-      // mutation.mutate(values, {
-      //   onSuccess(data) {
-      //     if (data) {
-      //       formikHelpers.resetForm();
-      //       formikHelpers.setSubmitting(false);
-      //     }
-      //   },
-      // });
+
+      mutation.mutateAsync(values, {
+        onSuccess(data) {
+          if (data) {
+            formikHelpers.resetForm();
+            formikHelpers.setSubmitting(false);
+          }
+        },
+      });
     };
 
     const renderUnit = useMemo(() => {

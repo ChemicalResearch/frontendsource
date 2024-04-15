@@ -9,3 +9,4 @@ export * from "./submitjob";
 export * from "./lab-certificates";
 export * from "./lab-head-assignment";
 export * from "./lab-head-progress";
+export * from "./submit-chemist-action";
