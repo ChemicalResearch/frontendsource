@@ -9,7 +9,7 @@ import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
 import SamplePreparation from "./pages/sample-preparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
-import LabHeadProgress from "./pages/LabHeadProgress";
+import LabHeadProgress from "./pages/lab-head-progress";
 import LabCertificate from "./pages/LabCertificate";
 import TestResult from "./pages/TestResult";
 import SampleCollectionDetails from "./pages/SampleCollection/Details";
