@@ -22,7 +22,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
 
     const mutation = useMutation({
         mutationFn: submitSamplePreparation,
-        onSuccess(data, variables, context) {
+        onSuccess() {
             const previousData = queryClient.getQueryData(samplePreparationOptions.queryKey);
             const newData = previousData?.map(x => {
                 if(x.jobNumber === jobNumber) {
@@ -59,6 +59,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
         const body = { despatchDate: despatchDate?.startDate as string, ...rest };
         console.log(body);
         mutation.mutateAsync(body)
+        formikHelpers.setSubmitting(false);
     }
 
     return (

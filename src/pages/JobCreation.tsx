@@ -22,10 +22,7 @@ function JobCreation() {
   })
 
   const mutation = useMutation({
-    mutationFn: submitJob,
-    onSuccess: (data) => {
-
-    },
+    mutationFn: submitJob
   })
 
   if (isPending) return <p>Loading...</p>

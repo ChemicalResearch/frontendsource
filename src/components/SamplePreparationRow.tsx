@@ -44,6 +44,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
         const body = { despatchDate: despatchDate?.startDate as string, ...rest };
         console.log(body);
         mutation.mutateAsync(body)
+        formikHelpers.setSubmitting(false)
     }
 
     return (

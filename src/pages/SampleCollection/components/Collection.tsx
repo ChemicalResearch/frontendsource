@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Formik, FormikHelpers } from "formik";
 import { submitSampleCollection, type Collection } from "../../../services";
 import { VehicleTypeDropdown, UnitDropdown } from "../../../components/dropdown";
@@ -51,7 +51,7 @@ const CollectionCard: FC<CollectionProps> = ({ jobNumber, commodityName, collect
         //     }
         //     return { previousData }
         // }
-        onSuccess(data, variables, context) {
+        onSuccess() {
             const previousData = queryClient.getQueryData(sampleCollectionOptions.queryKey);
             const collectionSummaries = previousData?.collectionSummaries?.map(x => {
                 if (x.jobNumber === jobNumber) {

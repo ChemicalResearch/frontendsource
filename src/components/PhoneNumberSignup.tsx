@@ -11,7 +11,7 @@ interface PhoneNumberSignupProps {
     }>>
 }
 
-const PhoneNumberSignup: FC<PhoneNumberSignupProps> = ({ setData }) => {
+const PhoneNumberSignup: FC<PhoneNumberSignupProps> = () => {
     const {signIn} = useAuth();
     const [phone, setPhone] = useState<string | undefined>("+918697352251");
 
