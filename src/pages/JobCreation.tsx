@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, FormikHelpers } from "formik";
 import { getCreateJob, submitJob } from "../services";
-import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
+
 type CreateJobFormInputes = {
   jobNumber: string;
   commodity: string;
@@ -22,18 +22,10 @@ function JobCreation() {
   });
 
   const mutation = useMutation({
-<<<<<<< Updated upstream
     mutationFn: submitJob
   })
 
   if (isPending) return <p>Loading...</p>
-=======
-    mutationFn: submitJob,
-    onSuccess: (data) => {},
-  });
-
-  if (isPending) return <p>Loading...</p>;
->>>>>>> Stashed changes
 
   const initialValues: CreateJobFormInputes = {
     jobNumber: `${data?.id}`,
@@ -86,6 +78,28 @@ function JobCreation() {
                       For the date
                     </label>
                     <input type="date" id="For the date" name="forthedate"></input>
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                    Plant
+                    </label>
+                    <select
+                      name="commodityGroup"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.commodityGroup}
+                    >
+                      <option>Select</option>
+                      {data?.commoditygroups?.map((c) => (
+                        <option key={c.identifier} value={c.identifier}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="mb-2">
                     <label
