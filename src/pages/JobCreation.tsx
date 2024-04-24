@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, FormikHelpers } from "formik";
 import { getCreateJob, submitJob } from "../services";
-
+import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 type CreateJobFormInputes = {
   jobNumber: string;
   commodity: string;
@@ -10,34 +10,45 @@ type CreateJobFormInputes = {
   jobType: string;
   mine: string;
   createdBy: string;
-}
+};
 
 function JobCreation() {
-  const { data, isPending,refetch } = useQuery({
+  const { data, isPending, refetch } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
       const { data } = await getCreateJob();
       return data;
-    }
-  })
+    },
+  });
 
   const mutation = useMutation({
+<<<<<<< Updated upstream
     mutationFn: submitJob
   })
 
   if (isPending) return <p>Loading...</p>
+=======
+    mutationFn: submitJob,
+    onSuccess: (data) => {},
+  });
+
+  if (isPending) return <p>Loading...</p>;
+>>>>>>> Stashed changes
 
   const initialValues: CreateJobFormInputes = {
-    "jobNumber": `${data?.id}`,
-    "commodity": "",
-    "commodityGroup": "",
-    "customer": "",
-    "jobType": "",
-    "mine": "",
-    "createdBy": `${data?.createdBy}`,
-  }
+    jobNumber: `${data?.id}`,
+    commodity: "",
+    commodityGroup: "",
+    customer: "",
+    jobType: "",
+    mine: "",
+    createdBy: `${data?.createdBy}`,
+  };
 
-  const onSubmit = (values: CreateJobFormInputes, formikHelpers: FormikHelpers<CreateJobFormInputes>) => {
+  const onSubmit = (
+    values: CreateJobFormInputes,
+    formikHelpers: FormikHelpers<CreateJobFormInputes>
+  ) => {
     mutation.mutate(values, {
       onSuccess(data) {
         if (data) {
@@ -46,7 +57,7 @@ function JobCreation() {
         }
       },
     });
-  }
+  };
 
   return (
     <Formik
@@ -60,15 +71,29 @@ function JobCreation() {
             <div className="flex flex-col">
               <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
                 <header className="px-5 py-4 border-b border-gray-100">
-                  <div className="flex items-center justify-start mt-4">
+                  {/* <div className="flex items-center justify-start mt-4">
                     <button onClick={() => refetch()} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Job Number</button>
-                  </div>
-                  <h2 className="font-semibold text-gray-800">Job No: {data?.id}</h2>
-                  <h2 className="font-semibold text-gray-800">Created On: 12-December-2023 12:00:00</h2>
+                  </div> */}
+                  {/* <h2 className="font-semibold text-gray-800">Job No: {data?.id}</h2>
+                  <h2 className="font-semibold text-gray-800">Created On: 12-December-2023 12:00:00</h2> */}
                 </header>
                 <form className="max-w-md m-4">
                   <div className="mb-2">
-                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Customer</label>
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      For the date
+                    </label>
+                    <input type="date" id="For the date" name="forthedate"></input>
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Customer
+                    </label>
                     <select
                       name="customer"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -77,13 +102,20 @@ function JobCreation() {
                       value={values.customer}
                     >
                       <option value="">Select</option>
-                      {data?.customers?.map(c => (
-                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      {data?.customers?.map((c) => (
+                        <option key={c.identifier} value={c.identifier}>
+                          {c.name}
+                        </option>
                       ))}
                     </select>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Mines</label>
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Mines
+                    </label>
                     <select
                       name="mine"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -92,8 +124,10 @@ function JobCreation() {
                       value={values.mine}
                     >
                       <option value="">Select</option>
-                      {data?.mines?.map(c => (
-                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      {data?.mines?.map((c) => (
+                        <option key={c.identifier} value={c.identifier}>
+                          {c.name}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -111,24 +145,44 @@ function JobCreation() {
                     </div>
                   </div> */}
                   <div className="mb-2">
-                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Type</label>
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Job Type
+                    </label>
                     <div className="flex gap-4 my-2">
                       {data?.jobtypes?.map((jobtype) => (
-                        <div className="flex items-center" key={jobtype.identifier}>
+                        <div
+                          className="flex items-center"
+                          key={jobtype.identifier}
+                        >
                           <input
                             type="checkbox"
                             value={jobtype.identifier}
                             checked={values.jobType === jobtype.identifier}
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-50 focus:ring-2"
-                            onChange={() => setFieldValue("jobType", jobtype.identifier)}
+                            onChange={() =>
+                              setFieldValue("jobType", jobtype.identifier)
+                            }
                           />
-                          <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{jobtype.name}</label>
+                          <label
+                            htmlFor="default-checkbox"
+                            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                          >
+                            {jobtype.name}
+                          </label>
                         </div>
                       ))}
                     </div>
                   </div>
                   <div className="mb-2">
-                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commodity Group</label>
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Commodity Group
+                    </label>
                     <select
                       name="commodityGroup"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -137,13 +191,20 @@ function JobCreation() {
                       value={values.commodityGroup}
                     >
                       <option>Select</option>
-                      {data?.commoditygroups?.map(c => (
-                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      {data?.commoditygroups?.map((c) => (
+                        <option key={c.identifier} value={c.identifier}>
+                          {c.name}
+                        </option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commodity</label>
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Commodity
+                    </label>
                     <select
                       name="commodity"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -152,15 +213,23 @@ function JobCreation() {
                       value={values.commodity}
                     >
                       <option value="">Select</option>
-                      {data?.commodities?.map(c => (
-                        <option key={c.identifier} value={c.identifier}>{c.name}</option>
+                      {data?.commodities?.map((c) => (
+                        <option key={c.identifier} value={c.identifier}>
+                          {c.name}
+                        </option>
                       ))}
                     </select>
                   </div>
                 </form>
                 <div className="p-3">
                   <div className="flex items-center justify-start mt-5">
-                    <button onClick={handleSubmit as any} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Submit</button>
+                    <button
+                      onClick={handleSubmit as any}
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>
@@ -169,7 +238,7 @@ function JobCreation() {
         </div>
       )}
     </Formik>
-  )
+  );
 }
 
 export default JobCreation;
