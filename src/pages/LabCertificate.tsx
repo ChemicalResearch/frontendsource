@@ -54,9 +54,6 @@ const LabCertificate = () => {
                 <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                   <tr>
                     <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">Commodity Group</div>
-                    </th>
-                    <th className="p-2 whitespace-nowrap">
                       <div className="font-semibold text-left">Commodity</div>
                     </th>
                     <th className="p-2 whitespace-nowrap">
@@ -73,9 +70,6 @@ const LabCertificate = () => {
                 <tbody className="text-sm divide-y divide-gray-100">
                   {certificate.labDetails.map((details, key) => (
                     <tr key={key}>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{details.commodityGroupText}</div>
-                      </td>
                       <td className="p-2 whitespace-nowrap">
                         <div className="text-left">{details.commodityText}</div>
                       </td>
