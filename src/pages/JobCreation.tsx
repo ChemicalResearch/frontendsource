@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, FormikHelpers } from "formik";
+import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 import { getCreateJob, submitJob } from "../services";
 
 type CreateJobFormInputes = {
@@ -10,10 +11,11 @@ type CreateJobFormInputes = {
   jobType: string;
   mine: string;
   createdBy: string;
+  despatchDate: DateValueType;
 };
 
 function JobCreation() {
-  const { data, isPending, refetch } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
       const { data } = await getCreateJob();
@@ -25,7 +27,7 @@ function JobCreation() {
     mutationFn: submitJob
   })
 
-  if (isPending) return <p>Loading...</p>
+
 
   const initialValues: CreateJobFormInputes = {
     jobNumber: `${data?.id}`,
@@ -35,6 +37,10 @@ function JobCreation() {
     jobType: "",
     mine: "",
     createdBy: `${data?.createdBy}`,
+    despatchDate: {
+      startDate: null,
+      endDate: null
+    },
   };
 
   const onSubmit = (
@@ -51,6 +57,8 @@ function JobCreation() {
     });
   };
 
+
+  if (isPending) return <p>Loading...</p>
   return (
     <Formik
       initialValues={initialValues}
@@ -77,14 +85,22 @@ function JobCreation() {
                     >
                       For the date
                     </label>
-                    <input type="date" id="For the date" name="forthedate"></input>
+                    <Datepicker
+                      primaryColor={"fuchsia"}
+                      useRange={false}
+                      asSingle={true}
+                      displayFormat={"DD-MM-YYYY"}
+                      value={values.despatchDate}
+                      onChange={(data: DateValueType) => setFieldValue("despatchDate", data)}
+                      containerClassName="relative w-full"
+                    />
                   </div>
                   <div className="mb-2">
                     <label
                       htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-90"
                     >
-                    Plant
+                      Plant
                     </label>
                     <select
                       name="commodityGroup"
@@ -94,9 +110,9 @@ function JobCreation() {
                       value={values.commodityGroup}
                     >
                       <option>Select</option>
-                      {data?.commoditygroups?.map((c) => (
-                        <option key={c.identifier} value={c.identifier}>
-                          {c.name}
+                      {data?.plantModels?.map((p) => (
+                        <option key={p.plantId} value={p.plantId}>
+                          {p.plantName}
                         </option>
                       ))}
                     </select>
@@ -182,7 +198,7 @@ function JobCreation() {
                           />
                           <label
                             htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            className="ms-2 text-sm font-medium text-gray-900"
                           >
                             {jobtype.name}
                           </label>
@@ -193,7 +209,7 @@ function JobCreation() {
                   <div className="mb-2">
                     <label
                       htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Commodity Group
                     </label>
@@ -205,7 +221,7 @@ function JobCreation() {
                       value={values.commodityGroup}
                     >
                       <option>Select</option>
-                      {data?.commoditygroups?.map((c) => (
+                      {data?.commodityGroups?.map((c) => (
                         <option key={c.identifier} value={c.identifier}>
                           {c.name}
                         </option>
@@ -215,7 +231,7 @@ function JobCreation() {
                   <div>
                     <label
                       htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Commodity
                     </label>

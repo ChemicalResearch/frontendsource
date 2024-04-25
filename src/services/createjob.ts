@@ -27,15 +27,21 @@ type JobType = {
     identifier: string;
 }
 
+type PlantModel = {
+    plantId: string;
+    plantName: string;
+}
+
 type CreateJobResponse = {
     id: number;
     createdBy: number;
     status: string;
-    commoditygroups: Array<CommodityGroup>;
+    commodityGroups: Array<CommodityGroup>;
     commodities: Array<Commodity>;
     customers: Array<Customer>;
     mines: Array<Mime>;
     jobtypes: Array<JobType>;
+    plantModels: Array<PlantModel>;
 }
 
 export const getCreateJob = async () => {
