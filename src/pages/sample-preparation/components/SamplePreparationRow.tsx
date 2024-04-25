@@ -80,7 +80,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                     <td className="p-2 whitespace-nowrap">
                         <div className="text-left">{type}</div>
                     </td>
-                    <td className="p-2 whitespace-nowrap">
+                    {/* <td className="p-2 whitespace-nowrap">
                         <div className="text-left">
                             <Datepicker
                                 // primaryColor="blue"
@@ -92,19 +92,19 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
                                 containerClassName="relative w-44"
                             />
                         </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
+                    </td> */}
+                    {/* <td className="p-2 whitespace-nowrap">
                         <LabMastersDropdown
                             name="labNumber"
                             value={values.labNumber}
                             onChange={handleChange}
                         />
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
+                    </td> */}
+                    {/* <td className="p-2 whitespace-nowrap">
                         <div className="flex items-center justify-center">
                             <button onClick={handleSubmit as any} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Save</button>
                         </div>
-                    </td>
+                    </td> */}
                 </tr>
             )}
         </Formik>

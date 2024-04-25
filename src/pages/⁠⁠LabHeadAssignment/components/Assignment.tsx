@@ -45,7 +45,7 @@ const Assignment: FC<LabDetails & { index: number }> = ({ index, commodityText, 
     }, [qa])
     return (
         <tr>
-            <td className="p-2 whitespace-nowrap">
+            {/* <td className="p-2 whitespace-nowrap">
                 <div className="flex items-center">
                     <Field
                         type="checkbox"
@@ -53,7 +53,7 @@ const Assignment: FC<LabDetails & { index: number }> = ({ index, commodityText, 
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                     />
                 </div>
-            </td>
+            </td> */}
             <td className="p-2 whitespace-nowrap">
                 <div className="text-left">{commodityText}</div>
             </td>

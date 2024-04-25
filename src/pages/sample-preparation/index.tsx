@@ -1,6 +1,8 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getSamplePreparation } from "../../services";
 import SamplePreparationRow from "./components/SamplePreparationRow";
+import Datepicker, { DateType, DateValueType } from "react-tailwindcss-datepicker";
+import { useState } from "react";
 
 export const samplePreparationOptions = queryOptions({
   queryKey: ["sample-preparation"],
@@ -12,6 +14,17 @@ export const samplePreparationOptions = queryOptions({
 
 function SamplePreparation() {
   const { data } = useQuery(samplePreparationOptions)
+
+  const [value, setValue] = useState<{ startDate: DateType, endDate: DateType }>({
+    startDate: null,
+    endDate: null
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log("newValue:", newValue);
+    setValue(newValue as any);
+  }
+  
   return (
     <div>
       {data?.map((preparation) => (
@@ -19,7 +32,14 @@ function SamplePreparation() {
           <div className="flex flex-col">
             <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
 
-
+              <div className="md:col-span-3">
+                <label htmlFor="email">Start Date - End Date</label>
+                <Datepicker
+                  value={value}
+                  onChange={handleValueChange}
+                  showShortcuts={true}
+                />
+              </div>
               <header className="px-5 py-4 border-b border-gray-100">
                 <h2 className="font-semibold text-gray-800">Job Number: {preparation.jobNumber}</h2>
                 {/* <h2 className="font-semibold text-gray-800">Assigned On: 12-December-2023 12:00:00</h2> */}
@@ -42,15 +62,15 @@ function SamplePreparation() {
                           <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-left">type</div>
                           </th>
-                          <th className="p-2 whitespace-nowrap">
+                          {/* <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-left">Despatch Date</div>
-                          </th>
-                          <th className="p-2 whitespace-nowrap">
+                          </th> */}
+                          {/* <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-left">Lab</div>
-                          </th>
-                          <th className="p-2 whitespace-nowrap">
+                          </th> */}
+                          {/* <th className="p-2 whitespace-nowrap">
                             <div className="font-semibold text-center">Actions</div>
-                          </th>
+                          </th> */}
                         </tr>
                       </thead>
                       <tbody className="text-sm divide-y divide-gray-100">

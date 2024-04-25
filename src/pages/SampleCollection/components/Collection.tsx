@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Formik, FormikHelpers } from "formik";
+import Datepicker, { DateType, DateValueType } from "react-tailwindcss-datepicker";
 import { submitSampleCollection, type Collection } from "../../../services";
 import {
   VehicleTypeDropdown,
@@ -10,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
 import { sampleCollectionOptions } from "../index";
 
-interface CollectionProps extends Collection {}
+interface CollectionProps extends Collection { }
 
 interface InitialValues {
   jobNumber: string;
@@ -83,6 +84,16 @@ const CollectionCard: FC<CollectionProps> = ({
     },
   });
 
+  const [value, setValue] = useState<{ startDate: DateType, endDate: DateType }>({
+    startDate: null,
+    endDate: null
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log("newValue:", newValue);
+    setValue(newValue as any);
+  }
+
   const onSubmit = (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
@@ -114,73 +125,44 @@ const CollectionCard: FC<CollectionProps> = ({
           <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                <div className="md:col-span-3">
-                  <label htmlFor="full_name">Job Number</label>
-                  <input
-                    type="text"
-                    name="full_name"
-                    id="full_name"
-                    className="h-10 mt-1 rounded px-4 w-full bg-gray-50"
-                    value={jobNumber}
-                    disabled
-                  />
+                <div className="md:col-span-4">
+                  <label htmlFor="full_name">Job Number : {jobNumber}</label>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label htmlFor="full_name">Total Sample Count</label>
-                  <input
-                    type="text"
-                    name="full_name"
-                    id="full_name"
-                    className="h-10 mt-1 rounded px-4 w-full bg-gray-50 text-right"
-                    value={totalSampleCount}
-                    disabled
-                  />
+                <div className="md:col-span-4">
+                  <label htmlFor="full_name">Total Sample Count : {totalSampleCount}</label>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label htmlFor="full_name">Commodity Name</label>
-                  <input
-                    type="text"
-                    name="full_name"
-                    id="full_name"
-                    className="h-10 mt-1 rounded px-4 w-full bg-gray-50"
-                    value={commodityName}
-                    disabled
-                  />
+                <div className="md:col-span-4">
+                  <label htmlFor="full_name">Commodity Name : {commodityName}</label>
+                </div>
+
+                <div className="md:col-span-4">
+                  <label htmlFor="full_name">Customer Name : {customerName}</label>
+                </div>
+
+                <div className="md:col-span-4">
+                  <label htmlFor="full_name">For the date : { }</label>
                 </div>
 
                 <div className="md:col-span-3">
-                  <label htmlFor="full_name">Customer Name</label>
-                  <input
-                    type="text"
-                    name="full_name"
-                    id="full_name"
-                    className="h-10 mt-1 rounded px-4 w-full bg-gray-50"
-                    value={customerName}
-                    disabled
+                  <label htmlFor="email">Mine</label>
+                  <VehicleTypeDropdown
+                    name="vehicleTypeNumber"
+                    value={values.vehicleTypeNumber}
+                    onChange={handleChange}
                   />
                 </div>
-
-                <div className="md:col-span-1">
+                <div className="md:col-span-3">
+                  <label htmlFor="email">Start Date - End Date</label>
+                  <Datepicker
+                    value={value}
+                    onChange={handleValueChange}
+                    showShortcuts={true}
+                  />
+                </div>
+                <div className="md:col-span-3">
                   <label htmlFor="email">Vehicle Type</label>
-                  <VehicleTypeDropdown
-                    name="vehicleTypeNumber"
-                    value={values.vehicleTypeNumber}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="md:col-span-1">
-                  <label htmlFor="email">New Display Mine</label>
-                  <VehicleTypeDropdown
-                    name="vehicleTypeNumber"
-                    value={values.vehicleTypeNumber}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div className="md:col-span-1">
-                  <label htmlFor="email">New For the date</label>
                   <VehicleTypeDropdown
                     name="vehicleTypeNumber"
                     value={values.vehicleTypeNumber}
@@ -199,33 +181,8 @@ const CollectionCard: FC<CollectionProps> = ({
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
-                <div className="mb-2">
-                  <label
-                    htmlFor="countries"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    start date
-                  </label>
-                  <input
-                    type="date"
-                    id="For the date"
-                    name="forthedate"
-                  ></input>
-                </div>
-                <div className="mb-2">
-                  <label
-                    htmlFor="countries"
-                    className="block mb-2 text-sm font-medium text-gray-900"
-                  >
-                    end date
-                  </label>
-                  <input
-                    type="date"
-                    id="For the date"
-                    name="forthedate"
-                  ></input>
-                </div>
-                <div className="md:col-span-4">
+                
+                <div className="md:col-span-3">
                   <label htmlFor="city">Quantity</label>
                   <input
                     type="number"
@@ -245,6 +202,39 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
 
+                <div className="md:col-span-4">
+                  <label htmlFor="address">No of Wagon</label>
+                  <input
+                    type="text"
+                    name="vehicleNumber"
+                    value={values.vehicleNumber}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="address">Wagon No.</label>
+                  <input
+                    type="text"
+                    name="vehicleNumber"
+                    value={values.vehicleNumber}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-1">
+                  <label htmlFor="city">Quantity</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
                 <div className="md:col-span-5 text-left">
                   <div className="inline-flex items-end">
                     <button
