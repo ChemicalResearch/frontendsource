@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { Formik, FormikHelpers } from "formik";
 import { Model, submitSamplePreparation } from "../../../services";
-import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
-import { LabMastersDropdown } from "../../../components/dropdown";
+import { DateValueType } from "react-tailwindcss-datepicker";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
 import { samplePreparationOptions } from "../index";
@@ -67,7 +66,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
             initialValues={initialValues}
             onSubmit={onSubmit}
         >
-            {({ values, handleSubmit, setFieldValue, handleChange }) => (
+            {() => (
                 <tr>
                     <td className="p-2 whitespace-nowrap">
                         <div className="flex items-center">
