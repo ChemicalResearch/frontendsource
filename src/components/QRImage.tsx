@@ -33,7 +33,7 @@ const QRImage: FC<{ image: string }> = ({ image }) => {
 
     return (
         <div className="relative w-fit">
-            <img src={image} />
+            <img src={image} className="w-40 h-48 object-contain object-center"/>
             <button className="absolute top-1 right-1 z-50 bg-slate-100 p-1 rounded" onClick={handleDownload}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
