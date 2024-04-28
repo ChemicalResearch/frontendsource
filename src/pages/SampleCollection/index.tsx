@@ -13,7 +13,7 @@ export const sampleCollectionOptions = queryOptions({
 function SampleCollection() {
     const { data } = useQuery(sampleCollectionOptions)
     return (
-        <div>
+        <div className="max-w-screen-xl">
             {data?.collectionSummaries?.map((sample) => (
                 <Collection key={sample.jobNumber} {...sample} />
             ))}

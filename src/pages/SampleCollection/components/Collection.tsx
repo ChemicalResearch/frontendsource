@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
 import { Formik, FormikHelpers } from "formik";
-import Datepicker, { DateType, DateValueType } from "react-tailwindcss-datepicker";
+import Datepicker, {
+  DateType,
+  DateValueType,
+} from "react-tailwindcss-datepicker";
 import { submitSampleCollection, type Collection } from "../../../services";
 import {
   VehicleTypeDropdown,
@@ -11,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
 import { sampleCollectionOptions } from "../index";
 
-interface CollectionProps extends Collection { }
+interface CollectionProps extends Collection {}
 
 interface InitialValues {
   jobNumber: string;
@@ -84,15 +87,18 @@ const CollectionCard: FC<CollectionProps> = ({
     },
   });
 
-  const [value, setValue] = useState<{ startDate: DateType, endDate: DateType }>({
+  const [value, setValue] = useState<{
+    startDate: DateType;
+    endDate: DateType;
+  }>({
     startDate: null,
-    endDate: null
+    endDate: null,
   });
 
   const handleValueChange = (newValue: DateValueType) => {
     console.log("newValue:", newValue);
     setValue(newValue as any);
-  }
+  };
 
   const onSubmit = (
     values: InitialValues,
@@ -122,30 +128,37 @@ const CollectionCard: FC<CollectionProps> = ({
     >
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-          <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-3">
-            <div className="lg:col-span-2">
-              <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                <div className="md:col-span-4">
+          <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-4">
+            <div className="lg:col-span-3">
+              <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
+                <div className="md:col-span-1">
                   <label htmlFor="full_name">Job Number : {jobNumber}</label>
                 </div>
 
-                <div className="md:col-span-4">
-                  <label htmlFor="full_name">Total Sample Count : {totalSampleCount}</label>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">
+                    Total Sample Count : {totalSampleCount}
+                  </label>
                 </div>
 
-                <div className="md:col-span-4">
-                  <label htmlFor="full_name">Commodity Name : {commodityName}</label>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">
+                    Commodity Name : {commodityName}
+                  </label>
                 </div>
 
-                <div className="md:col-span-4">
-                  <label htmlFor="full_name">Customer Name : {customerName}</label>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">
+                    Customer Name : {customerName}
+                  </label>
                 </div>
 
-                <div className="md:col-span-4">
-                  <label htmlFor="full_name">For the date : { }</label>
+                <div className="md:col-span-2">
+                  <label htmlFor="full_name">For the date : {}</label>
                 </div>
-
-                <div className="md:col-span-3">
+              </div>
+              <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
+                <div className="md:col-span-4">
                   <label htmlFor="email">Mine</label>
                   <VehicleTypeDropdown
                     name="vehicleTypeNumber"
@@ -153,15 +166,27 @@ const CollectionCard: FC<CollectionProps> = ({
                     onChange={handleChange}
                   />
                 </div>
-                <div className="md:col-span-3">
-                  <label htmlFor="email">Start Date - End Date</label>
+                <div className="md:col-span-2">
+                  <label htmlFor="email">Start Date</label>
                   <Datepicker
                     value={value}
                     onChange={handleValueChange}
-                    showShortcuts={true}
+                    useRange={false}
+                    asSingle={true}
+                    displayFormat={"DD-MM-YYYY"}
                   />
                 </div>
-                <div className="md:col-span-3">
+                <div className="md:col-span-2">
+                  <label htmlFor="email">End Date</label>
+                  <Datepicker
+                    value={value}
+                    onChange={handleValueChange}
+                    useRange={false}
+                    asSingle={true}
+                    displayFormat={"DD-MM-YYYY"}
+                  />
+                </div>
+                <div className="md:col-span-1">
                   <label htmlFor="email">Vehicle Type</label>
                   <VehicleTypeDropdown
                     name="vehicleTypeNumber"
@@ -170,7 +195,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
 
-                <div className="md:col-span-4">
+                <div className="md:col-span-3">
                   <label htmlFor="address">Vehicle Number</label>
                   <input
                     type="text"
@@ -181,7 +206,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
-                
+
                 <div className="md:col-span-3">
                   <label htmlFor="city">Quantity</label>
                   <input
@@ -201,60 +226,73 @@ const CollectionCard: FC<CollectionProps> = ({
                     onChange={handleChange}
                   />
                 </div>
+              </div>
+              {values.vehicleTypeNumber === "10002" ? (
+                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-10">
+                  <div className="md:col-span-5">
+                    <label htmlFor="address">No of Wagon</label>
+                    <input
+                      type="text"
+                      name="vehicleNumber"
+                      value={values.vehicleNumber}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="address">Wagon No.</label>
+                    <input
+                      type="text"
+                      name="vehicleNumber"
+                      value={values.vehicleNumber}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label htmlFor="city">Quantity</label>
+                    <input
+                      type="number"
+                      name="quantity"
+                      value={values.quantity}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    />
+                  </div>
 
-                <div className="md:col-span-4">
-                  <label htmlFor="address">No of Wagon</label>
-                  <input
-                    type="text"
-                    name="vehicleNumber"
-                    value={values.vehicleNumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="address">Wagon No.</label>
-                  <input
-                    type="text"
-                    name="vehicleNumber"
-                    value={values.vehicleNumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-1">
-                  <label htmlFor="city">Quantity</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-5 text-left">
-                  <div className="inline-flex items-end">
-                    <button
-                      disabled={isSubmitting}
-                      onClick={() => handleSubmit()}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      {mutation.isPending ? "Submitting..." : "Submit"}
+                  <div className="md:col-span-1 mt-4 flex items-center gap-2 pt-2">
+                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">
+                      Remove
+                    </button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                      Add
                     </button>
                   </div>
-                  <div className="inline-flex items-end">
-                    <a href="/sample-collection-details">
-                      <button
-                        style={{ marginLeft: "15px" }}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                      >
-                        View Details
-                      </button>
-                    </a>
-                  </div>
+                </div>
+              ) : null}
+
+              <div className="md:col-span-4 text-left mt-10">
+                <div className="inline-flex items-end">
+                  <button
+                    disabled={isSubmitting}
+                    onClick={() => handleSubmit()}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    {mutation.isPending ? "Submitting..." : "Submit"}
+                  </button>
+                </div>
+                <div className="inline-flex items-end">
+                  <a href="/sample-collection-details">
+                    <button
+                      style={{ marginLeft: "15px" }}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                      View Details
+                    </button>
+                  </a>
                 </div>
               </div>
             </div>
