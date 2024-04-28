@@ -24,10 +24,8 @@ function JobCreation() {
   });
 
   const mutation = useMutation({
-    mutationFn: submitJob
-  })
-
-
+    mutationFn: submitJob,
+  });
 
   const initialValues: CreateJobFormInputes = {
     jobNumber: `${data?.id}`,
@@ -39,7 +37,7 @@ function JobCreation() {
     createdBy: `${data?.createdBy}`,
     despatchDate: {
       startDate: null,
-      endDate: null
+      endDate: null,
     },
   };
 
@@ -57,8 +55,6 @@ function JobCreation() {
     });
   };
 
-
-  if (isPending) return <p>Loading...</p>
   return (
     <Formik
       initialValues={initialValues}
@@ -66,19 +62,19 @@ function JobCreation() {
       onSubmit={onSubmit}
     >
       {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
-        <div>
+        <div className="max-w-screen-xl">
           <section className="antialiased bg-gray-100 text-gray-600">
             <div className="flex flex-col">
-              <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10">
+              <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10 px-8 py-10">
                 {/* <header className="px-5 py-4 border-b border-gray-100"> */}
-                  {/* <div className="flex items-center justify-start mt-4">
+                {/* <div className="flex items-center justify-start mt-4">
                     <button onClick={() => refetch()} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Job Number</button>
                   </div> */}
-                  {/* <h2 className="font-semibold text-gray-800">Job No: {data?.id}</h2>
+                {/* <h2 className="font-semibold text-gray-800">Job No: {data?.id}</h2>
                   <h2 className="font-semibold text-gray-800">Created On: 12-December-2023 12:00:00</h2> */}
                 {/* </header> */}
-                <form className="max-w-md m-4">
-                  <div className="mb-2">
+                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -91,11 +87,13 @@ function JobCreation() {
                       asSingle={true}
                       displayFormat={"DD-MM-YYYY"}
                       value={values.despatchDate}
-                      onChange={(data: DateValueType) => setFieldValue("despatchDate", data)}
+                      onChange={(data: DateValueType) =>
+                        setFieldValue("despatchDate", data)
+                      }
                       containerClassName="relative w-full"
                     />
                   </div>
-                  <div className="mb-2">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-90"
@@ -117,7 +115,7 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                  <div className="mb-2">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -139,7 +137,7 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                  <div className="mb-2">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -174,7 +172,7 @@ function JobCreation() {
                       </div>
                     </div>
                   </div> */}
-                  <div className="mb-2">
+                  <div className="md:col-span-4">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -206,7 +204,7 @@ function JobCreation() {
                       ))}
                     </div>
                   </div>
-                  <div className="mb-2">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -228,7 +226,7 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                  <div>
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -250,13 +248,13 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                </form>
-                <div className="p-3">
+                </div>
+                <div>
                   <div className="flex items-center justify-start mt-5">
                     <button
                       onClick={handleSubmit as any}
                       type="button"
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none w-[120px]"
                     >
                       Submit
                     </button>
