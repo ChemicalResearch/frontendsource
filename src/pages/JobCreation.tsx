@@ -15,7 +15,7 @@ type CreateJobFormInputes = {
 };
 
 function JobCreation() {
-  const { data, isPending } = useQuery({
+  const { data } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
       const { data } = await getCreateJob();
