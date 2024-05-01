@@ -253,7 +253,7 @@ function JobCreation() {
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      Tcrc Reference No
+                      TCRC Reference No
                     </label>
                    <input type="text" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"></input>
                   </div>
