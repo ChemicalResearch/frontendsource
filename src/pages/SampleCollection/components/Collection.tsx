@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import { Formik, FormikHelpers } from "formik";
 import Datepicker, {
   DateType,
@@ -8,6 +8,7 @@ import { submitSampleCollection, type Collection } from "../../../services";
 import {
   VehicleTypeDropdown,
   UnitDropdown,
+  RakeTypeDropdown
 } from "../../../components/dropdown";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -154,7 +155,7 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="full_name">For the date : {}</label>
+                  <label htmlFor="full_name">For The Date : {}</label>
                 </div>
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
@@ -169,7 +170,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label htmlFor="email">End Date</label>
+                  <label htmlFor="email">End Date Time</label>
                   <Datepicker
                     value={value}
                     onChange={handleValueChange}
@@ -228,7 +229,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
 
-                <div className="md:col-span-3">
+                <div className="md:col-span-2">
                   <label htmlFor="address">
                     Rake No/ Container No/ Truck No/ Vehicle No
                   </label>
@@ -242,7 +243,19 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
 
-                <div className="md:col-span-2">
+                <div className="md:col-span-1">
+                  <label htmlFor="address">TCRC Sample Id</label>
+                  <input
+                    type="text"
+                    name="vehicleNumber"
+                    value={values.vehicleNumber}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+
+                <div className="md:col-span-1">
                   <label htmlFor="city">Quantity</label>
                   <input
                     type="number"
@@ -261,22 +274,33 @@ const CollectionCard: FC<CollectionProps> = ({
                     onChange={handleChange}
                   />
                 </div>
-                <div className="md:col-span-1">
-                    <label htmlFor="address">No of Wagon</label>
-                    <input
-                      type="text"
-                      name="vehicleNumber"
-                      value={values.vehicleNumber}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                  </div>
+                {values.vehicleTypeNumber === "10002" ? (
+                  <Fragment>
+                    <div className="md:col-span-1">
+                      <label htmlFor="address">No of Wagon</label>
+                      <input
+                        type="text"
+                        name="vehicleNumber"
+                        value={values.vehicleNumber}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                      />
+                    </div>
+                    <div className="md:col-span-1">
+                      <label htmlFor="email">Rake Type</label>
+                      <RakeTypeDropdown
+                        name="unitNumber"
+                        value={values.unitNumber}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </Fragment>
+                ) : null}
               </div>
 
-              
               {values.vehicleTypeNumber === "10002" ? (
-                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-10">
+                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-4">
                   <div className="md:col-span-2">
                     <label htmlFor="address">Wagon No.</label>
                     <input
@@ -301,7 +325,6 @@ const CollectionCard: FC<CollectionProps> = ({
                   </div>
 
                   <div className="md:col-span-1 mt-4 flex items-center gap-2 pt-2">
-                    
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
                       Add
                     </button>
