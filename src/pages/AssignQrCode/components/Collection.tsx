@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, useState } from "react";
 import { Formik, FormikHelpers } from "formik";
 import Datepicker, {
   DateType,
@@ -6,9 +6,7 @@ import Datepicker, {
 } from "react-tailwindcss-datepicker";
 import { submitSampleCollection, type Collection } from "../../../services";
 import {
-  VehicleTypeDropdown,
-  UnitDropdown,
-  RakeTypeDropdown,
+  VehicleTypeDropdown
 } from "../../../components/dropdown";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -29,10 +27,7 @@ interface InitialValues {
 
 const CollectionCard: FC<CollectionProps> = ({
   jobNumber,
-  commodityName,
-  collectionNumber,
-  customerName,
-  totalSampleCount,
+  collectionNumber
 }) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -127,7 +122,7 @@ const CollectionCard: FC<CollectionProps> = ({
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+      {({ values, handleChange, handleSubmit, isSubmitting }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
           <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-4">
             <div className="lg:col-span-3">
