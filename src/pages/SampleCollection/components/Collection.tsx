@@ -132,7 +132,7 @@ const CollectionCard: FC<CollectionProps> = ({
             <div className="lg:col-span-3">
               <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
                 <div className="md:col-span-1">
-                  <label htmlFor="full_name">Job Number : {jobNumber}</label>
+                  <label htmlFor="full_name">System Id : {jobNumber}</label>
                 </div>
 
                 <div className="md:col-span-1">
@@ -158,16 +158,8 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
-                <div className="md:col-span-4">
-                  <label htmlFor="email">Mine</label>
-                  <VehicleTypeDropdown
-                    name="vehicleTypeNumber"
-                    value={values.vehicleTypeNumber}
-                    onChange={handleChange}
-                  />
-                </div>
                 <div className="md:col-span-2">
-                  <label htmlFor="email">Start Date</label>
+                  <label htmlFor="email">Start Date Time</label>
                   <Datepicker
                     value={value}
                     onChange={handleValueChange}
@@ -186,6 +178,47 @@ const CollectionCard: FC<CollectionProps> = ({
                     displayFormat={"DD-MM-YYYY"}
                   />
                 </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="email">Mine</label>
+                  <VehicleTypeDropdown
+                    name="vehicleTypeNumber"
+                    value={values.vehicleTypeNumber}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">TCRC Seal No</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">Plant Seal No</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">Retention Seal No</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
                 <div className="md:col-span-1">
                   <label htmlFor="email">Vehicle Type</label>
                   <VehicleTypeDropdown
@@ -196,7 +229,9 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
 
                 <div className="md:col-span-3">
-                  <label htmlFor="address">Vehicle Number</label>
+                  <label htmlFor="address">
+                    Rake No/ Container No/ Truck No/ Vehicle No
+                  </label>
                   <input
                     type="text"
                     name="vehicleNumber"
@@ -207,7 +242,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
 
-                <div className="md:col-span-3">
+                <div className="md:col-span-2">
                   <label htmlFor="city">Quantity</label>
                   <input
                     type="number"
@@ -226,10 +261,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     onChange={handleChange}
                   />
                 </div>
-              </div>
-              {values.vehicleTypeNumber === "10002" ? (
-                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-10">
-                  <div className="md:col-span-5">
+                <div className="md:col-span-1">
                     <label htmlFor="address">No of Wagon</label>
                     <input
                       type="text"
@@ -240,6 +272,11 @@ const CollectionCard: FC<CollectionProps> = ({
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                     />
                   </div>
+              </div>
+
+              
+              {values.vehicleTypeNumber === "10002" ? (
+                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-10">
                   <div className="md:col-span-2">
                     <label htmlFor="address">Wagon No.</label>
                     <input
@@ -264,9 +301,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   </div>
 
                   <div className="md:col-span-1 mt-4 flex items-center gap-2 pt-2">
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full">
-                      Remove
-                    </button>
+                    
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
                       Add
                     </button>

@@ -79,7 +79,7 @@ function JobCreation() {
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
-                      For the date
+                      For The Month
                     </label>
                     <Datepicker
                       primaryColor={"fuchsia"}
@@ -225,6 +225,37 @@ function JobCreation() {
                         </option>
                       ))}
                     </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Port
+                    </label>
+                    <select
+                      name="commodityGroup"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.commodityGroup}
+                    >
+                      <option>Select</option>
+                      {data?.commodityGroups?.map((c) => (
+                        <option key={c.identifier} value={c.identifier}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Tcrc Reference No
+                    </label>
+                   <input type="text" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"></input>
                   </div>
                   <div className="md:col-span-2">
                     <label
