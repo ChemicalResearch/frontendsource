@@ -133,9 +133,8 @@ const CollectionCard: FC<CollectionProps> = ({
             <div className="lg:col-span-3">
               <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
                 <div className="md:col-span-1">
-                  <label htmlFor="full_name">System Id : {jobNumber}</label>
+                  <label htmlFor="full_name">TCRC Reference Number : {jobNumber}</label>
                 </div>
-
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">
                     Total Sample Count : {totalSampleCount}
@@ -187,7 +186,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     onChange={handleChange}
                   />
                 </div>
-                <div className="md:col-span-2">
+                {/* <div className="md:col-span-2">
                   <label htmlFor="city">TCRC Seal No</label>
                   <input
                     type="number"
@@ -197,8 +196,8 @@ const CollectionCard: FC<CollectionProps> = ({
                     onBlur={handleBlur}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
-                </div>
-                <div className="md:col-span-2">
+                </div> */}
+                {/* <div className="md:col-span-2">
                   <label htmlFor="city">Plant Seal No</label>
                   <input
                     type="number"
@@ -208,8 +207,8 @@ const CollectionCard: FC<CollectionProps> = ({
                     onBlur={handleBlur}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
-                </div>
-                <div className="md:col-span-2">
+                </div> */}
+                {/* <div className="md:col-span-2">
                   <label htmlFor="city">Retention Seal No</label>
                   <input
                     type="number"
@@ -219,9 +218,9 @@ const CollectionCard: FC<CollectionProps> = ({
                     onBlur={handleBlur}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
-                </div>
+                </div> */}
                 <div className="md:col-span-1">
-                  <label htmlFor="email">Vehicle Type</label>
+                  <label htmlFor="email">Transportation Mode</label>
                   <VehicleTypeDropdown
                     name="vehicleTypeNumber"
                     value={values.vehicleTypeNumber}
