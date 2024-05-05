@@ -145,7 +145,7 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                  <div className="md:col-span-2">
+                  {/* <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -166,7 +166,7 @@ function JobCreation() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </div> */}
                   {/* <div className="mb-2">
                     <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Included</label>
                     <div className="flex gap-4 my-2">
