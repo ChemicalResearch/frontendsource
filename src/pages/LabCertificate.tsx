@@ -40,7 +40,7 @@ const LabCertificate = () => {
       });
   }
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       {data?.map((certificate, key) => (
         <div key={key} className="w-full bg-white shadow rounded-sm border border-gray-200">
           <header className="px-5 py-4 border-b border-gray-100">
