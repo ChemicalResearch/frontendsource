@@ -180,11 +180,18 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
                 <div className="md:col-span-2">
                   <label htmlFor="email">Mine</label>
-                  <VehicleTypeDropdown
+                  <input
+                    type="text"
+                    name="vehicleTypeNumber"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                  {/* <VehicleTypeDropdown
                     name="vehicleTypeNumber"
                     value={values.vehicleTypeNumber}
                     onChange={handleChange}
-                  />
+                  /> */}
                 </div>
                 {/* <div className="md:col-span-2">
                   <label htmlFor="city">TCRC Seal No</label>

@@ -1,7 +1,12 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, FormikHelpers } from "formik";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
-import { getCreateJob, submitJob } from "../services";
+import {
+  getCreateJob,
+  submitJob,
+  SubmitJobBody,
+  SubmitJobResposnse,
+} from "../services";
 
 type CreateJobFormInputes = {
   jobNumber: string;
@@ -12,6 +17,8 @@ type CreateJobFormInputes = {
   mine: string;
   createdBy: string;
   despatchDate: DateValueType;
+  fortheMonth: DateValueType;
+  tcrcReferenceNumber: string;
 };
 
 function JobCreation() {
@@ -23,7 +30,7 @@ function JobCreation() {
     },
   });
 
-  const mutation = useMutation({
+  const mutation = useMutation<SubmitJobResposnse, any, SubmitJobBody>({
     mutationFn: submitJob,
   });
 
@@ -34,7 +41,12 @@ function JobCreation() {
     customer: "",
     jobType: "",
     mine: "",
+    tcrcReferenceNumber: "",
     createdBy: `${data?.createdBy}`,
+    fortheMonth: {
+      startDate: null,
+      endDate: null,
+    },
     despatchDate: {
       startDate: null,
       endDate: null,
@@ -45,14 +57,38 @@ function JobCreation() {
     values: CreateJobFormInputes,
     formikHelpers: FormikHelpers<CreateJobFormInputes>
   ) => {
-    mutation.mutate(values, {
-      onSuccess(data) {
-        if (data) {
-          formikHelpers.resetForm();
-          formikHelpers.setSubmitting(false);
-        }
+    const {
+      fortheMonth,
+      commodity,
+      commodityGroup,
+      customer,
+      jobType,
+      mine,
+      tcrcReferenceNumber,
+    } = values;
+
+    mutation.mutate(
+      {
+        fortheMonth: fortheMonth?.startDate as string,
+        commodity,
+        commodityGroup,
+        customer,
+        jobType,
+        mine,
+        createdBy: `${data?.createdBy}`,
+        plantId: `${data?.createdBy}`,
+        portId,
+        tcrcReferenceNumber,
       },
-    });
+      {
+        onSuccess(data) {
+          if (data) {
+            formikHelpers.resetForm();
+            formikHelpers.setSubmitting(false);
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -86,9 +122,9 @@ function JobCreation() {
                       useRange={false}
                       asSingle={true}
                       displayFormat={"DD-MM-YYYY"}
-                      value={values.despatchDate}
+                      value={values.fortheMonth}
                       onChange={(data: DateValueType) =>
-                        setFieldValue("despatchDate", data)
+                        setFieldValue("fortheMonth", data)
                       }
                       containerClassName="relative w-full"
                     />
@@ -137,7 +173,7 @@ function JobCreation() {
                       ))}
                     </select>
                   </div>
-                  <div className="md:col-span-2">
+                  {/* <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -158,7 +194,7 @@ function JobCreation() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </div> */}
                   {/* <div className="mb-2">
                     <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Included</label>
                     <div className="flex gap-4 my-2">
@@ -172,7 +208,7 @@ function JobCreation() {
                       </div>
                     </div>
                   </div> */}
-                  <div className="md:col-span-4">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -255,7 +291,13 @@ function JobCreation() {
                     >
                       TCRC Reference No
                     </label>
-                   <input type="text" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"></input>
+                    <input
+                      type="text"
+                      name="tcrcReferenceNumber"
+                      value={values.tcrcReferenceNumber}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    ></input>
                   </div>
                   <div className="md:col-span-2">
                     <label
