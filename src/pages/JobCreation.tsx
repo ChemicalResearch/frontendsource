@@ -1,7 +1,12 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, FormikHelpers } from "formik";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
-import { getCreateJob, submitJob } from "../services";
+import {
+  getCreateJob,
+  submitJob,
+  SubmitJobBody,
+  SubmitJobResposnse,
+} from "../services";
 
 type CreateJobFormInputes = {
   jobNumber: string;
@@ -12,9 +17,8 @@ type CreateJobFormInputes = {
   mine: string;
   createdBy: string;
   despatchDate: DateValueType;
-  fortheMonth:DateValueType,
-  tcrcReferenceNumber:string,
-
+  fortheMonth: DateValueType;
+  tcrcReferenceNumber: string;
 };
 
 function JobCreation() {
@@ -26,7 +30,7 @@ function JobCreation() {
     },
   });
 
-  const mutation = useMutation({
+  const mutation = useMutation<SubmitJobResposnse, any, SubmitJobBody>({
     mutationFn: submitJob,
   });
 
@@ -37,9 +41,9 @@ function JobCreation() {
     customer: "",
     jobType: "",
     mine: "",
-    tcrcReferenceNumber:"",
+    tcrcReferenceNumber: "",
     createdBy: `${data?.createdBy}`,
-    fortheMonth:{
+    fortheMonth: {
       startDate: null,
       endDate: null,
     },
@@ -53,14 +57,38 @@ function JobCreation() {
     values: CreateJobFormInputes,
     formikHelpers: FormikHelpers<CreateJobFormInputes>
   ) => {
-    mutation.mutate(values, {
-      onSuccess(data) {
-        if (data) {
-          formikHelpers.resetForm();
-          formikHelpers.setSubmitting(false);
-        }
+    const {
+      fortheMonth,
+      commodity,
+      commodityGroup,
+      customer,
+      jobType,
+      mine,
+      tcrcReferenceNumber,
+    } = values;
+
+    mutation.mutate(
+      {
+        fortheMonth: fortheMonth?.startDate as string,
+        commodity,
+        commodityGroup,
+        customer,
+        jobType,
+        mine,
+        createdBy: `${data?.createdBy}`,
+        plantId: `${data?.createdBy}`,
+        portId,
+        tcrcReferenceNumber,
       },
-    });
+      {
+        onSuccess(data) {
+          if (data) {
+            formikHelpers.resetForm();
+            formikHelpers.setSubmitting(false);
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -263,11 +291,13 @@ function JobCreation() {
                     >
                       TCRC Reference No
                     </label>
-                   <input type="text" 
-                    name="tcrcReferenceNumber"
-                    value={values.tcrcReferenceNumber}
-                    onChange={handleChange}
-                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"></input>
+                    <input
+                      type="text"
+                      name="tcrcReferenceNumber"
+                      value={values.tcrcReferenceNumber}
+                      onChange={handleChange}
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    ></input>
                   </div>
                   <div className="md:col-span-2">
                     <label
