@@ -122,7 +122,7 @@ const CollectionCard: FC<CollectionProps> = ({
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, handleSubmit, isSubmitting }) => (
+      {({ values, handleChange,handleBlur,  handleSubmit, isSubmitting }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
           <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-4">
             <div className="lg:col-span-3">
@@ -204,6 +204,39 @@ const CollectionCard: FC<CollectionProps> = ({
                     useRange={false}
                     asSingle={true}
                     displayFormat={"DD-MM-YYYY"}
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">TCRC Seal No</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">Plant Seal No</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">Retention Seal No</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
               </div>
