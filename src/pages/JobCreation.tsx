@@ -13,7 +13,7 @@ type CreateJobFormInputes = {
   createdBy: string;
   despatchDate: DateValueType;
   fortheMonth:DateValueType,
-  tcrcReferenceNumber:string
+  tcrcReferenceNumber:string,
 
 };
 
@@ -180,7 +180,7 @@ function JobCreation() {
                       </div>
                     </div>
                   </div> */}
-                  <div className="md:col-span-4">
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
