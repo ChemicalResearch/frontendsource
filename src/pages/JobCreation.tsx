@@ -12,6 +12,9 @@ type CreateJobFormInputes = {
   mine: string;
   createdBy: string;
   despatchDate: DateValueType;
+  fortheMonth:DateValueType,
+  tcrcReferenceNumber:string
+
 };
 
 function JobCreation() {
@@ -34,7 +37,12 @@ function JobCreation() {
     customer: "",
     jobType: "",
     mine: "",
+    tcrcReferenceNumber:"",
     createdBy: `${data?.createdBy}`,
+    fortheMonth:{
+      startDate: null,
+      endDate: null,
+    },
     despatchDate: {
       startDate: null,
       endDate: null,
@@ -86,9 +94,9 @@ function JobCreation() {
                       useRange={false}
                       asSingle={true}
                       displayFormat={"DD-MM-YYYY"}
-                      value={values.despatchDate}
+                      value={values.fortheMonth}
                       onChange={(data: DateValueType) =>
-                        setFieldValue("despatchDate", data)
+                        setFieldValue("fortheMonth", data)
                       }
                       containerClassName="relative w-full"
                     />
@@ -255,7 +263,11 @@ function JobCreation() {
                     >
                       TCRC Reference No
                     </label>
-                   <input type="text" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"></input>
+                   <input type="text" 
+                    name="tcrcReferenceNumber"
+                    value={values.tcrcReferenceNumber}
+                    onChange={handleChange}
+                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"></input>
                   </div>
                   <div className="md:col-span-2">
                     <label
