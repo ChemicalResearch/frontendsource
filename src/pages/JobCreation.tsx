@@ -7,22 +7,23 @@ import {
   SubmitJobBody,
   SubmitJobResposnse,
 } from "../services";
+import Swal from 'sweetalert2'
 
 type CreateJobFormInputes = {
-  jobNumber: string;
   commodity: string;
   commodityGroup: string;
   customer: string;
   jobType: string;
   mine: string;
   createdBy: string;
-  despatchDate: DateValueType;
-  fortheMonth: DateValueType;
+  plantId: string;
+  fortheMonth: string;
+  portId: string;
   tcrcReferenceNumber: string;
 };
 
 function JobCreation() {
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
       const { data } = await getCreateJob();
@@ -35,7 +36,6 @@ function JobCreation() {
   });
 
   const initialValues: CreateJobFormInputes = {
-    jobNumber: `${data?.id}`,
     commodity: "",
     commodityGroup: "",
     customer: "",
@@ -43,52 +43,24 @@ function JobCreation() {
     mine: "",
     tcrcReferenceNumber: "",
     createdBy: `${data?.createdBy}`,
-    fortheMonth: {
-      startDate: null,
-      endDate: null,
-    },
-    despatchDate: {
-      startDate: null,
-      endDate: null,
-    },
+    fortheMonth: "",
+    plantId: "",
+    portId: "",
   };
 
   const onSubmit = (
     values: CreateJobFormInputes,
     formikHelpers: FormikHelpers<CreateJobFormInputes>
   ) => {
-    const {
-      fortheMonth,
-      commodity,
-      commodityGroup,
-      customer,
-      jobType,
-      mine,
-      tcrcReferenceNumber,
-    } = values;
-
-    mutation.mutate(
-      {
-        fortheMonth: fortheMonth?.startDate as string,
-        commodity,
-        commodityGroup,
-        customer,
-        jobType,
-        mine,
-        createdBy: `${data?.createdBy}`,
-        plantId: `${data?.createdBy}`,
-        portId,
-        tcrcReferenceNumber,
+    mutation.mutate(values, {
+      onSuccess(data) {
+        if (data) {
+          formikHelpers.resetForm();
+          formikHelpers.setSubmitting(false);
+          Swal.fire("Job Created Successfully");
+        }
       },
-      {
-        onSuccess(data) {
-          if (data) {
-            formikHelpers.resetForm();
-            formikHelpers.setSubmitting(false);
-          }
-        },
-      }
-    );
+    });
   };
 
   return (
@@ -97,18 +69,11 @@ function JobCreation() {
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, handleBlur, handleSubmit, setFieldValue }) => (
+      {({ values, handleChange, handleBlur, submitForm, setFieldValue }) => (
         <div className="max-w-screen-xl">
           <section className="antialiased bg-gray-100 text-gray-600">
             <div className="flex flex-col">
               <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10 px-8 py-10">
-                {/* <header className="px-5 py-4 border-b border-gray-100"> */}
-                {/* <div className="flex items-center justify-start mt-4">
-                    <button onClick={() => refetch()} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generate Job Number</button>
-                  </div> */}
-                {/* <h2 className="font-semibold text-gray-800">Job No: {data?.id}</h2>
-                  <h2 className="font-semibold text-gray-800">Created On: 12-December-2023 12:00:00</h2> */}
-                {/* </header> */}
                 <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4">
                   <div className="md:col-span-2">
                     <label
@@ -122,9 +87,12 @@ function JobCreation() {
                       useRange={false}
                       asSingle={true}
                       displayFormat={"DD-MM-YYYY"}
-                      value={values.fortheMonth}
+                      value={{
+                        startDate: values.fortheMonth,
+                        endDate: "",
+                      }}
                       onChange={(data: DateValueType) =>
-                        setFieldValue("fortheMonth", data)
+                        setFieldValue("fortheMonth", data?.startDate)
                       }
                       containerClassName="relative w-full"
                     />
@@ -137,11 +105,13 @@ function JobCreation() {
                       Plant
                     </label>
                     <select
-                      name="commodityGroup"
+                      id="plantId"
+                      name="plantId"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.commodityGroup}
+                      value={values.plantId}
+                      disabled={isPending}
                     >
                       <option>Select</option>
                       {data?.plantModels?.map((p) => (
@@ -153,61 +123,28 @@ function JobCreation() {
                   </div>
                   <div className="md:col-span-2">
                     <label
-                      htmlFor="countries"
+                      htmlFor="customer"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Customer
                     </label>
                     <select
+                      id="customer"
                       name="customer"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.customer}
+                      disabled={isPending}
                     >
                       <option value="">Select</option>
                       {data?.customers?.map((c) => (
-                        <option key={c.identifier} value={c.identifier}>
+                        <option key={c.number} value={c.number}>
                           {c.name}
                         </option>
                       ))}
                     </select>
                   </div>
-                  {/* <div className="md:col-span-2">
-                    <label
-                      htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Mines
-                    </label>
-                    <select
-                      name="mine"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.mine}
-                    >
-                      <option value="">Select</option>
-                      {data?.mines?.map((c) => (
-                        <option key={c.identifier} value={c.identifier}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div> */}
-                  {/* <div className="mb-2">
-                    <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900">Job Included</label>
-                    <div className="flex gap-4 my-2">
-                      <div className="flex items-center">
-                        <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                        <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Lab Operation</label>
-                      </div>
-                      <div className="flex items-center">
-                        <input checked id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
-                        <label htmlFor="checked-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sampling</label>
-                      </div>
-                    </div>
-                  </div> */}
                   <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
@@ -217,17 +154,14 @@ function JobCreation() {
                     </label>
                     <div className="flex gap-4 my-2">
                       {data?.jobtypes?.map((jobtype) => (
-                        <div
-                          className="flex items-center"
-                          key={jobtype.identifier}
-                        >
+                        <div className="flex items-center" key={jobtype.number}>
                           <input
                             type="checkbox"
-                            value={jobtype.identifier}
-                            checked={values.jobType === jobtype.identifier}
+                            value={jobtype.number}
+                            checked={values.jobType === jobtype.number}
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-50 focus:ring-2"
                             onChange={() =>
-                              setFieldValue("jobType", jobtype.identifier)
+                              setFieldValue("jobType", jobtype.number)
                             }
                           />
                           <label
@@ -242,21 +176,23 @@ function JobCreation() {
                   </div>
                   <div className="md:col-span-2">
                     <label
-                      htmlFor="countries"
+                      htmlFor="commodityGroup"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Commodity Group
                     </label>
                     <select
+                      id="commodityGroup"
                       name="commodityGroup"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.commodityGroup}
+                      disabled={isPending}
                     >
                       <option>Select</option>
                       {data?.commodityGroups?.map((c) => (
-                        <option key={c.identifier} value={c.identifier}>
+                        <option key={c.number} value={c.number}>
                           {c.name}
                         </option>
                       ))}
@@ -264,21 +200,23 @@ function JobCreation() {
                   </div>
                   <div className="md:col-span-2">
                     <label
-                      htmlFor="countries"
+                      htmlFor="portId"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Port
                     </label>
                     <select
-                      name="commodityGroup"
+                      id="portId"
+                      name="portId"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.commodityGroup}
+                      value={values.portId}
+                      disabled={isPending}
                     >
                       <option>Select</option>
-                      {data?.commodityGroups?.map((c) => (
-                        <option key={c.identifier} value={c.identifier}>
+                      {data?.portModels?.map((c) => (
+                        <option key={c.number} value={c.number}>
                           {c.name}
                         </option>
                       ))}
@@ -286,12 +224,13 @@ function JobCreation() {
                   </div>
                   <div className="md:col-span-2">
                     <label
-                      htmlFor="countries"
+                      htmlFor="tcrcReferenceNumber"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       TCRC Reference No
                     </label>
                     <input
+                      id="tcrcReferenceNumber"
                       type="text"
                       name="tcrcReferenceNumber"
                       value={values.tcrcReferenceNumber}
@@ -301,21 +240,23 @@ function JobCreation() {
                   </div>
                   <div className="md:col-span-2">
                     <label
-                      htmlFor="countries"
+                      htmlFor="commodity"
                       className="block mb-2 text-sm font-medium text-gray-900"
                     >
                       Commodity
                     </label>
                     <select
+                      id="commodity"
                       name="commodity"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.commodity}
+                      disabled={isPending}
                     >
                       <option value="">Select</option>
                       {data?.commodities?.map((c) => (
-                        <option key={c.identifier} value={c.identifier}>
+                        <option key={c.number} value={c.number}>
                           {c.name}
                         </option>
                       ))}
@@ -325,7 +266,7 @@ function JobCreation() {
                 <div>
                   <div className="flex items-center justify-start mt-5">
                     <button
-                      onClick={handleSubmit as any}
+                      onClick={submitForm}
                       type="button"
                       className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none w-[120px]"
                     >

@@ -36,12 +36,28 @@ type CreateJobResponse = {
     id: number;
     createdBy: number;
     status: string;
-    commodityGroups: Array<CommodityGroup>;
-    commodities: Array<Commodity>;
-    customers: Array<Customer>;
+    commodityGroups: Array<{
+        number: string;
+        name: string;
+    }>;
+    commodities: Array<{
+        number: string;
+        name: string;
+    }>;
+    customers: Array<{
+        number: string;
+        name: string;
+    }>;
     mines: Array<Mime>;
-    jobtypes: Array<JobType>;
+    jobtypes: Array<{
+        number: string;
+        name: string;
+    }>;
     plantModels: Array<PlantModel>;
+    portModels: Array<{
+        number: string;
+        name: string;
+    }>
 }
 
 export const getCreateJob = async () => {

@@ -2457,6 +2457,11 @@ svg.select.js@^3.0.1:
   dependencies:
     svg.js "^2.6.5"
 
+sweetalert2@^11.10.8:
+  version "11.10.8"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.10.8.tgz#eea4660d14f567285a410a7f247e7654e0de532c"
+  integrity sha512-oAkYROBfXBY+4sVbQEIcN+ZxAx69lsmz5WEBwdEpyS4m59vOBNlRU5/fJpAI1MVfiDwFZiGwVzB/KBpOyfLNtg==
+
 tailwindcss@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.1.tgz#f512ca5d1dd4c9503c7d3d28a968f1ad8f5c839d"
