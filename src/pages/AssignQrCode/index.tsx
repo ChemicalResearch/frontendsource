@@ -1,17 +1,17 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { getSampleCollection } from "../../services";
+import { getAssignQrCode } from "../../services";
 import Collection from "./components/Collection";
 
-export const sampleCollectionOptions = queryOptions({
-    queryKey: ["sample-collection"],
+export const getAssignQrCodes = queryOptions({
+    queryKey: ["get-assign-qr-code"],
     queryFn: async () => {
-        const { data } = await getSampleCollection();
+        const { data } = await getAssignQrCode();
         return data;
     }
 })
 
-function SampleCollection() {
-    const { data } = useQuery(sampleCollectionOptions)
+function assignQr () {
+    const { data } = useQuery(getAssignQrCodes)
     return (
         <div className="max-w-screen-xl">
             {data?.collectionSummaries?.map((sample) => (
@@ -21,4 +21,4 @@ function SampleCollection() {
     )
 }
 
-export default SampleCollection;
+export default assignQr;

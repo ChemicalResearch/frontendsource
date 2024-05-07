@@ -23,10 +23,23 @@ type SampleCollectionResponse = {
     selected: boolean;
   }>;
 };
+type getAssignQrcode ={
+  models:Array<Collection>;
+  labMasters:Array<{
+    id:number,
+    labName:string,
+    number:string
+  }>
+}
 
 export const getSampleCollection = () => {
   return apiClient.get<any, AxiosResponse<SampleCollectionResponse>>(
     `/getsamplecollection`
+  );
+};
+export const getAssignQrCode = () => {
+  return apiClient.get<any, AxiosResponse<getAssignQrcode>>(
+    `/getsamplepreparation`
   );
 };
 
