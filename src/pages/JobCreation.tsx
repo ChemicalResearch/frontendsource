@@ -8,13 +8,13 @@ import {
   SubmitJobResposnse,
 } from "../services";
 import Swal from 'sweetalert2'
+import { useAuth } from "../context/auth";
 
 type CreateJobFormInputes = {
   commodity: string;
   commodityGroup: string;
   customer: string;
   jobType: string;
-  mine: string;
   createdBy: string;
   plantId: string;
   fortheMonth: string;
@@ -23,6 +23,7 @@ type CreateJobFormInputes = {
 };
 
 function JobCreation() {
+  const { user } = useAuth();
   const { data, isPending } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
@@ -40,9 +41,8 @@ function JobCreation() {
     commodityGroup: "",
     customer: "",
     jobType: "",
-    mine: "",
     tcrcReferenceNumber: "",
-    createdBy: `${data?.createdBy}`,
+    createdBy: user?.employee_id as string,
     fortheMonth: "",
     plantId: "",
     portId: "",

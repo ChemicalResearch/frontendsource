@@ -6,7 +6,6 @@ export type SubmitJobBody = {
   commodityGroup: string;
   customer: string;
   jobType: string;
-  mine: string;
   createdBy: string;
   plantId: string;
   fortheMonth: string;
@@ -20,7 +19,6 @@ export type SubmitJobResposnse = {
   commodityGroup: string;
   customer: string;
   jobType: string;
-  mine: string;
   createdBy: string;
   createdOn: string;
 };
