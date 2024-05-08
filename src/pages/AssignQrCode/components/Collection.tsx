@@ -1,14 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { Field, Formik, FormikHelpers } from "formik";
-import Datepicker, {
-  DateType,
-  DateValueType,
-} from "react-tailwindcss-datepicker";
 import { Model, submitSampleCollection } from "../../../services";
-import { VehicleTypeDropdown } from "../../../components/dropdown";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import QRImage from "../../../components/QRImage";
 
 interface CollectionProps {
   model: Model;
@@ -21,7 +17,7 @@ interface CollectionProps {
 
 interface InitialValues {
   jobNumber: string;
-  despatchDate: string;
+  despatchDate: Date | null;
   collectionSystemId: string;
   commodity: string;
   labNumber: string;
@@ -34,12 +30,11 @@ interface InitialValues {
   refereeSealNo: string;
   tmSealNo: string;
   jrfNumber: string;
-  preparationDate: string;
+  preparationDate: Date | null;
   createdBy: string;
 }
 
 const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
-  console.log("model", model);
   const queryClient = useQueryClient();
   const { user } = useAuth();
   const mutation = useMutation({
@@ -94,28 +89,16 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
     },
   });
 
-  const [value, setValue] = useState<{
-    startDate: DateType;
-    endDate: DateType;
-  }>({
-    startDate: null,
-    endDate: null,
-  });
-
-  const handleValueChange = (newValue: DateValueType) => {
-    console.log("newValue:", newValue);
-    setValue(newValue as any);
+  const onSubmit = (
+    values: InitialValues,
+    formikHelpers: FormikHelpers<InitialValues>
+  ) => {
+    alert(JSON.stringify(values));
+    // mutation.mutateAsync(values).then(() => {
+    //   formikHelpers.resetForm();
+    //   formikHelpers.setSubmitting(false);
+    // });
   };
-
-  const onSubmit = () =>
-    // values: InitialValues,
-    // formikHelpers: FormikHelpers<InitialValues>
-    {
-      // mutation.mutateAsync(values).then(() => {
-      //   formikHelpers.resetForm();
-      //   formikHelpers.setSubmitting(false);
-      // });
-    };
 
   const initialValues: InitialValues = {
     collectionSystemId: model.collectionSystemId,
@@ -126,14 +109,14 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
     labNumber: model.labNumber,
     plantQrCode: model.plantQrCode,
     plantSealNo: model.plantSealNo,
-    preparationDate: model.preparationDate,
+    preparationDate: null,
     refereeQrCode: model.refereeQrCode,
     refereeSealNo: model.refereeSealNo,
     tcrcQrCode: model.tcrcQrCode,
     tcrcSampleId: model.tcrcSampleId,
     tcrcSealNo: model.tcrcSealNo,
     tmSealNo: model.tmSealNo,
-    despatchDate: model.despatchDate,
+    despatchDate: null,
   };
 
   return (
@@ -142,7 +125,7 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+      {({ values, isSubmitting, handleSubmit, setFieldValue }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
           <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-4">
             <div className="lg:col-span-3">
@@ -178,52 +161,63 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
                 <div className="md:col-span-2">
                   <label htmlFor="email">TCRC QR Code</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                  <Field
+                    name="tcrcQrCode"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">TCRC Seal No</label>
+                  <Field
+                    name="tcrcSealNo"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-2">
                   <label htmlFor="email">Plant QR Code</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                  <Field
+                    name="plantQrCode"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">Plant Seal No</label>
+                  <Field
+                    name="plantSealNo"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-2">
                   <label htmlFor="email">Retention QR Code</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                  <Field
+                    name="refereeQrCode"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="city">Retention Seal No</label>
+                  <Field
+                    name="refereeSealNo"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-2">
                   <label htmlFor="email">Sample Preparation Date</label>
-                  <Datepicker
-                    value={value}
-                    onChange={handleValueChange}
-                    useRange={false}
-                    asSingle={true}
-                    displayFormat={"DD-MM-YYYY"}
+                  <DatePicker
+                    selected={values.preparationDate}
+                    onChange={(date) => setFieldValue("preparationDate", date)}
+                    timeInputLabel="Time:"
+                    dateFormat="MM/dd/yyyy h:mm aa"
+                    showTimeInput
+                    withPortal
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label htmlFor="email">Lab</label>
+                  <label htmlFor="labNumber">Lab</label>
                   <Field
                     as="select"
-                    name="unitNumber"
+                    name="labNumber"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   >
                     <option value="">Select</option>
@@ -236,44 +230,13 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
                 </div>
                 <div className="md:col-span-2">
                   <label htmlFor="email">Despatch Date</label>
-                  <Datepicker
-                    value={value}
-                    onChange={handleValueChange}
-                    useRange={false}
-                    asSingle={true}
-                    displayFormat={"DD-MM-YYYY"}
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="city">TCRC Seal No</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="city">Plant Seal No</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="city">Retention Seal No</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                  <DatePicker
+                    selected={values.despatchDate}
+                    onChange={(date) => setFieldValue("despatchDate", date)}
+                    timeInputLabel="Time:"
+                    dateFormat="MM/dd/yyyy h:mm aa"
+                    showTimeInput
+                    withPortal
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
@@ -288,23 +251,9 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
                     {mutation.isPending ? "Submitting..." : "Submit"}
                   </button>
                 </div>
-                <div className="inline-flex items-end">
-                  <a href="/sample-collection-details">
-                    <button
-                      style={{ marginLeft: "15px" }}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      View Details
-                    </button>
-                  </a>
-                </div>
               </div>
             </div>
-            <div className="text-gray-600">
-              {mutation.data?.data?.imageUrl ? (
-                <QRImage image={mutation.data?.data?.imageUrl} />
-              ) : null}
-            </div>
+            <div className="text-gray-600"></div>
           </div>
         </div>
       )}
