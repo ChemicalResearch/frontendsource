@@ -177,27 +177,29 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
                 <div className="md:col-span-2">
-                  <label htmlFor="email">Start Date Time</label>
-                  <Datepicker
-                    value={value}
-                    onChange={handleValueChange}
-                    useRange={false}
-                    asSingle={true}
-                    displayFormat={"DD-MM-YYYY"}
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">End Date Time</label>
-                  <Datepicker
-                    value={value}
-                    onChange={handleValueChange}
-                    useRange={false}
-                    asSingle={true}
-                    displayFormat={"DD-MM-YYYY"}
-                  />
-                </div>
-                <div className="md:col-span-2">
                   <label htmlFor="email">TCRC QR Code</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="email">Plant QR Code</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    value={values.quantity}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label htmlFor="email">Retention QR Code</label>
                   <input
                     type="number"
                     name="quantity"

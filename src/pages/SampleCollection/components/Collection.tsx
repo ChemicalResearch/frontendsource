@@ -181,7 +181,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label>Mine</label>
+                  <label>Source</label>
                   <Field
                     name="mineText"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
