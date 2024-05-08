@@ -1,5 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Formik, FormikHelpers } from "formik";
+import { Formik, Field, FormikHelpers } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 import {
   getCreateJob,
@@ -7,7 +9,7 @@ import {
   SubmitJobBody,
   SubmitJobResposnse,
 } from "../services";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { useAuth } from "../context/auth";
 
 type CreateJobFormInputes = {
@@ -17,14 +19,14 @@ type CreateJobFormInputes = {
   jobType: string;
   createdBy: string;
   plantId: string;
-  fortheMonth: string;
+  fortheMonth: Date | null;
   portId: string;
   tcrcReferenceNumber: string;
 };
 
 function JobCreation() {
   const { user } = useAuth();
-  const { data, isPending } = useQuery({
+  const { data } = useQuery({
     queryKey: ["createjob"],
     queryFn: async () => {
       const { data } = await getCreateJob();
@@ -69,7 +71,7 @@ function JobCreation() {
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, handleBlur, submitForm, setFieldValue }) => (
+      {({ values, submitForm, setFieldValue }) => (
         <div className="max-w-screen-xl">
           <section className="antialiased bg-gray-100 text-gray-600">
             <div className="flex flex-col">
@@ -82,19 +84,13 @@ function JobCreation() {
                     >
                       For The Month
                     </label>
-                    <Datepicker
-                      primaryColor={"fuchsia"}
-                      useRange={false}
-                      asSingle={true}
-                      displayFormat={"DD-MM-YYYY"}
-                      value={{
-                        startDate: values.fortheMonth,
-                        endDate: "",
-                      }}
-                      onChange={(data: DateValueType) =>
-                        setFieldValue("fortheMonth", data?.startDate)
-                      }
-                      containerClassName="relative w-full"
+                    <DatePicker
+                      selected={values.fortheMonth}
+                      onChange={(date) => setFieldValue("fortheMonth", date)}
+                      dateFormat="MM/dd/yyyy"
+                      placeholderText="MM/DD/YYYY"
+                      withPortal
+                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -104,14 +100,11 @@ function JobCreation() {
                     >
                       Plant
                     </label>
-                    <select
+                    <Field
+                      as="select"
                       id="plantId"
                       name="plantId"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.plantId}
-                      disabled={isPending}
                     >
                       <option>Select</option>
                       {data?.plantModels?.map((p) => (
@@ -119,7 +112,7 @@ function JobCreation() {
                           {p.plantName}
                         </option>
                       ))}
-                    </select>
+                    </Field>
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -128,14 +121,11 @@ function JobCreation() {
                     >
                       Customer
                     </label>
-                    <select
+                    <Field
+                      as="select"
                       id="customer"
                       name="customer"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.customer}
-                      disabled={isPending}
                     >
                       <option value="">Select</option>
                       {data?.customers?.map((c) => (
@@ -143,7 +133,7 @@ function JobCreation() {
                           {c.name}
                         </option>
                       ))}
-                    </select>
+                    </Field>
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -181,14 +171,11 @@ function JobCreation() {
                     >
                       Commodity Group
                     </label>
-                    <select
+                    <Field
+                      as="select"
                       id="commodityGroup"
                       name="commodityGroup"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.commodityGroup}
-                      disabled={isPending}
                     >
                       <option>Select</option>
                       {data?.commodityGroups?.map((c) => (
@@ -196,7 +183,7 @@ function JobCreation() {
                           {c.name}
                         </option>
                       ))}
-                    </select>
+                    </Field>
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -205,14 +192,11 @@ function JobCreation() {
                     >
                       Port
                     </label>
-                    <select
+                    <Field
+                      as="select"
                       id="portId"
                       name="portId"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.portId}
-                      disabled={isPending}
                     >
                       <option>Select</option>
                       {data?.portModels?.map((c) => (
@@ -220,7 +204,7 @@ function JobCreation() {
                           {c.name}
                         </option>
                       ))}
-                    </select>
+                    </Field>
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -229,14 +213,11 @@ function JobCreation() {
                     >
                       TCRC Reference No
                     </label>
-                    <input
+                    <Field
                       id="tcrcReferenceNumber"
-                      type="text"
                       name="tcrcReferenceNumber"
-                      value={values.tcrcReferenceNumber}
-                      onChange={handleChange}
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    ></input>
+                    />
                   </div>
                   <div className="md:col-span-2">
                     <label
@@ -245,14 +226,11 @@ function JobCreation() {
                     >
                       Commodity
                     </label>
-                    <select
+                    <Field
+                      as="select"
                       id="commodity"
                       name="commodity"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.commodity}
-                      disabled={isPending}
                     >
                       <option value="">Select</option>
                       {data?.commodities?.map((c) => (
@@ -260,7 +238,7 @@ function JobCreation() {
                           {c.name}
                         </option>
                       ))}
-                    </select>
+                    </Field>
                   </div>
                 </div>
                 <div>
