@@ -2,7 +2,6 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, Field, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 import {
   getCreateJob,
   submitJob,
