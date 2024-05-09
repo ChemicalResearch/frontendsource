@@ -37,7 +37,7 @@ interface InitialValues {
   unitNumber: string;
   createdBy: string;
   tcrcSampleId: string;
-  plannedPrepDate: string;
+  plannedPrepDate: Date | null;
   startTime: Date | null;
   endTime: Date | null;
   mineText: string;
@@ -92,12 +92,13 @@ const CollectionCard: FC<CollectionProps> = ({
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-    const { startTime, endTime, ...rest } = values;
+    const { startTime, endTime,plannedPrepDate,...rest } = values;
     mutation
       .mutateAsync({
         ...rest,
         startTime: dayjs(startTime).format("YYYY-MM-DD HH:mm:ss"),
         endTime: dayjs(endTime).format("YYYY-MM-DD HH:mm:ss"),
+        plannedPrepDate: dayjs(plannedPrepDate).format("YYYY-MM-DD"),
       })
       .then(() => {
         formikHelpers.resetForm();
@@ -120,7 +121,7 @@ const CollectionCard: FC<CollectionProps> = ({
     unitNumber: "",
     vehicleNumber: "",
     vehicleTypeNumber: "",
-    plannedPrepDate: "2024-05-10",
+    plannedPrepDate: null,
     
     wagonModels: [
       {
@@ -177,10 +178,10 @@ const CollectionCard: FC<CollectionProps> = ({
                   <label htmlFor="full_name">For The Date : {forMonth}</label>
                 </div>
                 <div className="md:col-span-1">
-                  <label htmlFor="full_name">Plant Prep Date : {forMonth}</label>
+                  <label htmlFor="full_name">Plant Prep Date :</label>
                   <DatePicker
-                    selected={values.startTime}
-                    onChange={(date) => setFieldValue("startTime", date)}
+                    selected={values.plannedPrepDate}
+                    onChange={(date) => setFieldValue("plannedPrepDate", date)}
                     dateFormat="yyyy-MM-dd"
                     showTimeInput
                     withPortal
