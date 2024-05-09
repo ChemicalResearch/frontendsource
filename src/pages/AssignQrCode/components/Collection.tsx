@@ -2,9 +2,11 @@ import { FC } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Field, Formik, FormikHelpers } from "formik";
-import { Model, submitSampleCollection } from "../../../services";
+import { Model, submitSamplePreparation } from "../../../services";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 interface CollectionProps {
   model: Model;
@@ -38,7 +40,7 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
   const mutation = useMutation({
-    mutationFn: submitSampleCollection,
+    mutationFn: submitSamplePreparation,
     // onMutate: async () => {
     //     // Cancel any outgoing refetch
     //     // (so they don't overwrite our optimistic update)
@@ -93,11 +95,16 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-    alert(JSON.stringify(values));
-    // mutation.mutateAsync(values).then(() => {
-    //   formikHelpers.resetForm();
-    //   formikHelpers.setSubmitting(false);
-    // });
+    const {preparationDate, despatchDate, ...rest} = values;
+    mutation.mutateAsync({
+      ...rest, 
+      preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
+      despatchDate: dayjs(despatchDate).format("YYYY-MM-DD"),
+    }).then(() => {
+      formikHelpers.resetForm();
+      formikHelpers.setSubmitting(false);
+      Swal.fire(`Sample send to lab on ${preparationDate}`);
+    });
   };
 
   const initialValues: InitialValues = {
@@ -206,9 +213,7 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
                   <DatePicker
                     selected={values.preparationDate}
                     onChange={(date) => setFieldValue("preparationDate", date)}
-                    timeInputLabel="Time:"
-                    dateFormat="MM/dd/yyyy h:mm aa"
-                    showTimeInput
+                    dateFormat="yyyy-MM-dd"
                     withPortal
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
@@ -233,9 +238,7 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
                   <DatePicker
                     selected={values.despatchDate}
                     onChange={(date) => setFieldValue("despatchDate", date)}
-                    timeInputLabel="Time:"
-                    dateFormat="MM/dd/yyyy h:mm aa"
-                    showTimeInput
+                    dateFormat="yyyy-MM-dd"
                     withPortal
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />

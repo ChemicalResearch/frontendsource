@@ -39,9 +39,31 @@ type AssignQrcode = {
   }>;
 };
 
-
 export const getAssignQrCode = () => {
   return apiClient.get<any, AxiosResponse<AssignQrcode>>(
     `/getsamplepreparation`
   );
+};
+
+type SubmitSamplePreparationBody = {
+  jobNumber: string;
+  despatchDate: string;
+  collectionSystemId: string;
+  commodity: string;
+  labNumber: string;
+  tcrcSampleId: string;
+  tcrcQrCode: string;
+  plantQrCode: string;
+  refereeQrCode: string;
+  tcrcSealNo: string;
+  plantSealNo: string;
+  refereeSealNo: string;
+  tmSealNo: string;
+  jrfNumber: string;
+  preparationDate: string;
+  createdBy: string;
+};
+
+export const submitSamplePreparation = (body: SubmitSamplePreparationBody) => {
+  return apiClient.post("/submitpreparation", body);
 };
