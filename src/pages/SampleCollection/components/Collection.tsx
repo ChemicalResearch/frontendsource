@@ -178,6 +178,14 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">Plant Prep Date : {forMonth}</label>
+                  <DatePicker
+                    selected={values.startTime}
+                    onChange={(date) => setFieldValue("startTime", date)}
+                    dateFormat="yyyy-MM-dd"
+                    showTimeInput
+                    withPortal
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
                 </div>
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
