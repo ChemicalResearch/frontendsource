@@ -1,37 +1,18 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
-export type Model = {
-  qrcode: string;
-  image: string;
-  despatchDate: string;
-  type: string;
-  tcrcSampleId: string;
-  tcrcQrCode: string;
-  plantQrCode: string;
-  refereeQrCode: string;
-  tcrcSealNo: string;
-  plantSealNo: string;
-  refereeSealNo: string;
-  tmSealNo: string;
-  jrfNumber: string;
-  preparationDate: string;
-  tcrcQrImageUrl: string;
-  plantQrImageUrl: string;
-  refereeQrImageUrl: string;
+export type CollectionSummry = {
   jobNumber: string;
+  collectionNumber: string;
+  commodityName: string;
+  customerName: string;
+  totalSampleCount: string;
+  forMonth: string;
   tcrcReferenceNumber: string;
-  plannedPrepDate: string;
-  collectionSystemId: string;
-  plant: string;
-  vehicleType: string;
-  vehicleNumber: string;
-  createdBy: string;
-  labNumber: string;
 };
 
 type SampleCollectionResponse = {
-  collectionSummaries: Array<Model>;
+  collectionSummaries: Array<CollectionSummry>;
   vehicleType: Array<{
     number: string;
     name: string;
@@ -42,24 +23,10 @@ type SampleCollectionResponse = {
     selected: boolean;
   }>;
 };
-type AssignQrcode = {
-  models: Array<Model>;
-  labMasters: Array<{
-    id: number;
-    labName: string;
-    number: string;
-  }>;
-};
 
 export const getSampleCollection = () => {
   return apiClient.get<any, AxiosResponse<SampleCollectionResponse>>(
     `/getsamplecollection`
-  );
-};
-
-export const getAssignQrCode = () => {
-  return apiClient.get<any, AxiosResponse<AssignQrcode>>(
-    `/getsamplepreparation`
   );
 };
 
@@ -75,8 +42,8 @@ type SubmitSampleCollectionBody = {
   createdBy: string;
   tcrcSampleId: string;
   plannedPrepDate: string;
-  startTime: Date | null;
-  endTime: Date | null;
+  startTime: string;
+  endTime: string;
   mineText: string;
   wagonModels?: [
     {

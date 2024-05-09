@@ -4,13 +4,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from 'sweetalert2'
 
-import { submitSampleCollection, type Collection } from "../../../services";
+import { submitSampleCollection, type CollectionSummry } from "../../../services";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
 import { sampleCollectionOptions } from "../index";
+import dayjs from "dayjs";
 
-interface CollectionProps extends Collection {
+interface CollectionProps extends CollectionSummry {
   unitModel: {
     identifier: string;
     name: string;
@@ -87,7 +88,12 @@ const CollectionCard: FC<CollectionProps> = ({
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-    mutation.mutateAsync(values).then(() => {
+    const {startTime, endTime, ...rest} = values;
+    mutation.mutateAsync({
+      ...rest, 
+      startTime: dayjs(startTime).format("YYYY-MM-DD HH:mm:ss"),
+      endTime: dayjs(endTime).format("YYYY-MM-DD HH:mm:ss"),
+    }).then(() => {
       formikHelpers.resetForm();
       formikHelpers.setSubmitting(false);
       Swal.fire("Sample Collection Submitted Successfully");
@@ -162,7 +168,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     selected={values.startTime}
                     onChange={(date) => setFieldValue("startTime", date)}
                     timeInputLabel="Time:"
-                    dateFormat="MM/dd/yyyy h:mm aa"
+                    dateFormat="yyyy-MM-dd HH:mm:ss"
                     showTimeInput
                     withPortal
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -174,7 +180,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     selected={values.endTime}
                     onChange={(date) => setFieldValue("endTime", date)}
                     timeInputLabel="Time:"
-                    dateFormat="MM/dd/yyyy h:mm aa"
+                    dateFormat="yyyy-MM-dd HH:mm:ss"
                     showTimeInput
                     withPortal
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
