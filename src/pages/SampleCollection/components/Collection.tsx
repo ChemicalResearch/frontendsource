@@ -2,9 +2,12 @@ import { FC, Fragment } from "react";
 import { Field, FieldArray, Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
-import { submitSampleCollection, type CollectionSummry } from "../../../services";
+import {
+  submitSampleCollection,
+  type CollectionSummry,
+} from "../../../services";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
@@ -55,6 +58,7 @@ const CollectionCard: FC<CollectionProps> = ({
   forMonth,
   unitModel,
   vehicleType,
+  tcrcReferenceNumber,
 }) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -88,16 +92,18 @@ const CollectionCard: FC<CollectionProps> = ({
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-    const {startTime, endTime, ...rest} = values;
-    mutation.mutateAsync({
-      ...rest, 
-      startTime: dayjs(startTime).format("YYYY-MM-DD HH:mm:ss"),
-      endTime: dayjs(endTime).format("YYYY-MM-DD HH:mm:ss"),
-    }).then(() => {
-      formikHelpers.resetForm();
-      formikHelpers.setSubmitting(false);
-      Swal.fire("Sample Collection Submitted Successfully");
-    });
+    const { startTime, endTime, ...rest } = values;
+    mutation
+      .mutateAsync({
+        ...rest,
+        startTime: dayjs(startTime).format("YYYY-MM-DD HH:mm:ss"),
+        endTime: dayjs(endTime).format("YYYY-MM-DD HH:mm:ss"),
+      })
+      .then(() => {
+        formikHelpers.resetForm();
+        formikHelpers.setSubmitting(false);
+        Swal.fire("Sample Collection Submitted Successfully");
+      });
   };
 
   const initialValues: InitialValues = {
@@ -114,7 +120,8 @@ const CollectionCard: FC<CollectionProps> = ({
     unitNumber: "",
     vehicleNumber: "",
     vehicleTypeNumber: "",
-    plannedPrepDate:"2024-05-10",
+    plannedPrepDate: "2024-05-10",
+    
     wagonModels: [
       {
         wagonNumber: "",
@@ -135,10 +142,14 @@ const CollectionCard: FC<CollectionProps> = ({
             <div className="lg:col-span-3">
               <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
                 <div className="md:col-span-1">
+                  <label htmlFor="full_name">System Id : {jobNumber}</label>
+                </div>
+                <div className="md:col-span-1">
                   <label htmlFor="full_name">
-                    TCRC Reference Number : {jobNumber}
+                    TCRC Reference Number : {tcrcReferenceNumber}
                   </label>
                 </div>
+
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">
                     Total Sample Count : {totalSampleCount}
@@ -156,13 +167,21 @@ const CollectionCard: FC<CollectionProps> = ({
                     Customer Name : {customerName}
                   </label>
                 </div>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">
+                    Port : {totalSampleCount}
+                  </label>
+                </div>
 
-                <div className="md:col-span-2">
+                <div className="md:col-span-1">
                   <label htmlFor="full_name">For The Date : {forMonth}</label>
+                </div>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">Plant Prep Date : {forMonth}</label>
                 </div>
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
-                <div className="md:col-span-2">
+                <div className="md:col-span-1">
                   <label htmlFor="email">Start Date Time</label>
                   <DatePicker
                     selected={values.startTime}
@@ -210,9 +229,7 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="vehicleNumber">
-                    Rake No/ Container No/ Truck No/ Vehicle No
-                  </label>
+                  <label htmlFor="vehicleNumber">RR No/Truck No</label>
                   <Field
                     id="vehicleNumber"
                     type="text"
