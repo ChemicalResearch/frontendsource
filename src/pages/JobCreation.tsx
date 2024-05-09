@@ -10,6 +10,7 @@ import {
 } from "../services";
 import Swal from "sweetalert2";
 import { useAuth } from "../context/auth";
+import dayjs from "dayjs";
 
 type CreateJobFormInputes = {
   commodity: string;
@@ -44,7 +45,7 @@ function JobCreation() {
     jobType: "",
     tcrcReferenceNumber: "",
     createdBy: user?.employee_id as string,
-    fortheMonth: "",
+    fortheMonth: null,
     plantId: "",
     portId: "",
   };
@@ -53,15 +54,23 @@ function JobCreation() {
     values: CreateJobFormInputes,
     formikHelpers: FormikHelpers<CreateJobFormInputes>
   ) => {
-    mutation.mutate(values, {
-      onSuccess(data) {
-        if (data) {
-          formikHelpers.resetForm();
-          formikHelpers.setSubmitting(false);
-          Swal.fire("Job Created Successfully");
-        }
-      },
-    });
+    const { fortheMonth, ...rest } = values;
+
+    mutation.mutate(
+      { ...rest, fortheMonth: dayjs(fortheMonth).format("YYYY-MM-DD") },
+      {
+        onSuccess(data) {
+          if (data) {
+            formikHelpers.resetForm();
+            formikHelpers.setSubmitting(false);
+            Swal.fire(
+              "Job Created Successfully",
+              `Job Number is: ${data.jobNumber}`
+            );
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -86,8 +95,8 @@ function JobCreation() {
                     <DatePicker
                       selected={values.fortheMonth}
                       onChange={(date) => setFieldValue("fortheMonth", date)}
-                      dateFormat="MM/dd/yyyy"
-                      placeholderText="MM/DD/YYYY"
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
                       withPortal
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                     />
