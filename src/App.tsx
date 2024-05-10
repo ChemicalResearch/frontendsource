@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
 import AssignQrCode from "./pages/AssignQrCode";
-import SamplePreparation from "./pages/sample-preparation";
+// import SamplePreparation from "./pages/sample-preparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
 import LabHeadProgress from "./pages/lab-head-progress";
 import LabCertificate from "./pages/LabCertificate";
