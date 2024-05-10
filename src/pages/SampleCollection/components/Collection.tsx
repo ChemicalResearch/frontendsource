@@ -1,30 +1,52 @@
-import { FC, Fragment, useState } from "react";
-import { Formik, FormikHelpers } from "formik";
-import Datepicker, {
-  DateType,
-  DateValueType,
-} from "react-tailwindcss-datepicker";
-import { submitSampleCollection, type Collection } from "../../../services";
+import { FC, Fragment } from "react";
+import { Field, FieldArray, Formik, FormikHelpers } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
+
 import {
-  VehicleTypeDropdown,
-  UnitDropdown,
-  RakeTypeDropdown
-} from "../../../components/dropdown";
+  submitSampleCollection,
+  type CollectionSummry,
+} from "../../../services";
 import { useAuth } from "../../../context/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
 import { sampleCollectionOptions } from "../index";
+import dayjs from "dayjs";
 
-interface CollectionProps extends Collection {}
+interface CollectionProps extends CollectionSummry {
+  unitModel: {
+    identifier: string;
+    name: string;
+    selected: boolean;
+  }[];
+  vehicleType: {
+    number: string;
+    name: string;
+  }[];
+}
 
 interface InitialValues {
   jobNumber: string;
   collectionNumber: string;
   vehicleTypeNumber: string;
+  rakeType: string;
+  noOfWagon: string;
   vehicleNumber: string;
   quantity: string;
   unitNumber: string;
   createdBy: string;
+  tcrcSampleId: string;
+  plannedPrepDate: Date | null;
+  startTime: Date | null;
+  endTime: Date | null;
+  mineText: string;
+  wagonModels?: [
+    {
+      wagonNumber: string;
+      quantity: string;
+    }
+  ];
 }
 
 const CollectionCard: FC<CollectionProps> = ({
@@ -33,36 +55,15 @@ const CollectionCard: FC<CollectionProps> = ({
   collectionNumber,
   customerName,
   totalSampleCount,
+  forMonth,
+  unitModel,
+  vehicleType,
+  tcrcReferenceNumber,
 }) => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
   const mutation = useMutation({
     mutationFn: submitSampleCollection,
-    // onMutate: async () => {
-    //     // Cancel any outgoing refetch
-    //     // (so they don't overwrite our optimistic update)
-    //     await queryClient.cancelQueries(sampleCollectionOptions);
-    //     // Snapshot the previous value
-    //     const previousData = queryClient.getQueryData(sampleCollectionOptions.queryKey);
-    //     const collectionSummaries = previousData?.collectionSummaries?.map(x => {
-    //         if (x.jobNumber === jobNumber) {
-    //             return ({
-    //                 ...x,
-    //                 totalSampleCount: (Number(x.totalSampleCount) + 1).toString()
-    //             })
-    //         }
-    //         return x;
-    //     }) || [];
-    //     console.log({collectionSummaries})
-    //     // Optimistically update to the new value
-    //     if (previousData) {
-    //         queryClient.setQueryData(sampleCollectionOptions.queryKey, {
-    //             ...previousData,
-    //             collectionSummaries
-    //         })
-    //     }
-    //     return { previousData }
-    // }
     onSuccess() {
       const previousData = queryClient.getQueryData(
         sampleCollectionOptions.queryKey
@@ -77,8 +78,7 @@ const CollectionCard: FC<CollectionProps> = ({
           }
           return x;
         }) || [];
-      console.log({ collectionSummaries });
-      // Optimistically update to the new value
+
       if (previousData) {
         queryClient.setQueryData(sampleCollectionOptions.queryKey, {
           ...previousData,
@@ -88,37 +88,47 @@ const CollectionCard: FC<CollectionProps> = ({
     },
   });
 
-  const [value, setValue] = useState<{
-    startDate: DateType;
-    endDate: DateType;
-  }>({
-    startDate: null,
-    endDate: null,
-  });
-
-  const handleValueChange = (newValue: DateValueType) => {
-    console.log("newValue:", newValue);
-    setValue(newValue as any);
-  };
-
   const onSubmit = (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-    mutation.mutateAsync(values).then(() => {
-      formikHelpers.resetForm();
-      formikHelpers.setSubmitting(false);
-    });
+    const { startTime, endTime,plannedPrepDate,...rest } = values;
+    mutation
+      .mutateAsync({
+        ...rest,
+        startTime: dayjs(startTime).format("YYYY-MM-DD HH:mm:ss"),
+        endTime: dayjs(endTime).format("YYYY-MM-DD HH:mm:ss"),
+        plannedPrepDate: dayjs(plannedPrepDate).format("YYYY-MM-DD"),
+      })
+      .then(() => {
+        formikHelpers.resetForm();
+        formikHelpers.setSubmitting(false);
+        Swal.fire("Sample Collection Submitted Successfully");
+      });
   };
 
   const initialValues: InitialValues = {
     jobNumber,
     collectionNumber,
-    vehicleTypeNumber: "",
-    vehicleNumber: "",
+    createdBy: user?.employee_id as string,
+    endTime: null,
+    mineText: "",
+    noOfWagon: "",
     quantity: "",
+    rakeType: "",
+    startTime: null,
+    tcrcSampleId: "",
     unitNumber: "",
-    createdBy: user?.employee_id!,
+    vehicleNumber: "",
+    vehicleTypeNumber: "",
+    plannedPrepDate: null,
+    
+    wagonModels: [
+      {
+        wagonNumber: "",
+        quantity: "",
+      },
+    ],
   };
 
   return (
@@ -127,14 +137,20 @@ const CollectionCard: FC<CollectionProps> = ({
       enableReinitialize
       onSubmit={onSubmit}
     >
-      {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+      {({ values, submitForm, isSubmitting, setFieldValue }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
           <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-4">
             <div className="lg:col-span-3">
               <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
                 <div className="md:col-span-1">
-                  <label htmlFor="full_name">TCRC Reference Number : {jobNumber}</label>
+                  <label htmlFor="full_name">System Id : {jobNumber}</label>
                 </div>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">
+                    TCRC Reference Number : {tcrcReferenceNumber}
+                  </label>
+                </div>
+
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">
                     Total Sample Count : {totalSampleCount}
@@ -152,190 +168,200 @@ const CollectionCard: FC<CollectionProps> = ({
                     Customer Name : {customerName}
                   </label>
                 </div>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">
+                    Port : {totalSampleCount}
+                  </label>
+                </div>
 
-                <div className="md:col-span-2">
-                  <label htmlFor="full_name">For The Date : {}</label>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">For The Date : {forMonth}</label>
+                </div>
+                <div className="md:col-span-1">
+                  <label htmlFor="full_name">Plant Prep Date :</label>
+                  <DatePicker
+                    selected={values.plannedPrepDate}
+                    onChange={(date) => setFieldValue("plannedPrepDate", date)}
+                    dateFormat="yyyy-MM-dd"
+                    showTimeInput
+                    withPortal
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
                 </div>
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
-                <div className="md:col-span-2">
+                <div className="md:col-span-1">
                   <label htmlFor="email">Start Date Time</label>
-                  <Datepicker
-                    value={value}
-                    onChange={handleValueChange}
-                    useRange={false}
-                    asSingle={true}
-                    displayFormat={"DD-MM-YYYY"}
+                  <DatePicker
+                    selected={values.startTime}
+                    onChange={(date) => setFieldValue("startTime", date)}
+                    timeInputLabel="Time:"
+                    dateFormat="yyyy-MM-dd HH:mm:ss"
+                    showTimeInput
+                    withPortal
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-2">
                   <label htmlFor="email">End Date Time</label>
-                  <Datepicker
-                    value={value}
-                    onChange={handleValueChange}
-                    useRange={false}
-                    asSingle={true}
-                    displayFormat={"DD-MM-YYYY"}
+                  <DatePicker
+                    selected={values.endTime}
+                    onChange={(date) => setFieldValue("endTime", date)}
+                    timeInputLabel="Time:"
+                    dateFormat="yyyy-MM-dd HH:mm:ss"
+                    showTimeInput
+                    withPortal
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label htmlFor="email">Mine</label>
-                  <VehicleTypeDropdown
-                    name="vehicleTypeNumber"
-                    value={values.vehicleTypeNumber}
-                    onChange={handleChange}
+                  <label>Source</label>
+                  <Field
+                    name="mineText"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
-                {/* <div className="md:col-span-2">
-                  <label htmlFor="city">TCRC Seal No</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div> */}
-                {/* <div className="md:col-span-2">
-                  <label htmlFor="city">Plant Seal No</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div> */}
-                {/* <div className="md:col-span-2">
-                  <label htmlFor="city">Retention Seal No</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div> */}
                 <div className="md:col-span-1">
-                  <label htmlFor="email">Transportation Mode</label>
-                  <VehicleTypeDropdown
+                  <label>Transportation Mode</label>
+                  <Field
+                    as="select"
                     name="vehicleTypeNumber"
-                    value={values.vehicleTypeNumber}
-                    onChange={handleChange}
-                  />
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  >
+                    <option value="">Select</option>
+                    {vehicleType.map((vehicle) => (
+                      <option key={vehicle.number} value={vehicle.number}>
+                        {vehicle.name}
+                      </option>
+                    ))}
+                  </Field>
                 </div>
 
                 <div className="md:col-span-2">
-                  <label htmlFor="address">
-                    Rake No/ Container No/ Truck No/ Vehicle No
-                  </label>
-                  <input
+                  <label htmlFor="vehicleNumber">RR No/Truck No</label>
+                  <Field
+                    id="vehicleNumber"
                     type="text"
                     name="vehicleNumber"
-                    value={values.vehicleNumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
 
                 <div className="md:col-span-1">
-                  <label htmlFor="address">TCRC Sample Id</label>
-                  <input
+                  <label htmlFor="tcrcSampleId">TCRC Sample Id</label>
+                  <Field
+                    id="tcrcSampleId"
                     type="text"
-                    name="vehicleNumber"
-                    value={values.vehicleNumber}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    name="tcrcSampleId"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
 
                 <div className="md:col-span-1">
-                  <label htmlFor="city">Quantity</label>
-                  <input
+                  <label htmlFor="quantity">Quantity</label>
+                  <Field
+                    id="quantity"
                     type="number"
                     name="quantity"
-                    value={values.quantity}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   />
                 </div>
                 <div className="md:col-span-1">
-                  <label htmlFor="email">Unit</label>
-                  <UnitDropdown
+                  <label htmlFor="unitNumber">Unit</label>
+                  <Field
+                    as="select"
                     name="unitNumber"
-                    value={values.unitNumber}
-                    onChange={handleChange}
-                  />
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  >
+                    <option value="">Select</option>
+                    {unitModel.map((unit) => (
+                      <option key={unit.identifier} value={unit.identifier}>
+                        {unit.name}
+                      </option>
+                    ))}
+                  </Field>
                 </div>
                 {values.vehicleTypeNumber === "10002" ? (
                   <Fragment>
                     <div className="md:col-span-1">
                       <label htmlFor="address">No of Wagon</label>
-                      <input
+                      <Field
                         type="text"
-                        name="vehicleNumber"
-                        value={values.vehicleNumber}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
+                        name="noOfWagon"
                         className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       />
                     </div>
                     <div className="md:col-span-1">
-                      <label htmlFor="email">Rake Type</label>
-                      <RakeTypeDropdown
-                        name="unitNumber"
-                        value={values.unitNumber}
-                        onChange={handleChange}
-                      />
+                      <label htmlFor="rakeType">Rake Type</label>
+                      <Field
+                        as="select"
+                        name="rakeType"
+                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                      >
+                        <option value="">Select</option>
+                        {["OCP", "IR"].map((rake) => (
+                          <option key={rake} value={rake}>
+                            {rake}
+                          </option>
+                        ))}
+                      </Field>
                     </div>
                   </Fragment>
                 ) : null}
               </div>
 
               {values.vehicleTypeNumber === "10002" ? (
-                <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-4">
-                  <div className="md:col-span-2">
-                    <label htmlFor="address">Wagon No.</label>
-                    <input
-                      type="text"
-                      name="vehicleNumber"
-                      value={values.vehicleNumber}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label htmlFor="city">Quantity</label>
-                    <input
-                      type="number"
-                      name="quantity"
-                      value={values.quantity}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                  </div>
-
-                  <div className="md:col-span-1 mt-4 flex items-center gap-2 pt-2">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-                      Add
-                    </button>
-                  </div>
-                </div>
+                <Fragment>
+                  <FieldArray
+                    name="wagonModels"
+                    render={(arrayHelpers) => (
+                      <Fragment>
+                        {values?.wagonModels?.map((_, index) => (
+                          <div
+                            key={index}
+                            className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-4"
+                          >
+                            <div className="md:col-span-2">
+                              <label htmlFor="wagonNumber">Wagon Number</label>
+                              <Field
+                                name={`wagonModels.${index}.wagonNumber`}
+                                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              />
+                            </div>
+                            <div className="md:col-span-2">
+                              <label htmlFor="city">Quantity</label>
+                              <Field
+                                name={`wagonModels.${index}.quantity`}
+                                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                              />
+                            </div>
+                            <div className="md:col-span-1 mt-4 flex items-center gap-2 pt-2">
+                              {values.wagonModels?.length === index + 1 ? (
+                                <button
+                                  onClick={() =>
+                                    arrayHelpers.push({
+                                      wagonNumber: "",
+                                      quantity: "",
+                                    })
+                                  }
+                                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+                                >
+                                  Add
+                                </button>
+                              ) : null}
+                            </div>
+                          </div>
+                        ))}
+                      </Fragment>
+                    )}
+                  />
+                </Fragment>
               ) : null}
-
               <div className="md:col-span-4 text-left mt-10">
                 <div className="inline-flex items-end">
                   <button
                     disabled={isSubmitting}
-                    onClick={() => handleSubmit()}
+                    onClick={submitForm}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                   >
                     {mutation.isPending ? "Submitting..." : "Submit"}

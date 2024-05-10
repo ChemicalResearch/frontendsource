@@ -1,24 +1,24 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { getSampleCollection } from "../../services";
+import { getAssignQrCode } from "../../services";
 import Collection from "./components/Collection";
 
-export const sampleCollectionOptions = queryOptions({
-    queryKey: ["sample-collection"],
-    queryFn: async () => {
-        const { data } = await getSampleCollection();
-        return data;
-    }
-})
+export const getAssignQrCodes = queryOptions({
+  queryKey: ["get-assign-qr-code"],
+  queryFn: async () => {
+    const { data } = await getAssignQrCode();
+    return data;
+  },
+});
 
-function SampleCollection() {
-    const { data } = useQuery(sampleCollectionOptions)
-    return (
-        <div className="max-w-screen-xl">
-            {data?.collectionSummaries?.map((sample) => (
-                <Collection key={sample.jobNumber} {...sample} />
-            ))}
-        </div>
-    )
+function assignQr() {
+  const { data } = useQuery(getAssignQrCodes);
+  return (
+    <div className="max-w-screen-xl">
+      {data?.models?.map((model) => (
+        <Collection key={model.jobNumber} model={model} labMasters={data.labMasters}/>
+      ))}
+    </div>
+  );
 }
 
-export default SampleCollection;
+export default assignQr;
