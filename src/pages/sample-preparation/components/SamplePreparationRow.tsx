@@ -1,10 +1,12 @@
 import { FC } from "react";
 import { Formik, FormikHelpers } from "formik";
-import { Model, submitSamplePreparation } from "../../../services";
+import { Model,
+    //  submitSamplePreparation 
+    } from "../../../services";
 import { DateValueType } from "react-tailwindcss-datepicker";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
-import { samplePreparationOptions } from "../index";
+// import { samplePreparationOptions } from "../index";
 
 
 type SamplePreparationFormInput = {
@@ -17,29 +19,29 @@ type SamplePreparationFormInput = {
 }
 
 const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: string; commodity: string; }> = ({ jobNumber, collectionNumber, commodity, qrcode, image, type, despatchDate }) => {
-    const queryClient = useQueryClient()
+    // const queryClient = useQueryClient()
 
-    const mutation = useMutation({
-        mutationFn: submitSamplePreparation,
-        onSuccess() {
-            const previousData = queryClient.getQueryData(samplePreparationOptions.queryKey);
-            const newData = previousData?.map(x => {
-                if(x.jobNumber === jobNumber) {
-                    return({
-                        ...x,
-                        preparationModels: x.preparationModels.filter(y => y.qrcode != qrcode)
-                    })
-                }
-                return x;
-            })
+    // const mutation = useMutation({
+    //     mutationFn: submitSamplePreparation,
+    //     onSuccess() {
+    //         const previousData = queryClient.getQueryData(samplePreparationOptions.queryKey);
+    //         const newData = previousData?.map(x => {
+    //             if(x.jobNumber === jobNumber) {
+    //                 return({
+    //                     ...x,
+    //                     preparationModels: x.preparationModels.filter(y => y.qrcode != qrcode)
+    //                 })
+    //             }
+    //             return x;
+    //         })
 
-            console.log({ newData })
-            // Optimistically update to the new value
-            if (newData) {
-                queryClient.setQueryData(samplePreparationOptions.queryKey, newData)
-            }
-        },
-    })
+    //         console.log({ newData })
+    //         // Optimistically update to the new value
+    //         if (newData) {
+    //             queryClient.setQueryData(samplePreparationOptions.queryKey, newData)
+    //         }
+    //     },
+    // })
 
     const initialValues: SamplePreparationFormInput = {
         jobNumber,
@@ -57,7 +59,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
         const { despatchDate, ...rest } = values;
         const body = { despatchDate: despatchDate?.startDate as string, ...rest };
         console.log(body);
-        mutation.mutateAsync(body)
+        // mutation.mutateAsync(body)
         formikHelpers.setSubmitting(false);
     }
 

@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { FC, useMemo } from "react";
-import { getSamplePreparation } from "../../services";
+// import { useQuery } from "@tanstack/react-query";
+import { FC } from "react";
+// import { getSamplePreparation } from "../../services";
 
 type LabMastersDropdownProps = {
     name?: string | undefined;
@@ -9,16 +9,16 @@ type LabMastersDropdownProps = {
 }
 
 export const LabMastersDropdown: FC<LabMastersDropdownProps> = ({ name,value, onChange }) => {
-    const { data } = useQuery({
-        queryKey: ["lab-masters"],
-        queryFn: async () => {
-          const { data } = await getSamplePreparation();
-          return data.labMasters;
-        }
-      })
+    // const { data } = useQuery({
+    //     queryKey: ["lab-masters"],
+    //     queryFn: async () => {
+    //       const { data } = await getSamplePreparation();
+    //       return data.labMasters;
+    //     }
+    //   })
 
-    const renderLabMasters = useMemo(() => data?.map((lab) => <option key={lab.id} value={lab.id}>{lab.labName}</option>)
-        , [data])
+    // const renderLabMasters = useMemo(() => data?.map((lab: ) => <option key={lab.id} value={lab.id}>{lab.labName}</option>)
+    //     , [data])
 
     return (
         <select
@@ -28,7 +28,7 @@ export const LabMastersDropdown: FC<LabMastersDropdownProps> = ({ name,value, on
             onChange={onChange}
         >
             <option value=""></option>
-            {renderLabMasters}
+            {/* {renderLabMasters} */}
         </select>
     )
 }

@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Formik, FormikHelpers } from "formik";
-import { Model, submitSamplePreparation } from "../services";
+import { Model } from "../services";
 import Datepicker, { DateValueType } from "react-tailwindcss-datepicker";
 import { LabMastersDropdown } from "../components/dropdown";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import QRImage from "./QRImage";
 
 
@@ -18,14 +18,14 @@ type SamplePreparationFormInput = {
 }
 
 const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: string; commodity: string; }> = ({ jobNumber, collectionNumber, commodity, qrcode, image, type, despatchDate }) => {
-    const mutation = useMutation({
-        mutationFn: submitSamplePreparation,
-        onSuccess: (data) => {
-            if (data) {
+    // const mutation = useMutation({
+    //     mutationFn: submitSamplePreparation,
+    //     onSuccess: (data) => {
+    //         if (data) {
 
-            }
-        },
-    })
+    //         }
+    //     },
+    // })
 
     const initialValues: SamplePreparationFormInput = {
         jobNumber,
@@ -43,7 +43,7 @@ const SamplePreparationRow: FC<Model & { jobNumber: string; collectionNumber: st
         const { despatchDate, ...rest } = values;
         const body = { despatchDate: despatchDate?.startDate as string, ...rest };
         console.log(body);
-        mutation.mutateAsync(body)
+        // mutation.mutateAsync(body)
         formikHelpers.setSubmitting(false)
     }
 

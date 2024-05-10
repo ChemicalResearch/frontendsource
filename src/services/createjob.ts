@@ -1,31 +1,13 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
-type CommodityGroup = {
-    identifier: number;
-    name: string;
-}
-
-type Commodity = {
-    name: string;
-    identifier: number;
-    groupIdentifier: number;
-}
-
-type Customer = {
-    name: string;
-    identifier: string;
-}
 
 type Mime = {
     name: string;
     identifier: string;
 }
 
-type JobType = {
-    name: string;
-    identifier: string;
-}
+
 
 type PlantModel = {
     plantId: string;

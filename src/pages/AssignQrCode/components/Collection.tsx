@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Field, Formik, FormikHelpers } from "formik";
 import { Model, submitSamplePreparation } from "../../../services";
 import { useAuth } from "../../../context/auth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
@@ -37,7 +37,7 @@ interface InitialValues {
 }
 
 const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { user } = useAuth();
   const mutation = useMutation({
     mutationFn: submitSamplePreparation,
