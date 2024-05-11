@@ -37,7 +37,7 @@ const ProfileMenu = () => {
                 <ul className="py-2 text-sm text-gray-700" aria-labelledby="dropdownInformationButton">
                     <li>
                         <div className="px-4 text-xs">Employee ID</div>
-                        <div className="block px-4 py-2 text-sm text-gray-700">{user?.employee_id}</div>
+                        <div className="block px-4 py-2 text-sm text-gray-700">{Number(user?.employee_id)}</div>
                     </li>
                     <li>
                         <div className="px-4 text-xs">Phone</div>
