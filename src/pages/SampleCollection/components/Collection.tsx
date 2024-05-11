@@ -177,17 +177,7 @@ const CollectionCard: FC<CollectionProps> = ({
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">For The Date : {forMonth}</label>
                 </div>
-                <div className="md:col-span-1">
-                  <label htmlFor="full_name">Plant Prep Date :</label>
-                  <DatePicker
-                    selected={values.plannedPrepDate}
-                    onChange={(date) => setFieldValue("plannedPrepDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    showTimeInput
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
+                
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
                 <div className="md:col-span-1">
@@ -281,6 +271,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     ))}
                   </Field>
                 </div>
+                
                 {values.vehicleTypeNumber === "10002" ? (
                   <Fragment>
                     <div className="md:col-span-1">
@@ -357,6 +348,17 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </Fragment>
               ) : null}
+              <div className="md:col-span-1">
+                  <label htmlFor="full_name">Planned Prep Date :</label>
+                  <DatePicker
+                    selected={values.plannedPrepDate}
+                    onChange={(date) => setFieldValue("plannedPrepDate", date)}
+                    dateFormat="yyyy-MM-dd"
+                    showTimeInput
+                    withPortal
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                  />
+                </div>
               <div className="md:col-span-4 text-left mt-10">
                 <div className="inline-flex items-end">
                   <button
