@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { getLabHeadAssignment } from "../../services";
 import Assignments from "./components/Assignments";
-
+import { useAuth } from "../../context/auth";
 const LabHeadAssignment = () => {
+  const { user } = useAuth();
   const { data } = useQuery({
     queryKey: ['lab-head-assignment'],
     queryFn: async () => {
-      const { data } = await getLabHeadAssignment(1);
+      const { data } = await getLabHeadAssignment(Number(user?.employee_id));
       return data;
     }
   })

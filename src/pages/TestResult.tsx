@@ -1,11 +1,12 @@
 import { getVerifyTestResult } from "../services";
 import { useQuery } from "@tanstack/react-query";
-
+import { useAuth } from "../context/auth";
 function TestResult() {
+  const { user } = useAuth();
   const { isPending, error, data } = useQuery({
     queryKey: ["verify-test-result"],
     queryFn: async () => {
-      const { data } = await getVerifyTestResult(201572);
+      const { data } = await getVerifyTestResult(Number(user?.employee_id));
       return data;
     },
   });

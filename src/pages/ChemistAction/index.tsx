@@ -2,11 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import { getChemistAction } from "../../services";
 import ChemistActionTableHead from "../../components/ChemistActionTableHead";
 import ChemistLabDetails from './Components/ChemistLabDetails';
+import { useAuth } from "../../context/auth";
 function ChemistAction() {
+  const { user } = useAuth();
   const { data } = useQuery({
     queryKey: ['chemist-actions'],
     queryFn: async () => {
-      const { data } = await getChemistAction(201571);
+      const { data } = await getChemistAction(Number(user?.employee_id));
       return data;
     }
   })

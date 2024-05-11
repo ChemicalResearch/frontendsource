@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const Login = () => {
     const { isAuth } = useAuth();
-    const [{ phone, isOtpSent }, setData] = useState<{ phone: string, isOtpSent: boolean }>({ phone: "8697352251", isOtpSent: false });
+    const [{ phone, isOtpSent }, setData] = useState<{ phone: string, isOtpSent: boolean }>({ phone: "", isOtpSent: false });
     if (isAuth)
         return <Navigate to="/" />
     return (

@@ -13,7 +13,7 @@ interface PhoneNumberSignupProps {
 
 const PhoneNumberSignup: FC<PhoneNumberSignupProps> = () => {
     const {signIn} = useAuth();
-    const [phone, setPhone] = useState<string | undefined>("+918697352251");
+    const [phone, setPhone] = useState<string | undefined>("");
 
     const mutation = useMutation({
         mutationFn: login,
