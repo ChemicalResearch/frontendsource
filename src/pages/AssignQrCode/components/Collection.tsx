@@ -40,6 +40,8 @@ const CollectionCard: FC<CollectionProps> = ({ samples }) => {
   // const queryClient = useQueryClient();
   console.log({samples})
   const { user } = useAuth();
+  //const plant=
+  const index=0;
   const mutation = useMutation({
     mutationFn: submitSamplePreparation,
     // onMutate: async () => {
@@ -91,8 +93,8 @@ const CollectionCard: FC<CollectionProps> = ({ samples }) => {
       // }
     },
   });
-  const displayPlantModels =() =>{
-    console.log("data")
+  const displayPlantModels =(selecteddate) =>{
+    console.log("data",selecteddate)
   }
 
   // const onSubmit = (
@@ -152,13 +154,41 @@ const CollectionCard: FC<CollectionProps> = ({ samples }) => {
                       as="select"
                       id="plantId"
                       name="plantId"
-                      onChange={displayPlantModels}
+                     
+                      onChange = {(e)=>{
+                        displayPlantModels(e.target.value)
+                      }}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     >
                       <option>Select</option>
                       {samples?.map((d:any) => (
                         <option key={d.plannedDate} value={d.plannedDate}>
                           {d.plannedDate}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-90"
+                    >
+                      Select Plant 
+                    </label>
+                    <Field
+                      as="select"
+                      id="plantId"
+                      name="plantId"
+                     
+                      onChange = {(e)=>{
+                        displayPlantModels(e.target.value)
+                      }}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    >
+                      <option>Select</option>
+                      {samples[index].plantModels?.map((d:any) => (
+                        <option key={d.plantName} value={d.plantName}>
+                          {d.plantName}
                         </option>
                       ))}
                     </Field>
@@ -295,7 +325,19 @@ const CollectionCard: FC<CollectionProps> = ({ samples }) => {
                 </div>
               </div>
             </div> */}
+             <div>
+                  <div className="flex items-center justify-start mt-5">
+                    <button
+                      
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none w-[120px]"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
             <div className="text-gray-600"></div>
+           
           </div>
         </div>
       )}
