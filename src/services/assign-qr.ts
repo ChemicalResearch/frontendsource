@@ -67,3 +67,18 @@ type SubmitSamplePreparationBody = {
 export const submitSamplePreparation = (body: SubmitSamplePreparationBody) => {
   return apiClient.post("/submitpreparation", body);
 };
+
+type plantModels ={
+  plantId:string,
+  plantName:string
+}
+type getSamplePselection = {
+  plannedDate:string,
+  plantModels:Array<plantModels>
+
+}
+export const getSamplePselection = () => {
+  return apiClient.get<any, AxiosResponse<getSamplePselection>>(
+    `/getsamplepselection`
+  );
+};

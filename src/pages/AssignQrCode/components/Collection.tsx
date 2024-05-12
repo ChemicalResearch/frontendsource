@@ -18,26 +18,27 @@ interface CollectionProps {
 }
 
 interface InitialValues {
-  jobNumber: string;
-  despatchDate: Date | null;
-  collectionSystemId: string;
-  commodity: string;
-  labNumber: string;
-  tcrcSampleId: string;
-  tcrcQrCode: string;
-  plantQrCode: string;
-  refereeQrCode: string;
-  tcrcSealNo: string;
-  plantSealNo: string;
-  refereeSealNo: string;
-  tmSealNo: string;
-  jrfNumber: string;
-  preparationDate: Date | null;
-  createdBy: string;
+  // jobNumber: string;
+  // despatchDate: Date | null;
+  // collectionSystemId: string;
+  // commodity: string;
+  // labNumber: string;
+  // tcrcSampleId: string;
+  // tcrcQrCode: string;
+  // plantQrCode: string;
+  // refereeQrCode: string;
+  // tcrcSealNo: string;
+  // plantSealNo: string;
+  // refereeSealNo: string;
+  // tmSealNo: string;
+  // jrfNumber: string;
+  // preparationDate: Date | null;
+  // createdBy: string;
 }
 
-const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
+const CollectionCard: FC<CollectionProps> = ({ samples }) => {
   // const queryClient = useQueryClient();
+  console.log({samples})
   const { user } = useAuth();
   const mutation = useMutation({
     mutationFn: submitSamplePreparation,
@@ -90,52 +91,80 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
       // }
     },
   });
+  const displayPlantModels =() =>{
+    console.log("data")
+  }
 
-  const onSubmit = (
-    values: InitialValues,
-    formikHelpers: FormikHelpers<InitialValues>
-  ) => {
-    const {preparationDate, despatchDate, ...rest} = values;
-    mutation.mutateAsync({
-      ...rest, 
-      preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
-      despatchDate: dayjs(despatchDate).format("YYYY-MM-DD"),
-    }).then(() => {
-      formikHelpers.resetForm();
-      formikHelpers.setSubmitting(false);
-      Swal.fire(`Sample send to lab on ${preparationDate}`);
-    });
-  };
+  // const onSubmit = (
+  //   values: InitialValues,
+  //   formikHelpers: FormikHelpers<InitialValues>
+  // ) => {
+  //   const {preparationDate, despatchDate, ...rest} = values;
+  //   mutation.mutateAsync({
+  //     ...rest, 
+  //     preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
+  //     despatchDate: dayjs(despatchDate).format("YYYY-MM-DD"),
+  //   }).then(() => {
+  //     formikHelpers.resetForm();
+  //     formikHelpers.setSubmitting(false);
+  //     Swal.fire(`Sample send to lab on ${preparationDate}`);
+  //   });
+  // };
 
   const initialValues: InitialValues = {
-    collectionSystemId: model.collectionSystemId,
-    commodity: "",
-    createdBy: user?.employee_id!,
-    jobNumber: model.jobNumber,
-    jrfNumber: model.jrfNumber,
-    labNumber: model.labNumber,
-    plantQrCode: model.plantQrCode,
-    plantSealNo: model.plantSealNo,
-    preparationDate: null,
-    refereeQrCode: model.refereeQrCode,
-    refereeSealNo: model.refereeSealNo,
-    tcrcQrCode: model.tcrcQrCode,
-    tcrcSampleId: model.tcrcSampleId,
-    tcrcSealNo: model.tcrcSealNo,
-    tmSealNo: model.tmSealNo,
-    despatchDate: null,
+    // collectionSystemId: model.collectionSystemId,
+    // commodity: "",
+    // createdBy: user?.employee_id!,
+    // jobNumber: model.jobNumber,
+    // jrfNumber: model.jrfNumber,
+    // labNumber: model.labNumber,
+    // plantQrCode: model.plantQrCode,
+    // plantSealNo: model.plantSealNo,
+    // preparationDate: null,
+    // refereeQrCode: model.refereeQrCode,
+    // refereeSealNo: model.refereeSealNo,
+    // tcrcQrCode: model.tcrcQrCode,
+    // tcrcSampleId: model.tcrcSampleId,
+    // tcrcSealNo: model.tcrcSealNo,
+    // tmSealNo: model.tmSealNo,
+    // despatchDate: null,
   };
 
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={onSubmit}
+      displayPlantModels
+      // onSubmit={onSubmit}
     >
-      {({ values, isSubmitting, handleSubmit, setFieldValue }) => (
+      {({  }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-          <div className="grid gap-8 gap-y-8 text-sm grid-cols-1 lg:grid-cols-4">
-            <div className="lg:col-span-3">
+          <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4">
+           
+            <div className="md:col-span-2">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-90"
+                    >
+                      Select Planned Prep Date
+                    </label>
+                    <Field
+                      as="select"
+                      id="plantId"
+                      name="plantId"
+                      onChange={displayPlantModels}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    >
+                      <option>Select</option>
+                      {samples?.map((d:any) => (
+                        <option key={d.plannedDate} value={d.plannedDate}>
+                          {d.plannedDate}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+       
+            {/* <div className="lg:col-span-3">
               <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">
@@ -265,7 +294,7 @@ const CollectionCard: FC<CollectionProps> = ({ model, labMasters }) => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="text-gray-600"></div>
           </div>
         </div>
