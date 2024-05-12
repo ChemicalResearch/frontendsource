@@ -1,6 +1,7 @@
 import { FC } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import { Model, submitSamplePreparation } from "../../../services";
 import { useAuth } from "../../../context/auth";
@@ -51,6 +52,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
     //     return { previousData }
     // }
     onSuccess() {
+      
       // const previousData = queryClient.getQueryData(
       //   sampleCollectionOptions.queryKey
       // );
@@ -84,16 +86,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
 
-    // const {preparationDate, despatchDate, ...rest} = values;
-    // mutation.mutateAsync({
-    //   ...rest, 
-    //   preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
-    //   despatchDate: dayjs(despatchDate).format("YYYY-MM-DD"),
-    // }).then(() => {
-    //   formikHelpers.resetForm();
-    //   formikHelpers.setSubmitting(false);
-    //   Swal.fire(`Sample send to lab on ${preparationDate}`);
-    // });
+    
   };
 
   const initialValues: InitialValues = {
@@ -107,7 +100,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
       initialValues={initialValues}
       enableReinitialize
       displayPlantModels
-       onSubmit={console.log}
+       onSubmit={onSubmit}
     >
       {({ submitForm,values }) => (
         <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">

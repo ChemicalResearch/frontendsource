@@ -35,11 +35,18 @@ const RouteName: React.FC = () => {
     case "/lab-certificate":
       routeName = "Lab Certificate";
       break;
+    case "/create-jrf":
+      routeName = "Create JRF";
+      break;
     default:
       routeName = "Unknown";
   }
 
-  return <span className="text-xl font-bold text-gray-800 whitespace-nowrap">{routeName}</span>;
+  return (
+    <span className="text-xl font-bold text-gray-800 whitespace-nowrap">
+      {routeName}
+    </span>
+  );
 };
 
 export default RouteName;
