@@ -1,6 +1,9 @@
-import { FC } from "react";
+import { FC, Fragment, useState } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
-
+import {
+  getsamplepreparationlist,
+  GetsamplepreparationlistResponse,
+} from "../../../services";
 
 interface CollectionProps {
   plantModelsBydate: any;
@@ -12,11 +15,17 @@ interface InitialValues {
 }
 
 const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
+  const [data, setData] = useState<GetsamplepreparationlistResponse>();
   const onSubmit = async (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-
+    try {
+      const { data } = await getsamplepreparationlist(values);
+      setData(data);
+    } catch (e) {
+      setData([]);
+    }
   };
 
   const initialValues: InitialValues = {
@@ -25,212 +34,198 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      enableReinitialize
-      displayPlantModels
-      onSubmit={onSubmit}
-    >
-      {({ submitForm, values }) => (
-        <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-          <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4">
-            <div className="md:col-span-2">
-              <label
-                htmlFor="countries"
-                className="block mb-2 text-sm font-medium text-gray-90"
-              >
-                Select Planned Prep Date
-              </label>
-              <Field
-                as="select"
-                id="plannedPrepDate"
-                name="plannedPrepDate"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              >
-                <option>Select</option>
-
-                {plantModelsBydate
-                  ? Object.keys(plantModelsBydate)?.map((d: any) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
-                    ))
-                  : null}
-              </Field>
-            </div>
-            <div className="md:col-span-2">
-              <label
-                htmlFor="countries"
-                className="block mb-2 text-sm font-medium text-gray-90"
-              >
-                Select Plant
-              </label>
-              <Field
-                as="select"
-                id="plantId"
-                name="plantId"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              >
-                <option>Select</option>
-                {plantModelsBydate
-                  ? plantModelsBydate?.[values.plannedPrepDate]?.map(
-                      (d: any) => (
-                        <option key={d.plantId} value={d.plantId}>
-                          {d.plantName}
-                        </option>
-                      )
-                    )
-                  : null}
-              </Field>
-            </div>
-
-            {/* <div className="lg:col-span-3">
-              <div className="grid gap-8 text-sm grid-cols-1 md:grid-cols-2">
-                <div className="md:col-span-1">
-                  <label htmlFor="full_name">
-                    Sample Id : {model?.collectionSystemId}
-                  </label>
-                </div>
-
-                <div className="md:col-span-1">
-                  <label htmlFor="full_name">
-                    Vehicle Type : {model?.vehicleType}
-                  </label>
-                </div>
-
-                <div className="md:col-span-1">
-                  <label htmlFor="full_name">
-                    Vehicle No. : {model?.vehicleNumber}
-                  </label>
-                </div>
-
-                <div className="md:col-span-1">
-                  <label htmlFor="full_name">
-                    Sample Collection Date Time : 12-jun-2024 10:00AM
-                  </label>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="full_name">Plant : {model?.plant}</label>
-                </div>
-              </div>
-              <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
+    <Fragment>
+      <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
+        <Formik
+          initialValues={initialValues}
+          enableReinitialize
+          displayPlantModels
+          onSubmit={onSubmit}
+        >
+          {({ submitForm, values }) => (
+            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 items-end">
               <div className="md:col-span-2">
-                  <label htmlFor="email">Sample Preparation Date</label>
-                  <DatePicker
-                    selected={values.preparationDate}
-                    onChange={(date) => setFieldValue("preparationDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">TCRC QR Code</label>
-                  <Field
-                    name="tcrcQrCode"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="city">TCRC Seal No</label>
-                  <Field
-                    name="tcrcSealNo"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">Plant QR Code</label>
-                  <Field
-                    name="plantQrCode"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="city">Plant Seal No</label>
-                  <Field
-                    name="plantSealNo"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">Retention QR Code</label>
-                  <Field
-                    name="refereeQrCode"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="city">Retention Seal No</label>
-                  <Field
-                    name="refereeSealNo"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">Sample Preparation Date</label>
-                  <DatePicker
-                    selected={values.preparationDate}
-                    onChange={(date) => setFieldValue("preparationDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="labNumber">Lab</label>
-                  <Field
-                    as="select"
-                    name="labNumber"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  >
-                    <option value="">Select</option>
-                    {labMasters?.map((lab) => (
-                      <option key={lab.number} value={lab.number}>
-                        {lab.labName}
-                      </option>
-                    ))}
-                  </Field>
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">Despatch Date</label>
-                  <DatePicker
-                    selected={values.despatchDate}
-                    onChange={(date) => setFieldValue("despatchDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
+                <label
+                  htmlFor="countries"
+                  className="block mb-2 text-sm font-medium text-gray-90"
+                >
+                  Select Planned Prep Date
+                </label>
+                <Field
+                  as="select"
+                  id="plannedPrepDate"
+                  name="plannedPrepDate"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                >
+                  <option>Select</option>
+
+                  {plantModelsBydate
+                    ? Object.keys(plantModelsBydate)?.map((d: any) => (
+                        <option key={d} value={d}>
+                          {d}
+                        </option>
+                      ))
+                    : null}
+                </Field>
               </div>
-              <div className="md:col-span-4 text-left mt-10">
-                <div className="inline-flex items-end">
-                  <button
-                    disabled={isSubmitting}
-                    onClick={() => handleSubmit()}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    {mutation.isPending ? "Submitting..." : "Submit"}
-                  </button>
-                </div>
+              <div className="md:col-span-2">
+                <label
+                  htmlFor="countries"
+                  className="block mb-2 text-sm font-medium text-gray-90"
+                >
+                  Select Plant
+                </label>
+                <Field
+                  as="select"
+                  id="plantId"
+                  name="plantId"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                >
+                  <option>Select</option>
+                  {plantModelsBydate
+                    ? plantModelsBydate?.[values.plannedPrepDate]?.map(
+                        (d: any) => (
+                          <option key={d.plantId} value={d.plantId}>
+                            {d.plantName}
+                          </option>
+                        )
+                      )
+                    : null}
+                </Field>
               </div>
-            </div> */}
-            <div>
-              <div className="flex items-center justify-start mt-5">
+              <div className="md:col-span-1">
                 <button
                   onClick={submitForm}
                   type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none w-[120px]"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
                 >
                   Search
                 </button>
               </div>
             </div>
-            <div className="text-gray-600"></div>
+          )}
+        </Formik>
+        {data?.length ? (
+          <div className="mt-10">
+            <div className="overflow-x-auto">
+              <table className="table-auto w-full">
+                <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
+                  <tr>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-left">
+                        TCRC Reference No.
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-left">
+                        TCRC Sample Id
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-left">
+                        Planned Preparation Date
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-left">TM Seal No.</div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-left">
+                        TCRC Seal No.
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        Plant Seal No.
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        Referee Seal No.
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        TCRC QR Code
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        Plant QR Code
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        Referee QR Code
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        Preparation Date
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">
+                        Despatch Date
+                      </div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">Action</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-sm divide-y divide-gray-100">
+                  {data?.map((row, key) => (
+                    <tr key={key}>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="font-medium text-gray-800">
+                            {row.tcrcReferenceNumber}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-left">{row.tcrcSampleId}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-left">{row.plannedPrepDate}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-left">{row.tmSealNo}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-left">{row.tcrcSealNo}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.plantSealNo}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.refereeSealNo}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.tcrcQrCode}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.plantQrCode}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.refereeQrCode}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.preparationDate}</div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="text-center">{row.despatchDate}</div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      )}
-    </Formik>
+        ) : null}
+      </div>
+    </Fragment>
   );
 };
 

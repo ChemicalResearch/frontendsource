@@ -68,15 +68,16 @@ export const submitSamplePreparation = (body: SubmitSamplePreparationBody) => {
   return apiClient.post("/submitpreparation", body);
 };
 
-type plantModels ={
-  plantId:string,
-  plantName:string
-}
-type getSamplePselection = [{
-  plannedDate:string,
-  plantModels:Array<plantModels>
-
-}]
+type plantModels = {
+  plantId: string;
+  plantName: string;
+};
+type getSamplePselection = [
+  {
+    plannedDate: string;
+    plantModels: Array<plantModels>;
+  }
+];
 export const getSamplePselection = () => {
   return apiClient.get<any, AxiosResponse<getSamplePselection>>(
     `/getsamplepselection`
@@ -87,10 +88,43 @@ type GetsamplepreparationlistParams = {
   plantId: string;
   plannedPrepDate: string;
 };
+
+export type GetsamplepreparationlistResponse = Array<{
+  qrcode: string;
+  image: string;
+  despatchDate: string;
+  type: string;
+  tcrcSampleId: string;
+  tcrcQrCode: string;
+  plantQrCode: string;
+  refereeQrCode: string;
+  tcrcSealNo: string;
+  plantSealNo: string;
+  refereeSealNo: string;
+  tmSealNo: string;
+  jrfNumber: string;
+  preparationDate: string;
+  tcrcQrImageUrl: string;
+  plantQrImageUrl: string;
+  refereeQrImageUrl: string;
+  jobNumber: string;
+  tcrcReferenceNumber: string;
+  plannedPrepDate: string;
+  collectionSystemId: string;
+  plant: string;
+  vehicleType: string;
+  vehicleNumber: string;
+  createdBy: string;
+  labNumber: string;
+}>;
+
 export const getsamplepreparationlist = (
   body: GetsamplepreparationlistParams
 ) => {
-  return apiClient.get("/getsamplepreparationlist", {
-    params: body,
-  });
+  return apiClient.get<any, AxiosResponse<GetsamplepreparationlistResponse>>(
+    "/getsamplepreparationlist",
+    {
+      params: body,
+    }
+  );
 };
