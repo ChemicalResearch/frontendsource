@@ -89,7 +89,8 @@ type GetsamplepreparationlistParams = {
   plannedPrepDate: string;
 };
 
-export type GetsamplepreparationlistResponse = Array<{
+
+export type SamplePreparation = {
   qrcode: string;
   image: string;
   despatchDate: string;
@@ -116,7 +117,9 @@ export type GetsamplepreparationlistResponse = Array<{
   vehicleNumber: string;
   createdBy: string;
   labNumber: string;
-}>;
+}
+
+export type GetsamplepreparationlistResponse = Array<SamplePreparation>;
 
 export const getsamplepreparationlist = (
   body: GetsamplepreparationlistParams
