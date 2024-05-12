@@ -72,11 +72,11 @@ type plantModels ={
   plantId:string,
   plantName:string
 }
-type getSamplePselection = {
+type getSamplePselection = [{
   plannedDate:string,
   plantModels:Array<plantModels>
 
-}
+}]
 export const getSamplePselection = () => {
   return apiClient.get<any, AxiosResponse<getSamplePselection>>(
     `/getsamplepselection`
