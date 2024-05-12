@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
 import AssignQrCode from "./pages/AssignQrCode";
+import CreateJrf from "./pages/CreateJrf"
 // import SamplePreparation from "./pages/sample-preparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
 import LabHeadProgress from "./pages/lab-head-progress";
@@ -34,6 +35,7 @@ function App() {
         <Route path="lab-head-assignment" element={<LabHeadAssignment />} />
         <Route path="chemist-action" element={<ChemistAction />} />
         <Route path="test-result" element={<TestResult />} />
+        <Route path="create-jrf" element={<CreateJrf />} />
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="sample-collection-details" element={<SampleCollectionDetails />} />
