@@ -10,3 +10,4 @@ export * from "./lab-head-assignment";
 export * from "./lab-head-progress";
 export * from "./submit-chemist-action";
 export * from "./assign-qr";
+export * from "./create-jrf";

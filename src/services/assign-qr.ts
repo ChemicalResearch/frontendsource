@@ -82,3 +82,15 @@ export const getSamplePselection = () => {
     `/getsamplepselection`
   );
 };
+
+type GetsamplepreparationlistParams = {
+  plantId: string;
+  plannedPrepDate: string;
+};
+export const getsamplepreparationlist = (
+  body: GetsamplepreparationlistParams
+) => {
+  return apiClient.get("/getsamplepreparationlist", {
+    params: body,
+  });
+};
