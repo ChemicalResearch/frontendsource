@@ -38,6 +38,9 @@ const RouteName: React.FC = () => {
     case "/create-jrf":
       routeName = "Create JRF";
       break;
+      case "/sample-collection-details":
+      routeName = "Sample Collection Details";
+      break;
     default:
       routeName = "Unknown";
   }
