@@ -2,8 +2,7 @@ import { FC, Fragment, useState } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import {
   getJRFList,
-  GetJRFListResponse,
-  SamplePreparation,
+  GetJRFListResponse
 } from "../../../services";
 
 interface CollectionProps {
