@@ -1,38 +1,29 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { getAssignQrCode, getSamplePselection } from "../../services";
+import { getJRFSelection } from "../../services";
 import Collection from "./components/Collection";
 import { useMemo } from "react";
 
-export const getAssignQrCodes = queryOptions({
-  queryKey: ["get-assign-qr-code"],
-  queryFn: async () => {
-    const { data } = await getAssignQrCode();
-    return data;
-  },
-});
 export const getSamplePselectionData = queryOptions({
-  queryKey: ["get-assign-qr-code"],
+  queryKey: ["jrf-selection"],
   queryFn: async () => {
-    const { data } = await getSamplePselection();
+    const { data } = await getJRFSelection();
     return data;
   },
 });
 
 function assignQr() {
   const { data } = useQuery(getSamplePselectionData);
-  const plantModelsBydate = useMemo(() => {
-    return data?.reduce((prev:any,current) => {
-      return ({...prev,[current.plannedDate]:current.plantModels})
-    }, {} as Record<string,{plantId: string,
-    plantName: string}>);
+  const plantModelsByDespatchDate = useMemo(() => {
+    return data?.reduce<
+      Record<string, Array<{ plantId: string; plantName: string }>>
+    >((prev: any, current) => {
+      return { ...prev, [current.despatchDate]: current.plantModels };
+    }, {} as Record<string, Array<{ plantId: string; plantName: string }>>);
   }, [data]);
-  console.log({ plantModelsBydate });
+  console.log({ plantModelsByDespatchDate });
   return (
     <div className="max-w-screen-xl">
-      {/* {data?.models?.map((model) => (
-        <Collection key={model.jobNumber} model={model} labMasters={data.labMasters}/>
-      ))} */}
-      <Collection plantModelsBydate={plantModelsBydate} />
+      <Collection plantModelsByDespatchDate={plantModelsByDespatchDate} />
     </div>
   );
 }
