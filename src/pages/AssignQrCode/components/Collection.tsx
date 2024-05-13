@@ -26,11 +26,13 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
       setData(data);
     } catch (e) {
       setData([]);
+    } finally {
+      formikHelpers.setSubmitting(false);
     }
   };
 
   const handlePreparation = (data: SamplePreparation) => () => {
-    console.log(data)
+    console.log(data);
   };
 
   const initialValues: InitialValues = {
@@ -47,7 +49,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
           displayPlantModels
           onSubmit={onSubmit}
         >
-          {({ submitForm, values }) => (
+          {({ submitForm, values, isSubmitting }) => (
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 items-end">
               <div className="md:col-span-2">
                 <label
@@ -103,6 +105,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
                   onClick={submitForm}
                   type="button"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+                  disabled={isSubmitting}
                 >
                   Search
                 </button>
