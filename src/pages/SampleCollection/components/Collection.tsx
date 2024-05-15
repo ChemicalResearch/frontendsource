@@ -1,5 +1,6 @@
 import { FC, Fragment } from "react";
 import { Field, FieldArray, Formik, FormikHelpers } from "formik";
+import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
@@ -92,7 +93,7 @@ const CollectionCard: FC<CollectionProps> = ({
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
-    const { startTime, endTime,plannedPrepDate,...rest } = values;
+    const { startTime, endTime, plannedPrepDate, ...rest } = values;
     mutation
       .mutateAsync({
         ...rest,
@@ -122,7 +123,7 @@ const CollectionCard: FC<CollectionProps> = ({
     vehicleNumber: "",
     vehicleTypeNumber: "",
     plannedPrepDate: null,
-    
+
     wagonModels: [
       {
         wagonNumber: "",
@@ -169,15 +170,12 @@ const CollectionCard: FC<CollectionProps> = ({
                   </label>
                 </div>
                 <div className="md:col-span-1">
-                  <label htmlFor="full_name">
-                    Port : {totalSampleCount}
-                  </label>
+                  <label htmlFor="full_name">Port : {totalSampleCount}</label>
                 </div>
 
                 <div className="md:col-span-1">
                   <label htmlFor="full_name">For The Date : {forMonth}</label>
                 </div>
-                
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
                 <div className="md:col-span-1">
@@ -271,7 +269,7 @@ const CollectionCard: FC<CollectionProps> = ({
                     ))}
                   </Field>
                 </div>
-                
+
                 {values.vehicleTypeNumber === "10002" ? (
                   <Fragment>
                     <div className="md:col-span-1">
@@ -349,16 +347,16 @@ const CollectionCard: FC<CollectionProps> = ({
                 </Fragment>
               ) : null}
               <div className="md:col-span-1">
-                  <label htmlFor="full_name">Planned Prep Date :</label>
-                  <DatePicker
-                    selected={values.plannedPrepDate}
-                    onChange={(date) => setFieldValue("plannedPrepDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    showTimeInput
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
+                <label htmlFor="full_name">Planned Prep Date :</label>
+                <DatePicker
+                  selected={values.plannedPrepDate}
+                  onChange={(date) => setFieldValue("plannedPrepDate", date)}
+                  dateFormat="yyyy-MM-dd"
+                  showTimeInput
+                  withPortal
+                  className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                />
+              </div>
               <div className="md:col-span-4 text-left mt-10">
                 <div className="inline-flex items-end">
                   <button
@@ -370,14 +368,13 @@ const CollectionCard: FC<CollectionProps> = ({
                   </button>
                 </div>
                 <div className="inline-flex items-end">
-                  <a href="/sample-collection-details">
-                    <button
-                      style={{ marginLeft: "15px" }}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      View Details
-                    </button>
-                  </a>
+                  <Link
+                    to={tcrcReferenceNumber}
+                    style={{ marginLeft: "15px" }}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    View Details
+                  </Link>
                 </div>
               </div>
             </div>

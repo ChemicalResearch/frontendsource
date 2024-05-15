@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import JobCreation from "./pages/JobCreation";
 import SampleCollection from "./pages/SampleCollection";
 import AssignQrCode from "./pages/AssignQrCode";
-import CreateJrf from "./pages/CreateJrf"
+import CreateJrf from "./pages/CreateJrf";
 // import SamplePreparation from "./pages/sample-preparation";
 import LabHeadAssignment from "./pages/⁠⁠LabHeadAssignment";
 import LabHeadProgress from "./pages/lab-head-progress";
@@ -18,19 +18,26 @@ import SampleCollectionDetails from "./pages/SampleCollection/Details";
 
 import RequiredAuth from "./components/RequiredAuth";
 
-
 function App() {
   return (
     <Routes>
       <Route path="login" element={<Login />} />
-      <Route element={
-        <RequiredAuth>
-          <MainLayout />
-        </RequiredAuth>
-      }>
+      <Route
+        element={
+          <RequiredAuth>
+            <MainLayout />
+          </RequiredAuth>
+        }
+      >
         <Route index element={<Home />} />
         <Route path="job-creation" element={<JobCreation />} />
-        <Route path="sample-collection" element={<SampleCollection />} />
+        <Route path="sample-collection">
+          <Route index element={<SampleCollection />} />
+          <Route
+            path=":tcrcReferenceNumber"
+            element={<SampleCollectionDetails />}
+          />
+        </Route>
         <Route path="assign-qr-code" element={<AssignQrCode />} />
         <Route path="lab-head-assignment" element={<LabHeadAssignment />} />
         <Route path="chemist-action" element={<ChemistAction />} />
@@ -38,11 +45,10 @@ function App() {
         <Route path="create-jrf" element={<CreateJrf />} />
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
-        <Route path="sample-collection-details" element={<SampleCollectionDetails />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;

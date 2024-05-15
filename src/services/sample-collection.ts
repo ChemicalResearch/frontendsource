@@ -63,3 +63,38 @@ export const submitSampleCollection = (body: SubmitSampleCollectionBody) => {
     }>
   >("/submitcollection", body);
 };
+
+export type SampleCollectionDetails = {
+  jobNumber: string;
+  commodityNumber: string;
+  commodityText: string;
+  commodityGroupNumber: string;
+  commodityGroupText: string;
+  customerNumber: string;
+  customerText: string;
+  minesNumber: string;
+  mineText: string;
+  collectionNumber: string;
+  vehicleTypeNumber: string;
+  vehicletypeText: string;
+  vehicleNumber: string;
+  startTime: string;
+  endTime: string;
+  quantity: string;
+  unitNumber: string;
+  unitText: string;
+  createdBy: string;
+  totalCollectionNumber: string;
+  imageUrl: string;
+  rakeType: string;
+  noOfWagon: string;
+  plannedPrepDate: string;
+  tcrcSampleId: string;
+  wagonModels: string;
+};
+
+export const getSampleCollectionDetails = (tcrcReferenceNumber: string) => {
+  return apiClient.get<any, AxiosResponse<Array<SampleCollectionDetails>>>(
+    `/getcollectionlist/${tcrcReferenceNumber}`
+  );
+};
