@@ -28,10 +28,7 @@ function assignQr() {
   }, [data]);
   console.log({ plantModelsBydate });
   return (
-    <div className="max-w-screen-xl">
-      {/* {data?.models?.map((model) => (
-        <Collection key={model.jobNumber} model={model} labMasters={data.labMasters}/>
-      ))} */}
+    <div>
       <Collection plantModelsBydate={plantModelsBydate} />
     </div>
   );

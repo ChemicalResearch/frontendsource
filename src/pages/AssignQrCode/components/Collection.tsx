@@ -2,9 +2,9 @@ import { FC, Fragment, useState } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import {
   getsamplepreparationlist,
-  GetsamplepreparationlistResponse,
-  SamplePreparation,
+  GetsamplepreparationlistResponse
 } from "../../../services";
+import SamplePreparationForm from "./SamplePreparationForm";
 
 interface CollectionProps {
   plantModelsBydate: any;
@@ -29,10 +29,6 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
     } finally {
       formikHelpers.setSubmitting(false);
     }
-  };
-
-  const handlePreparation = (data: SamplePreparation) => () => {
-    console.log(data);
   };
 
   const initialValues: InitialValues = {
@@ -184,56 +180,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
                 </thead>
                 <tbody className="text-sm divide-y divide-gray-100">
                   {data?.map((row, key) => (
-                    <tr key={key}>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="font-medium text-gray-800">
-                            {row.tcrcReferenceNumber}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{row.tcrcSampleId}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{row.plannedPrepDate}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{row.tmSealNo}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{row.tcrcSealNo}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.plantSealNo}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.refereeSealNo}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.tcrcQrCode}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.plantQrCode}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.refereeQrCode}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.preparationDate}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-center">{row.despatchDate}</div>
-                      </td>
-                      <td>
-                        <button
-                          onClick={handlePreparation(row)}
-                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                        >
-                          Save
-                        </button>
-                      </td>
-                    </tr>
+                    <SamplePreparationForm key={key} row={row} />
                   ))}
                 </tbody>
               </table>

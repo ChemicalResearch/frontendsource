@@ -48,5 +48,6 @@
   },
   "peerDependencies": {
     "dayjs": "^1.11.10"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
