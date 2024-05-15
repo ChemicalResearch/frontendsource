@@ -86,13 +86,13 @@ function SampleCollectionDetails() {
                     </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">RR No.</div>
+                    <div className="font-semibold text-center">{d.vehicleNumber}</div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-center">{d.quantity}</div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">Source</div>
+                    <div className="font-semibold text-center">{d.mineText}</div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-center">{d.startTime}</div>
