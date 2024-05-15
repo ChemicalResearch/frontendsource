@@ -2,7 +2,10 @@ import { FC } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { SamplePreparation } from "../../../services";
+import { SamplePreparation, submitSamplePreparation } from "../../../services";
+import { useMutation } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import { useAuth } from "../../../context/auth";
 
 interface SamplePreparationFormProps {
   row: SamplePreparation;
@@ -12,7 +15,7 @@ interface InitialValues {
   jobNumber: string;
   despatchDate: Date | null;
   collectionSystemId: string;
-  commodity?: string;
+  commodity: string;
   labNumber: string;
   tcrcSampleId: string;
   tcrcQrCode: string;
@@ -28,16 +31,34 @@ interface InitialValues {
 }
 
 const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
+  const { user } = useAuth();
+  const mutation = useMutation({
+    mutationFn: submitSamplePreparation,
+  });
+
   const onSubmit = async (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
     console.log(values, formikHelpers);
+    try {
+      const { despatchDate, preparationDate, ...rest } = values;
+      await mutation.mutateAsync({
+        despatchDate: dayjs(despatchDate).format("YYYY-MM-DD"),
+        preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
+        ...rest,
+      });
+      formikHelpers.resetForm();
+    } catch (e) {
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
   };
 
   const initialValues: InitialValues = {
     collectionSystemId: row.collectionSystemId,
-    createdBy: row.createdBy,
+    commodity: "",
+    createdBy: user?.employee_id as string,
     despatchDate: row.despatchDate ? new Date(row.despatchDate) : null,
     jobNumber: row.jobNumber,
     jrfNumber: row.jrfNumber,
@@ -81,7 +102,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="tmSealNo"
                 name="tmSealNo"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -90,7 +111,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="tcrcSealNo"
                 name="tcrcSealNo"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -99,7 +120,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="plantSealNo"
                 name="plantSealNo"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -108,7 +129,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="refereeSealNo"
                 name="refereeSealNo"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -117,7 +138,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="tcrcQrCode"
                 name="tcrcQrCode"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -126,7 +147,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="plantQrCode"
                 name="plantQrCode"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -135,7 +156,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
               <Field
                 id="refereeQrCode"
                 name="refereeQrCode"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50"
               />
             </div>
           </td>
@@ -147,7 +168,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
                 dateFormat="yyyy-MM-dd"
                 placeholderText="YYYY-MM-DD"
                 withPortal
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 bg-gray-50 w-32"
               />
             </div>
           </td>
@@ -159,7 +180,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
                 dateFormat="yyyy-MM-dd"
                 placeholderText="YYYY-MM-DD"
                 withPortal
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 bg-gray-50 w-32"
               />
             </div>
           </td>
@@ -167,7 +188,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
             <button
               onClick={submitForm}
               disabled={isSubmitting}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
             >
               Save
             </button>
