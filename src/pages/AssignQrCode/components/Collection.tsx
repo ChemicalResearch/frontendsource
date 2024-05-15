@@ -2,7 +2,7 @@ import { FC, Fragment, useState } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import {
   getsamplepreparationlist,
-  GetsamplepreparationlistResponse
+  GetsamplepreparationlistResponse,
 } from "../../../services";
 import SamplePreparationForm from "./SamplePreparationForm";
 
@@ -29,6 +29,12 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
     } finally {
       formikHelpers.setSubmitting(false);
     }
+  };
+
+  const removeSumittedRow = (collectionSystemId: string) => {
+    setData(
+      (d) => d?.filter((x) => x.collectionSystemId === collectionSystemId) || []
+    );
   };
 
   const initialValues: InitialValues = {
@@ -180,7 +186,11 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
                 </thead>
                 <tbody className="text-sm divide-y divide-gray-100">
                   {data?.map((row, key) => (
-                    <SamplePreparationForm key={key} row={row} />
+                    <SamplePreparationForm
+                      key={key}
+                      row={row}
+                      removeSumittedRow={removeSumittedRow}
+                    />
                   ))}
                 </tbody>
               </table>

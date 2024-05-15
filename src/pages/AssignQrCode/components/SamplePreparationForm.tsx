@@ -6,9 +6,11 @@ import { SamplePreparation, submitSamplePreparation } from "../../../services";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useAuth } from "../../../context/auth";
+import Swal from "sweetalert2";
 
 interface SamplePreparationFormProps {
   row: SamplePreparation;
+  removeSumittedRow: (collectionSystemId: string) => void;
 }
 
 interface InitialValues {
@@ -30,7 +32,10 @@ interface InitialValues {
   createdBy: string;
 }
 
-const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
+const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
+  row,
+  removeSumittedRow,
+}) => {
   const { user } = useAuth();
   const mutation = useMutation({
     mutationFn: submitSamplePreparation,
@@ -48,6 +53,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({ row }) => {
         preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
         ...rest,
       });
+      removeSumittedRow(row.collectionSystemId);
+      Swal.fire("Successfully Inserted!");
       formikHelpers.resetForm();
     } catch (e) {
     } finally {
