@@ -1,9 +1,6 @@
 import { FC, Fragment, useState } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
-import {
-  getJRFList,
-  GetJRFListResponse
-} from "../../../services";
+import { getJRFList, GetJRFListResponse } from "../../../services";
 
 interface CollectionProps {
   plantModelsByDespatchDate:
@@ -16,8 +13,16 @@ interface InitialValues {
   despatchDate: string;
 }
 
+interface CreateJRFInitialValues {
+  data: Array<{
+    checked: boolean;
+    jrfNumber: string;
+  }>;
+}
+
 const CollectionCard: FC<CollectionProps> = ({ plantModelsByDespatchDate }) => {
   const [data, setData] = useState<GetJRFListResponse>();
+  const [plantId, setPlantId] = useState<string>();
   const onSubmit = async (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
@@ -25,8 +30,21 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsByDespatchDate }) => {
     try {
       const { data } = await getJRFList(values);
       setData(data);
+      setPlantId(values.plantId);
     } catch (e) {
       setData([]);
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
+  };
+
+  const handleSubmitJRF = (
+    values: CreateJRFInitialValues,
+    formikHelpers: FormikHelpers<CreateJRFInitialValues>
+  ) => {
+    try {
+      
+    } catch (e) {
     } finally {
       formikHelpers.setSubmitting(false);
     }
@@ -35,6 +53,11 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsByDespatchDate }) => {
   const initialValues: InitialValues = {
     plantId: "",
     despatchDate: "",
+  };
+
+  const createJRFInitialValues = {
+    data:
+      data?.map((row) => ({ checked: false, jrfNumber: row.jrfNumber })) || [],
   };
 
   return (
@@ -110,50 +133,64 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsByDespatchDate }) => {
             </div>
           )}
         </Formik>
-        {data?.length ? (
-          <div className="mt-10">
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full">
-                <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
-                  <tr>
-                    <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        JRF No.
-                      </div>
-                    </th>
-                    <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        Download Document
-                      </div>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm divide-y divide-gray-100">
-                  {data?.map((row, key) => (
-                    <tr key={key}>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="font-medium text-gray-800">
-                            {row.jrfNumber}
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <a
-                          href={row.jrfUrl}
-                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                          download
-                        >
-                          Download
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ) : null}
+        <Formik
+          initialValues={createJRFInitialValues}
+          onSubmit={handleSubmitJRF}
+          enableReinitialize
+        >
+          {({ values, submitForm }) => (
+            <Fragment>
+              {data?.length ? (
+                <div className="mt-10">
+                  <div className="overflow-x-auto">
+                    <table className="table-auto w-full">
+                      <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
+                        <tr>
+                          <th className="p-2 whitespace-nowrap">
+                            <div className="font-semibold text-left">
+                              Sample ID
+                            </div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-sm divide-y divide-gray-100">
+                        {values?.data?.map((row, key) => (
+                          <tr key={key}>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <Field
+                                  type="checkbox"
+                                  id={`data.${key}.checked`}
+                                  name={`data.${key}.checked`}
+                                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 cursor-pointer"
+                                />
+                                <label
+                                  htmlFor={`data.${key}.checked`}
+                                  className="font-medium text-gray-800 cursor-pointer"
+                                >
+                                  {row.jrfNumber}
+                                </label>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="flex items-center justify-start mt-5">
+                    <button
+                      onClick={submitForm}
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </Fragment>
+          )}
+        </Formik>
       </div>
     </Fragment>
   );
