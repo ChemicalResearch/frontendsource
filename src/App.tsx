@@ -15,6 +15,7 @@ import LabHeadProgress from "./pages/lab-head-progress";
 import LabCertificate from "./pages/LabCertificate";
 import TestResult from "./pages/TestResult";
 import SampleCollectionDetails from "./pages/SampleCollection/Details";
+import LaboratoryActivity from "./pages/LaboratoryActivity";
 
 import RequiredAuth from "./components/RequiredAuth";
 
@@ -43,7 +44,7 @@ function App() {
         <Route path="chemist-action" element={<ChemistAction />} />
         <Route path="test-result" element={<TestResult />} />
         <Route path="create-jrf" element={<CreateJrf />} />
-        <Route path="lab-activity" element={<TestResult />} />
+        <Route path="lab-activity" element={<LaboratoryActivity />} />
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="*" element={<h1>No Match</h1>} />
