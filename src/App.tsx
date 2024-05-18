@@ -43,6 +43,7 @@ function App() {
         <Route path="chemist-action" element={<ChemistAction />} />
         <Route path="test-result" element={<TestResult />} />
         <Route path="create-jrf" element={<CreateJrf />} />
+        <Route path="lab-activity" element={<TestResult />} />
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="*" element={<h1>No Match</h1>} />
