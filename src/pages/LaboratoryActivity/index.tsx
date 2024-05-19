@@ -25,7 +25,10 @@ const LabActivity = () => {
   };
 
   const getSamples = useCallback(async () => {
-    if (!jrfNumber) return;
+    if (!jrfNumber) {
+      setSamples([]);
+      return;
+    }
     try {
       const { data } = await getLabactivitySamples({ jrfNumber });
       setSamples(data);
