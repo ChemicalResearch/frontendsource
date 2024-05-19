@@ -89,7 +89,7 @@ const VerificationOfTestResult = () => {
     <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
       <div className="grid gap-4 gap-y-2 text-sm grid-cols-4">
         <div className="col-span-1">
-          <div className="font-semibold text-left mb-2">JRF No.</div>
+          <div className="font-semibold text-left mb-2">JRF No. Alive</div>
           <ul>
             {data?.map((x, key) => (
               <li key={key}>
