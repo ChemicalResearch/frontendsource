@@ -1,14 +1,24 @@
 import { FC } from "react";
-import { LabActivitySample } from "../../services/lab-activity-jrfs";
-import { Field, Formik } from "formik";
+import {
+  LabActivitySample,
+  submitLabActivity,
+} from "../../services/lab-activity-jrfs";
+import { Field, Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useMutation } from "@tanstack/react-query";
+import dayjs from "dayjs";
+import Swal from "sweetalert2";
 
 interface LabActivitySampleRowProps {
   sample: LabActivitySample;
 }
 
-interface LabActivitySampleBodyRowInitialValues extends LabActivitySample {
+interface LabActivitySampleBodyRowInitialValues {
+  qrcode: string;
+  jrfNumber: string;
+  tcrcSampleId: string;
+  despatchDate: string;
   receivedOn: Date | null;
   labcode: string;
   testStartDate: Date | null;
@@ -17,16 +27,42 @@ interface LabActivitySampleBodyRowInitialValues extends LabActivitySample {
 const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
   sample,
 }) => {
+  const mutation = useMutation({
+    mutationFn: submitLabActivity,
+  });
+
+  const onSubmit = async (
+    values: LabActivitySampleBodyRowInitialValues,
+    formikHelpers: FormikHelpers<LabActivitySampleBodyRowInitialValues>
+  ) => {
+    try {
+      const { receivedOn, testStartDate, ...rest } = values;
+      await mutation.mutateAsync({
+        ...rest,
+        receivedOn: dayjs(receivedOn).format("YYYY-MM-DD"),
+        testStartDate: dayjs(testStartDate).format("YYYY-MM-DD"),
+      });
+      Swal.fire("Successfully Submited");
+      formikHelpers.resetForm();
+    } catch (e) {
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
+  };
+
   const initialValues: LabActivitySampleBodyRowInitialValues = {
-    ...sample,
+    despatchDate: sample.despatchDate,
+    jrfNumber: sample.jrfNumber,
+    labcode: sample.labcode,
+    qrcode: sample.qrcode,
     receivedOn: null,
-    labcode: "",
+    tcrcSampleId: sample.tcrcSampleId,
     testStartDate: null,
   };
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={console.log}
+      onSubmit={onSubmit}
       enableReinitialize
     >
       {({ values, isSubmitting, submitForm, setFieldValue }) => (
@@ -38,10 +74,10 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
             <div className="text-left">{values.tcrcSampleId}</div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{values.dispatchDate}</div>
+            <div className="text-left">{values.despatchDate}</div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{values.tcrcRefNumber}</div>
+            <div className="text-left">{"values.tcrcRefNumber"}</div>
           </td>
           <td className="p-2 whitespace-nowrap">
             <div className="text-center">

@@ -25,18 +25,7 @@ export type GetLabactivitySamplesParams = {
   jrfNumber: string;
 };
 
-// export type LabActivitySample = {
-//   commodity: string;
-//   dispatchDate: string;
-//   jrfNumber: string;
-//   jrfTableModels: string;
-//   jrfUrl: string;
-//   noOfSample: string;
-//   plantEmail: string;
-//   tcrcRefNumber: string;
-//   tcrcSampleId: string;
-// };
-export type LabActivitySample = {
+export interface LabActivitySample {
   labHeadName: string;
   labHeadId: string;
   qrcode: string;
@@ -49,7 +38,8 @@ export type LabActivitySample = {
   labcode: string;
   testStartDate: string;
   labDetails: string;
-};
+}
+
 export type SubmitLabActivitySammple = {
   qrcode: string;
   jrfNumber: string;
@@ -70,7 +60,17 @@ export const getLabactivitySamples = (params: GetLabactivitySamplesParams) => {
   );
 };
 
-export const submitLabActivity = (body: SubmitLabActivitySammple) => {
+export type SubmitLabActivityBody = {
+  qrcode: string;
+  jrfNumber: string;
+  tcrcSampleId: string;
+  despatchDate: string;
+  receivedOn: string;
+  labcode: string;
+  testStartDate: string;
+};
+
+export const submitLabActivity = (body: SubmitLabActivityBody) => {
   return apiClient.post<any, AxiosResponse<getLabActivityResponse>>(
     "/submitlabactivity",
     body
