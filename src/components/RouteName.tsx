@@ -44,6 +44,18 @@ const RouteName: React.FC = () => {
     case "/lab-activity":
       routeName = "Laboratory Activity";
       break;
+    case "/test-progress":
+      routeName = "Test Progress";
+      break;
+    case "/tm-entry-at-plant":
+      routeName = "TM Entry at Plant";
+      break;
+    case "/verification-of-test-result":
+      routeName = "Verification of Test Result";
+      break;
+    case "/final-report":
+      routeName = "Final Report";
+      break;
     default:
       routeName = "Unknown";
   }
