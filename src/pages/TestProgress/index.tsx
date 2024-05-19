@@ -6,7 +6,7 @@ import TestProgressBodyRow from "./TestProgressBodyRow";
 
 const TestProgress = () => {
   const { data } = useQuery({
-    queryKey: ["laboratory-activity"],
+    queryKey: ["test-progress-jrf"],
     queryFn: async () => {
       const { data } = await getTestProgressJRF();
       return data;
@@ -14,29 +14,28 @@ const TestProgress = () => {
   });
 
   const [jrfNumber, setJrfNumber] = useState<string>("");
-  const [samples, setSamples] = useState<GetTestProgressListResponse>();
+  const [testProgress, setTestProgress] = useState<GetTestProgressListResponse>();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setJrfNumber((prev) => (prev === value ? "" : value));
   };
 
-  const getSamples = useCallback(async () => {
+  const getTestProgress = useCallback(async () => {
     if (!jrfNumber) {
-      setSamples([]);
+      setTestProgress([]);
       return;
     }
     try {
       const { data } = await getTestProgressList({ jrfNumber });
-      console.log(data)
-      setSamples(data);
+      setTestProgress(data);
     } catch (e) {
     } finally {
     }
   }, [jrfNumber]);
 
   useEffect(() => {
-    getSamples();
-  }, [getSamples]);
+    getTestProgress();
+  }, [getTestProgress]);
 
   return (
     <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
@@ -61,7 +60,7 @@ const TestProgress = () => {
           </ul>
         </div>
         <div className="col-span-3">
-          {!!samples?.length ? (
+          {!!testProgress?.length ? (
             <div className="p-3">
               <div className="overflow-x-auto">
                 <table className="table-auto w-full">
@@ -69,8 +68,8 @@ const TestProgress = () => {
                     <TestProgressHeadRow />
                   </thead>
                   <tbody className="text-sm divide-y divide-gray-100">
-                    {samples?.map((sample, key) => (
-                      <TestProgressBodyRow key={key} sample={sample} />
+                    {testProgress?.map((progress, key) => (
+                      <TestProgressBodyRow key={key} progress={progress} />
                     ))}
                   </tbody>
                 </table>
