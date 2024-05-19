@@ -17,6 +17,7 @@ import TestResult from "./pages/TestResult";
 import SampleCollectionDetails from "./pages/SampleCollection/Details";
 import LaboratoryActivity from "./pages/LaboratoryActivity";
 import TestProgress from "./pages/TestProgress";
+import VerificationOfTestResult from "./pages/VerificationOfTestResult";
 
 import RequiredAuth from "./components/RequiredAuth";
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="create-jrf" element={<CreateJrf />} />
         <Route path="lab-activity" element={<LaboratoryActivity />} />
         <Route path="test-progress" element={<TestProgress />} />
+        <Route path="verification-of-test-result" element={<VerificationOfTestResult />} />
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="*" element={<h1>No Match</h1>} />
