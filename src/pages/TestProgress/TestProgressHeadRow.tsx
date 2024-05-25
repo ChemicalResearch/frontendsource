@@ -24,9 +24,6 @@ const TestProgressHeadRow = () => (
         <div className="font-semibold text-left">ASH</div>
       </th>
       <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">FC</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">GCV</div>
       </th>
       <th className="p-2 whitespace-nowrap">

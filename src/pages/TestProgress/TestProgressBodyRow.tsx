@@ -110,9 +110,6 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
             </div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">"FC"</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
             <div className="text-left">
               <Field
                 id="adbGCV"
