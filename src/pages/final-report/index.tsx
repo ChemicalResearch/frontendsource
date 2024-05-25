@@ -1,15 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { getFinalReport } from "../../services";
 import FinalReportBodyRow from "./components/FinalReportBodyRow";
 
+export const finalReportsOptions = queryOptions({
+  queryKey: ["final-reports"],
+  queryFn: async () => {
+    const { data } = await getFinalReport();
+    return data;
+  },
+});
+
 function FinalReport() {
-  const { data } = useQuery({
-    queryKey: ["final-reports"],
-    queryFn: async () => {
-      const { data } = await getFinalReport();
-      return data;
-    },
-  });
+  const { data, isLoading } = useQuery(finalReportsOptions);
+  if(isLoading) return "Loading..."
   return (
     <div className="flex flex-col gap-4">
       <div className="w-full bg-white shadow rounded-lg border border-gray-200">

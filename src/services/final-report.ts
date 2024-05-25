@@ -3,7 +3,7 @@ import { apiClient } from "../config/api-client";
 
 export type FinalReport = {
   jrfNumber: string;
-  labReportnumber: string;
+  labReportNumber: string;
   reportNumber: string;
   labReportDate: string;
   testReport: string;
@@ -15,15 +15,15 @@ export const getFinalReport = () => {
     `/getfinalreport`
   );
 };
-type SubmitFinalReport = {
+type SubmitFinalReportBody = {
   jrfNumber: string;
-  labReportnumber: string;
+  labReportNumber: string;
   reportNumber: string;
   labReportDate: string;
   testReport: string;
   gcvReport: string;
 };
 
-export const submitFinalReport = (body: SubmitFinalReport) => {
+export const submitFinalReport = (body: SubmitFinalReportBody) => {
   return apiClient.post("/submitfinalreport", body);
 };

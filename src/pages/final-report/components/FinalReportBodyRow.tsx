@@ -1,9 +1,12 @@
-import { FC, useCallback } from "react";
+import { FC } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Formik, Field, FormikHelpers } from "formik";
-import { FinalReport } from "../../../services";
+import { FinalReport, submitFinalReport } from "../../../services";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
+import { DownloadLinkButton } from "../../../components/buttons";
 
 type FinalReportFormikInitialValues = {
   jrfNumber: string;
@@ -19,29 +22,53 @@ type FinalReportBodyRowProps = {
 };
 
 const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: submitFinalReport,
+  });
+
   const initialValues: FinalReportFormikInitialValues = {
     gcvReport: report.gcvReport,
     jrfNumber: report.jrfNumber,
     labReportDate: null,
-    labReportNumber: report.labReportnumber || "",
+    labReportNumber: report.labReportNumber || "",
     reportNumber: report.reportNumber || "",
     testReport: report.testReport,
   };
 
-  const onSubmit = useCallback<
-    (
-      values: FinalReportFormikInitialValues,
-      formikHelpers: FormikHelpers<FinalReportFormikInitialValues>
-    ) => Promise<void>
-  >(async (values, formikHelpers) => {
+  const onSubmit = async (
+    values: FinalReportFormikInitialValues,
+    formikHelpers: FormikHelpers<FinalReportFormikInitialValues>
+  ) => {
     try {
       const { labReportDate, ...rest } = values;
-      console.log({...rest, labReportDate: dayjs(labReportDate).format("YYYY-MM-DD")})
+      await mutation.mutateAsync(
+        {
+          ...rest,
+          labReportDate: dayjs(labReportDate).format("YYYY-MM-DD"),
+        },
+        {
+          onSuccess(data) {
+            if (data) {
+              queryClient.setQueryData(
+                ["final-reports"],
+                (reports: Array<FinalReport> | undefined) => {
+                  return reports?.filter(
+                    (report) => report.jrfNumber !== values.jrfNumber
+                  );
+                }
+              );
+            }
+          },
+        }
+      );
+      Swal.fire("Successfully Submited");
+      formikHelpers.resetForm();
     } catch (e) {
     } finally {
       formikHelpers.setSubmitting(false);
     }
-  }, []);
+  };
 
   return (
     <Formik
@@ -79,42 +106,10 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
             />
           </td>
           <td className="p-2 whitespace-nowrap">
-            <button className="flex items-center px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 mx-auto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-            </button>
+            <DownloadLinkButton href={values.testReport} className="mx-auto" />
           </td>
           <td className="p-2 whitespace-nowrap">
-            <button className="flex items-center px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 mx-auto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-            </button>
+            <DownloadLinkButton href={values.gcvReport} className="mx-auto" />
           </td>
           <td className="p-2 whitespace-nowrap">
             <button
