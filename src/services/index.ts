@@ -13,4 +13,5 @@ export * from "./assign-qr";
 export * from "./create-jrf";
 export * from "./final-report";
 export * from "./tm";
+export * from "./dashboard";
 
