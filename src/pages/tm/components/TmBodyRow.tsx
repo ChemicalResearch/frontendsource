@@ -26,7 +26,7 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm }) => {
   const initialValues: TmFormikInitialValues = {
     tcrcQRCode: tm.tcrcQRCode,
     tmEntryDate: null,
-    tmValue: tm.tmValue,
+    tmValue: tm.tmValue || "",
   };
 
   const onSubmit = async (
