@@ -21,6 +21,7 @@ import VerificationOfTestResult from "./pages/VerificationOfTestResult";
 
 import RequiredAuth from "./components/RequiredAuth";
 import FinalReport from "./pages/final-report";
+import Tm from "./pages/tm";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="lab-head-progress" element={<LabHeadProgress />} />
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="final-report" element={<FinalReport />} />
+        <Route path="tm-entry-at-plant" element={<Tm />} />
 
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
