@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useState, useEffect } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import {
   getsamplepreparationlist,
@@ -51,69 +51,76 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
           displayPlantModels
           onSubmit={onSubmit}
         >
-          {({ submitForm, values, isSubmitting }) => (
-            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 items-end">
-              <div className="md:col-span-2">
-                <label
-                  htmlFor="countries"
-                  className="block mb-2 text-sm font-medium text-gray-90"
-                >
-                  Select Planned Prep Date
-                </label>
-                <Field
-                  as="select"
-                  id="plannedPrepDate"
-                  name="plannedPrepDate"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option>Select</option>
+          {({ submitForm, values, isSubmitting, setFieldValue }) => {
+            // Reset plantId if plannedPrepDate has been changed
+            useEffect(() => {
+              setFieldValue("plantId", "");
+            }, [values.plannedPrepDate, setFieldValue]);
 
-                  {plantModelsBydate
-                    ? Object.keys(plantModelsBydate)?.map((d: any) => (
-                        <option key={d} value={d}>
-                          {d}
-                        </option>
-                      ))
-                    : null}
-                </Field>
-              </div>
-              <div className="md:col-span-2">
-                <label
-                  htmlFor="countries"
-                  className="block mb-2 text-sm font-medium text-gray-90"
-                >
-                  Select Plant
-                </label>
-                <Field
-                  as="select"
-                  id="plantId"
-                  name="plantId"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
-                  <option>Select</option>
-                  {plantModelsBydate
-                    ? plantModelsBydate?.[values.plannedPrepDate]?.map(
-                        (d: any) => (
-                          <option key={d.plantId} value={d.plantId}>
-                            {d.plantName}
+            return (
+              <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 items-end">
+                <div className="md:col-span-2">
+                  <label
+                    htmlFor="countries"
+                    className="block mb-2 text-sm font-medium text-gray-90"
+                  >
+                    Select Planned Prep Date
+                  </label>
+                  <Field
+                    as="select"
+                    id="plannedPrepDate"
+                    name="plannedPrepDate"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
+                    <option>Select</option>
+
+                    {plantModelsBydate
+                      ? Object.keys(plantModelsBydate)?.map((d: any) => (
+                          <option key={d} value={d}>
+                            {d}
                           </option>
+                        ))
+                      : null}
+                  </Field>
+                </div>
+                <div className="md:col-span-2">
+                  <label
+                    htmlFor="countries"
+                    className="block mb-2 text-sm font-medium text-gray-90"
+                  >
+                    Select Plant
+                  </label>
+                  <Field
+                    as="select"
+                    id="plantId"
+                    name="plantId"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
+                    <option>Select</option>
+                    {plantModelsBydate
+                      ? plantModelsBydate?.[values.plannedPrepDate]?.map(
+                          (d: any) => (
+                            <option key={d.plantId} value={d.plantId}>
+                              {d.plantName}
+                            </option>
+                          )
                         )
-                      )
-                    : null}
-                </Field>
+                      : null}
+                  </Field>
+                </div>
+                <div className="md:col-span-1">
+                  <button
+                    onClick={submitForm}
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+                    disabled={isSubmitting}
+                  >
+                    Search
+                  </button>
+                </div>
               </div>
-              <div className="md:col-span-1">
-                <button
-                  onClick={submitForm}
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                  disabled={isSubmitting}
-                >
-                  Search
-                </button>
-              </div>
-            </div>
-          )}
+            );
+          }}
         </Formik>
         {data?.length ? (
           <div className="mt-10">
