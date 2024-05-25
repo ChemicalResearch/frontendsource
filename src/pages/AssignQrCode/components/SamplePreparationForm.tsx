@@ -109,7 +109,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="tmSealNo"
                 name="tmSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -118,7 +118,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="tcrcSealNo"
                 name="tcrcSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -127,7 +127,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="plantSealNo"
                 name="plantSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -136,7 +136,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="refereeSealNo"
                 name="refereeSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -145,7 +145,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="tcrcQrCode"
                 name="tcrcQrCode"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -154,7 +154,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="plantQrCode"
                 name="plantQrCode"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -163,7 +163,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="refereeQrCode"
                 name="refereeQrCode"
-                className="h-10 border rounded px-4 w-full bg-gray-50"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
