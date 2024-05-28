@@ -156,7 +156,7 @@ const CollectionCard: FC<CollectionProps> = ({ plantModelsByDespatchDate }) => {
                   <Fragment>
                     {data?.length ? (
                       <div className="mt-10">
-                        <div className="overflow-x-auto">
+                        <div>
                           <table className="table-auto w-full">
                             <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
                               <tr>

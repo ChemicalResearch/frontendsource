@@ -56,7 +56,7 @@ function SampleCollectionDetails() {
                 </th>
                 <th className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    Go to Preparation
+                   Action
                   </div>
                 </th>
               </tr>
@@ -75,10 +75,14 @@ function SampleCollectionDetails() {
                     </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">{d.customerText}</div>
+                    <div className="font-semibold text-left">
+                      {d.customerText}
+                    </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">{d.commodityText}</div>
+                    <div className="font-semibold text-left">
+                      {d.commodityText}
+                    </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">
@@ -86,24 +90,32 @@ function SampleCollectionDetails() {
                     </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">{d.vehicleNumber}</div>
+                    <div className="font-semibold text-center">
+                      {d.vehicleNumber}
+                    </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">{d.quantity}</div>
+                    <div className="font-semibold text-center">
+                      {d.quantity}
+                    </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">{d.mineText}</div>
+                    <div className="font-semibold text-center">
+                      {d.mineText}
+                    </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">{d.startTime}</div>
+                    <div className="font-semibold text-center">
+                      {d.startTime}
+                    </div>
                   </td>
                   <td className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-center">{d.endTime}</div>
                   </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Go to Preparation
-                    </div>
+                  <td className="p-2 whitespace-nowrap text-center">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto">
+                      Live
+                    </button>
                   </td>
                 </tr>
               ))}
