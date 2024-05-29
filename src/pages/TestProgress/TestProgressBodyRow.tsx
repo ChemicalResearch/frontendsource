@@ -87,7 +87,7 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
               <Field
                 id="adbIM"
                 name="adbIM"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -96,7 +96,7 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
               <Field
                 id="adbVM"
                 name="adbVM"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -105,7 +105,7 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
               <Field
                 id="adbAsh"
                 name="adbAsh"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -114,7 +114,7 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
               <Field
                 id="adbGCV"
                 name="adbGCV"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
