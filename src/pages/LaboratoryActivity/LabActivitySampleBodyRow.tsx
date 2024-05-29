@@ -87,7 +87,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
                 dateFormat="yyyy-MM-dd"
                 placeholderText="YYYY-MM-DD"
                 withPortal
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-32 bg-gray-50"
               />
             </div>
           </td>
@@ -96,7 +96,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
               <Field
                 id="labcode"
                 name="labcode"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
           </td>
@@ -108,7 +108,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
                 dateFormat="yyyy-MM-dd"
                 placeholderText="YYYY-MM-DD"
                 withPortal
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4 w-32 bg-gray-50"
               />
             </div>
           </td>

@@ -75,7 +75,7 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
                 dateFormat="yyyy-MM-dd"
                 placeholderText="YYYY-MM-DD"
                 withPortal
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                className="h-10 border mt-1 rounded px-4  bg-gray-50 w-32"
               />
             </div>
           </td>
