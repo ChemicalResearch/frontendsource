@@ -1,4 +1,5 @@
 import ActiveNavLink from "./ActiveNavLink";
+import imgLogo from "../assets/images/logo.png";
 
 const SideMenu = () => {
   return (
@@ -8,11 +9,12 @@ const SideMenu = () => {
     >
       <div className="px-6">
         <a
-          className="flex-none text-xl font-semibold"
+          className="flex items-center gap-4 text-xl font-semibold"
           href="#"
-          aria-label="Sample Analysis"
+          aria-label="TCRC"
         >
-          Sample Analysis
+          <img src={imgLogo} alt="logo" height={36} width={36}/>
+          <b>TCRC</b>
         </a>
       </div>
 
