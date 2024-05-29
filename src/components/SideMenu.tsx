@@ -14,7 +14,7 @@ const SideMenu = () => {
           aria-label="TCRC"
         >
           <img src={imgLogo} alt="logo" height={36} width={36}/>
-          <b>TCRC</b>
+          <b className="text-[#ef2328]">TCRC</b>
         </a>
       </div>
 
