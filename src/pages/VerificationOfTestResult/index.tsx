@@ -179,10 +179,7 @@ const VerificationOfTestResult = () => {
                                 {verification.verificationFlag}
                               </div>
                             </td>
-                            <td
-                              className="p-2 whitespace-nowrap"
-                              rowSpan={verificationList.length}
-                            >
+                            <td className="p-2 whitespace-nowrap">
                               <input
                                 type="file"
                                 className="block w-48 text-sm text-gray-500
@@ -201,10 +198,7 @@ const VerificationOfTestResult = () => {
                                 }}
                               />
                             </td>
-                            <td
-                              className="p-2 whitespace-nowrap"
-                              rowSpan={verificationList.length}
-                            >
+                            <td className="p-2 whitespace-nowrap">
                               <input
                                 type="file"
                                 className="block w-48 text-sm text-gray-500
@@ -225,7 +219,6 @@ const VerificationOfTestResult = () => {
                             </td>
                             <td
                               className="p-2 whitespace-nowrap"
-                              rowSpan={verificationList.length}
                             >
                               <div className="flex items-center justify-center">
                                 <button
