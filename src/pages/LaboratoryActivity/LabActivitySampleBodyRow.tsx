@@ -77,7 +77,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
             <div className="text-left">{values.despatchDate}</div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{"values.tcrcRefNumber"}</div>
+            <div className="text-left">{values.qrcode}</div>
           </td>
           <td className="p-2 whitespace-nowrap">
             <div className="text-center">
