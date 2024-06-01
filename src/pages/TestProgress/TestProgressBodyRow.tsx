@@ -68,6 +68,9 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
       {({ values, isSubmitting, submitForm, setFieldValue }) => (
         <tr>
           <td className="p-2 whitespace-nowrap">
+            <div className="text-left">{values.tcrcSampleId}</div>
+          </td>
+          <td className="p-2 whitespace-nowrap">
             <div className="text-left">
               <DatePicker
                 selected={values.testEndDate}
@@ -80,7 +83,11 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
             </div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{values.arbTM}</div>
+            <Field
+              id="arbTM"
+              name="arbTM"
+              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
+            />
           </td>
           <td className="p-2 whitespace-nowrap">
             <div className="text-left">
@@ -114,6 +121,15 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
               <Field
                 id="adbGCV"
                 name="adbGCV"
+                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
+              />
+            </div>
+          </td>
+          <td className="p-2 whitespace-nowrap">
+            <div className="text-left">
+              <Field
+                id="ebEM"
+                name="ebEM"
                 className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
               />
             </div>
