@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
+import { DownloadLinkButton } from "../../components/buttons";
 
 interface LabActivitySampleRowProps {
   sample: LabActivitySample;
@@ -17,6 +18,7 @@ interface LabActivitySampleRowProps {
 interface LabActivitySampleBodyRowInitialValues {
   qrcode: string;
   jrfNumber: string;
+  jrfUrl:string;
   tcrcSampleId: string;
   despatchDate: string;
   receivedOn: Date | null;
@@ -53,6 +55,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
   const initialValues: LabActivitySampleBodyRowInitialValues = {
     despatchDate: sample.despatchDate,
     jrfNumber: sample.jrfNumber,
+    jrfUrl:sample.jrfUrl,
     labcode: sample.labcode,
     qrcode: sample.qrcode,
     receivedOn: null,
@@ -114,6 +117,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
           </td>
           <td className="p-2 whitespace-nowrap">
             <div className="flex items-center justify-center">
+            <DownloadLinkButton href={values.jrfUrl} className="mr-4" />
               <button
                 type="button"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"

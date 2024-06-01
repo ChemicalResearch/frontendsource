@@ -30,6 +30,7 @@ export interface LabActivitySample {
   labHeadId: string;
   qrcode: string;
   jobNumber: string;
+  jrfUrl:string;
   certificateurl: string;
   jrfNumber: string;
   tcrcSampleId: string;

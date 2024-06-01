@@ -124,7 +124,7 @@ const CollectionCard = () => {
               <table className="table-auto w-full">
                 <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
                   <tr>
-                    <th className="p-2 whitespace-nowrap sticky left-0">
+                    <th className="p-2 whitespace-nowrap">
                       <div className="font-semibold text-left">
                         TCRC Reference No.
                       </div>
