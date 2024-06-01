@@ -20,13 +20,14 @@ export const getSamplePselectionData = queryOptions({
 
 function assignQr() {
   const { data } = useQuery(getSamplePselectionData);
+  
   const plantModelsBydate = useMemo(() => {
     return data?.reduce((prev:any,current) => {
       return ({...prev,[current.plannedDate]:current.plantModels})
     }, {} as Record<string,{plantId: string,
     plantName: string}>);
   }, [data]);
-  console.log({ plantModelsBydate });
+
   return (
     <div>
       <Collection plantModelsBydate={plantModelsBydate} />

@@ -17,6 +17,7 @@ interface InitialValues {
 
 const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
   const [data, setData] = useState<GetsamplepreparationlistResponse>();
+  
   const onSubmit = async (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>

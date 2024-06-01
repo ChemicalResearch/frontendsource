@@ -6,16 +6,12 @@ import {
 } from "../../../services";
 import SamplePreparationForm from "./SamplePreparationForm";
 
-interface CollectionProps {
-  plantModelsBydate: any;
-}
-
 interface InitialValues {
   plantId: string;
   plannedPrepDate: string;
 }
 
-const CollectionCard: FC<CollectionProps> = ({ plantModelsBydate }) => {
+const CollectionCard = () => {
   const [data, setData] = useState<GetsamplepreparationlistResponse>();
   const onSubmit = async (
     values: InitialValues,
