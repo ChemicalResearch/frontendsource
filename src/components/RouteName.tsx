@@ -56,6 +56,9 @@ const RouteName: React.FC = () => {
     case "/final-report":
       routeName = "Final Report";
       break;
+      case "/view-preparation":
+      routeName = "View Preparation";
+      break;
     default:
       routeName = "Unknown";
   }

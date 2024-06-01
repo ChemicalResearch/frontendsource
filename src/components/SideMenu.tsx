@@ -13,7 +13,7 @@ const SideMenu = () => {
           href="#"
           aria-label="TCRC"
         >
-          <img src={imgLogo} alt="logo" height={36} width={36}/>
+          <img src={imgLogo} alt="logo" height={36} width={36} />
           <b className="text-[#ef2328]">TCRC</b>
         </a>
       </div>
@@ -112,6 +112,46 @@ const SideMenu = () => {
             </ActiveNavLink>
           </li>
           <li>
+            <ActiveNavLink to="/view-preparation">
+              <svg
+                className="flex-shrink-0 w-4 h-4"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+              View Preparation
+            </ActiveNavLink>
+          </li>
+          <li>
+            <ActiveNavLink to="/tm-entry-at-plant">
+              <svg
+                className="flex-shrink-0 w-4 h-4"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+              TM Entry at Plant
+            </ActiveNavLink>
+          </li>
+          <li>
             <ActiveNavLink to="/create-jrf">
               <svg
                 className="flex-shrink-0 w-4 h-4"
@@ -169,26 +209,6 @@ const SideMenu = () => {
                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
               Test Progress
-            </ActiveNavLink>
-          </li>
-          <li>
-            <ActiveNavLink to="/tm-entry-at-plant">
-              <svg
-                className="flex-shrink-0 w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-              </svg>
-              TM Entry at Plant
             </ActiveNavLink>
           </li>
           <li>
