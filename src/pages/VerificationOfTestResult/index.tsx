@@ -291,7 +291,7 @@ const VerificationOfTestResult = () => {
                               className="p-2 whitespace-nowrap"
                             >
                                
-                              <div className="flex items-center justify-center">
+                              <div className="flex items-center justify-center gap-2">
                               <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
                                 <button
                                   type="button"
