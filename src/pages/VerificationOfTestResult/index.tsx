@@ -9,11 +9,12 @@ import {
 } from "../../services/verification-of-test-result";
 import { Formik, FormikHelpers } from "formik";
 import Swal from "sweetalert2";
-
+import { DownloadLinkButton } from "../../components/buttons";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;
   gcvReport: File | null;
   jrfNumber: string;
+
 }
 
 const VerificationOfTestResult = () => {
@@ -83,6 +84,7 @@ const VerificationOfTestResult = () => {
     gcvReport: null,
     jrfNumber,
     testReport: null,
+    
   };
 
   return (
@@ -131,14 +133,15 @@ const VerificationOfTestResult = () => {
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.jrfNumber}
+                                {verification.tcrcQrCode}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.tcrcQrCode}
+                                {verification.jrfNumber}
                               </div>
                             </td>
+                            
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.tcrcSampleId}
@@ -156,9 +159,10 @@ const VerificationOfTestResult = () => {
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbVM}
+                                {verification.arbVM}
                               </div>
                             </td>
+                            
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.adbAsh}
@@ -166,72 +170,68 @@ const VerificationOfTestResult = () => {
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
+                                {verification.arbFC}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            {/* <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
                                 {verification.adbAsh}
                               </div>
-                            </td>
+                            </td> */}
+                            
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbAsh}
+                                {verification.arbGCV}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.emEM}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.emVM}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.emAsh}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.emFC}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.emGCV}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.emBand}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.adbFc}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
+                                {verification.adbBand}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.adbGCV}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbGCV}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbGCV}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.ebEM}
+                                {verification.arbBand}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
@@ -239,6 +239,16 @@ const VerificationOfTestResult = () => {
                                 {verification.verificationFlag}
                               </div>
                             </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.testReport}
+                              </div>
+                            </td>
+                            {/* <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.testEndDate}
+                              </div>
+                            </td> */}
                             <td className="p-2 whitespace-nowrap">
                               <input
                                 type="file"
@@ -280,7 +290,9 @@ const VerificationOfTestResult = () => {
                             <td
                               className="p-2 whitespace-nowrap"
                             >
+                               
                               <div className="flex items-center justify-center">
+                              <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
                                 <button
                                   type="button"
                                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
