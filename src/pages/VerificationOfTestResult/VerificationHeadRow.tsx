@@ -15,9 +15,7 @@ const VerificationHeadRow = () => (
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-left">JRF Number</div>
       </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">JRF Number</div>
-      </th>
+      
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-left">TCRC Sample ID</div>
       </th>
@@ -33,9 +31,7 @@ const VerificationHeadRow = () => (
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-left">ADB ASH</div>
       </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB ASH</div>
-      </th>
+    
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-left">ARB FC</div>
       </th>

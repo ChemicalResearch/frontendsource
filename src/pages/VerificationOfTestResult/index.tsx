@@ -166,6 +166,66 @@ const VerificationOfTestResult = () => {
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
+                                {verification.adbAsh}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbAsh}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
                                 {verification.adbGCV}
                               </div>
                             </td>
