@@ -91,7 +91,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
     >
       {({ submitForm, setFieldValue, isSubmitting, values }) => (
         <tr>
-          <td className="p-2 whitespace-nowrap sticky left-0 z-50">
+          <td className="p-2 whitespace-nowrap  z-50">
             <div className="flex items-center">
               <div className="font-medium text-gray-800">
                 {row.tcrcReferenceNumber}
