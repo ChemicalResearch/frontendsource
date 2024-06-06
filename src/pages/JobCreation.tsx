@@ -143,7 +143,7 @@ function JobCreation() {
                       ))}
                     </Field>
                   </div>
-                  <div className="md:col-span-2">
+                  {/* <div className="md:col-span-2">
                     <label
                       htmlFor="countries"
                       className="block mb-2 text-sm font-medium text-gray-900"
@@ -171,7 +171,7 @@ function JobCreation() {
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
                   <div className="md:col-span-2">
                     <label
                       htmlFor="commodityGroup"
