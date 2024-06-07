@@ -6,12 +6,13 @@ import { TestProgress, submitTestDetail } from "../../services/test-progress";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
-
+import CurrencyInput from "react-currency-input-field";
+import DecimalInput from "../../components/inputs/DecimalInput";
 interface TestProgressBodyRowProps {
   progress: TestProgress;
 }
 
-interface TestProgressBodyRowInitialValues {
+export interface TestProgressBodyRowInitialValues {
   tcrcSampleId: string;
   jrfNumber: string;
   tcrcQrCode: string;
@@ -67,6 +68,7 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
     >
       {({ values, isSubmitting, submitForm, setFieldValue }) => (
         <tr>
+          {JSON.stringify(values)}
           <td className="p-2 whitespace-nowrap">
             <div className="text-left">{values.tcrcSampleId}</div>
           </td>
@@ -83,56 +85,22 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
             </div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <Field
-              id="arbTM"
-              name="arbTM"
-              className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
-            />
+            <DecimalInput name="arbTM" />
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">
-              <Field
-                id="adbIM"
-                name="adbIM"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
-              />
-            </div>
+            <DecimalInput name="adbIM" />
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">
-              <Field
-                id="adbVM"
-                name="adbVM"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
-              />
-            </div>
+            <DecimalInput name="adbVM" />
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">
-              <Field
-                id="adbAsh"
-                name="adbAsh"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
-              />
-            </div>
+            <DecimalInput name="adbAsh" />
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">
-              <Field
-                id="adbGCV"
-                name="adbGCV"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
-              />
-            </div>
+          <DecimalInput name="adbGCV" />                                  
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-left">
-              <Field
-                id="ebEM"
-                name="ebEM"
-                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 min-w-60"
-              />
-            </div>
+          <DecimalInput name="ebEM" />
           </td>
           <td className="p-2 whitespace-nowrap">
             <div className="flex items-center justify-center">
