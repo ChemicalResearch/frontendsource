@@ -23,6 +23,9 @@ function Tm() {
                     <div className="font-semibold text-left">TCRC QR Code</div>
                   </th>
                   <th className="p-2 whitespace-nowrap">
+                    <div className="font-semibold text-left">TM Seal No.</div>
+                  </th>
+                  <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">TM Entry Date</div>
                   </th>
                   <th className="p-2 whitespace-nowrap">

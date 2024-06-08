@@ -11,6 +11,7 @@ type TmFormikInitialValues = {
   tcrcQRCode: string;
   tmEntryDate: Date | null;
   tmValue: string;
+  tmSealNo:string;
 };
 
 type TmBodyRowProps = {
@@ -27,6 +28,7 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm }) => {
     tcrcQRCode: tm.tcrcQRCode,
     tmEntryDate: null,
     tmValue: tm.tmValue || "",
+    tmSealNo:tm.tmSealNo
   };
 
   const onSubmit = async (
@@ -73,6 +75,9 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm }) => {
         <tr>
           <td className="p-2 whitespace-nowrap w-[200px]">
             <div className="text-left">{values.tcrcQRCode}</div>
+          </td>
+          <td className="p-2 whitespace-nowrap w-[200px]">
+            <div className="text-left">{values.tmSealNo}</div>
           </td>
           <td className="p-2 whitespace-nowrap w-[100px]">
             <DatePicker

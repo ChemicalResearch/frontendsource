@@ -5,6 +5,7 @@ export type TmData = {
   tcrcQRCode: string;
   tmEntryDate: string;
   tmValue: string;
+  tmSealNo:string;
 };
 
 export const getTmList = () => {
