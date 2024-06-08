@@ -24,18 +24,21 @@ function FinalReport() {
                   <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">Jrf Number</div>
                   </th>
-                  <th className="p-2 whitespace-nowrap">
+                  {/* <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">
                       Lab Report Number
                     </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
+                  </th> */}
+                  {/* <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">Report Number</div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
+                  </th> */}
+                  {/* <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">
                       Lab Report Date
                     </div>
+                  </th> */}
+                  <th className="p-2 whitespace-nowrap">
+                    <div className="font-semibold text-center">File Upload</div>
                   </th>
                   <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-center">test Report</div>
