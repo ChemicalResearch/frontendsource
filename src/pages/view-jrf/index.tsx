@@ -17,7 +17,7 @@ interface VerificationSubmitFormInitialValues {
 
 }
 
-const VerificationOfTestResult = () => {
+const viewJrf = () => {
   const { data } = useQuery({
     queryKey: ["verification-jrfs"],
     queryFn: async () => {
@@ -104,7 +104,9 @@ const VerificationOfTestResult = () => {
                     onChange={handleChange}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ml-2 cursor-pointer"
                   />
+                  <span> <DownloadLinkButton href={x.jrfDocumentUrl} className="mr-4" /></span>
                 </label>
+                
               </li>
             ))}
           </ul>
@@ -234,22 +236,22 @@ const VerificationOfTestResult = () => {
                                 {verification.arbBand}
                               </div>
                             </td>
-                            <td className="p-2 whitespace-nowrap">
+                            {/* <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.verificationFlag}
                               </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
+                            </td> */}
+                            {/* <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.testReport}
                               </div>
-                            </td>
+                            </td> */}
                             {/* <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.testEndDate}
                               </div>
                             </td> */}
-                            <td className="p-2 whitespace-nowrap">
+                            {/* <td className="p-2 whitespace-nowrap">
                               <input
                                 type="file"
                                 className="block w-48 text-sm text-gray-500
@@ -267,8 +269,8 @@ const VerificationOfTestResult = () => {
                                   );
                                 }}
                               />
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
+                            </td> */}
+                            {/* <td className="p-2 whitespace-nowrap">
                               <input
                                 type="file"
                                 className="block w-48 text-sm text-gray-500
@@ -286,8 +288,8 @@ const VerificationOfTestResult = () => {
                                   );
                                 }}
                               />
-                            </td>
-                            <td
+                            </td> */}
+                            {/* <td
                               className="p-2 whitespace-nowrap"
                             >
                                
@@ -301,7 +303,7 @@ const VerificationOfTestResult = () => {
                                   Save
                                 </button>
                               </div>
-                            </td>
+                            </td> */}
                           </tr>
                         ))}
                       </tbody>
@@ -317,4 +319,4 @@ const VerificationOfTestResult = () => {
   );
 };
 
-export default VerificationOfTestResult;
+export default viewJrf;

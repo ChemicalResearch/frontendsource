@@ -68,7 +68,7 @@ const VerificationHeadRow = () => (
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">ARB BAND</div>
       </th>
-      <th className="p-2 whitespace-nowrap">
+      {/* <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">Verification Flag</div>
       </th>
       
@@ -83,7 +83,7 @@ const VerificationHeadRow = () => (
       </th>
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">Action</div>
-      </th>
+      </th> */}
     </tr>
   </Fragment>
 );

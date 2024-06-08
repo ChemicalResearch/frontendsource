@@ -11,6 +11,7 @@ export type GetTestProgressJRFResponse = Array<{
   jrfNumber: string;
   jrfUrl: string;
   jrfTableModels: string;
+  jrfDocumentUrl:string
 }>;
 
 export const getVerificationJRFs = () => {
@@ -21,6 +22,7 @@ export const getVerificationJRFs = () => {
 
 export type GetVerificationListParams = {
   jrfNumber: string;
+
 };
 
 // export type Verification = {

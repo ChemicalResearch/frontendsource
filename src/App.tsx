@@ -19,6 +19,7 @@ import SampleCollectionDetails from "./pages/SampleCollection/Details";
 import LaboratoryActivity from "./pages/LaboratoryActivity";
 import TestProgress from "./pages/TestProgress";
 import VerificationOfTestResult from "./pages/VerificationOfTestResult";
+import ViewJrf from "./pages/view-jrf";
 
 import RequiredAuth from "./components/RequiredAuth";
 import FinalReport from "./pages/final-report";
@@ -57,7 +58,7 @@ function App() {
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="final-report" element={<FinalReport />} />
         <Route path="tm-entry-at-plant" element={<Tm />} />
-        <Route path="view-jrf" element={<VerificationOfTestResult />} />
+        <Route path="view-jrf" element={<ViewJrf />} />
 
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
