@@ -53,6 +53,9 @@ const RouteName: React.FC = () => {
     case "/verification-of-test-result":
       routeName = "Verification of Test Result";
       break;
+      case "/view-jrf":
+      routeName = "View JRF";
+      break;
     case "/final-report":
       routeName = "Final Report";
       break;

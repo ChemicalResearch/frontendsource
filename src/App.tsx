@@ -57,6 +57,7 @@ function App() {
         <Route path="lab-certificate" element={<LabCertificate />} />
         <Route path="final-report" element={<FinalReport />} />
         <Route path="tm-entry-at-plant" element={<Tm />} />
+        <Route path="view-jrf" element={<VerificationOfTestResult />} />
 
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
