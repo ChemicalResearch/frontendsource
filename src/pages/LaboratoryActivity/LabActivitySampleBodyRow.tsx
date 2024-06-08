@@ -117,7 +117,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
           </td>
           <td className="p-2 whitespace-nowrap">
             <div className="flex items-center justify-center">
-            <DownloadLinkButton href={values.jrfUrl} className="mr-4" />
+           
               <button
                 type="button"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"

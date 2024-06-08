@@ -11,6 +11,7 @@ export type JRFLISTS = {
   jrfNumber: string;
   jrfUrl: string;
   jrfTableModels: string;
+  jrfDocumentUrl:string;
 };
 
 export type GetLabJRFListResponse = Array<JRFLISTS>;

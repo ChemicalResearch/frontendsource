@@ -7,7 +7,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import LabActivitySampleHeadRow from "./LabActivitySampleHeadRow";
 import LabActivitySampleBodyRow from "./LabActivitySampleBodyRow";
-
+import { DownloadLinkButton } from "../../components/buttons";
 const LabActivity = () => {
   const { data } = useQuery({
     queryKey: ["laboratory-activity"],
@@ -45,7 +45,7 @@ const LabActivity = () => {
     <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
       <div className="grid gap-4 gap-y-2 text-sm grid-cols-4">
         <div className="col-span-1">
-          <div className="font-semibold text-left mb-2">JRF No. ALIVE</div>
+          <div className="font-semibold text-left mb-2">JRF No. ALIVE33</div>
           <ul>
             {data?.map((x, key) => (
               <li key={key}>
@@ -58,7 +58,9 @@ const LabActivity = () => {
                     onChange={handleChange}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ml-2 cursor-pointer"
                   />
+                   <span> <DownloadLinkButton href={x.jrfDocumentUrl} className="mr-4" /></span>
                 </label>
+               
               </li>
             ))}
           </ul>
