@@ -1,12 +1,11 @@
 import { FC } from "react";
-import { Field, Formik, FormikHelpers } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { TestProgress, submitTestDetail } from "../../services/test-progress";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
-import CurrencyInput from "react-currency-input-field";
 import DecimalInput from "../../components/inputs/DecimalInput";
 interface TestProgressBodyRowProps {
   progress: TestProgress;

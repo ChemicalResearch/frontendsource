@@ -9,7 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
-import { DownloadLinkButton } from "../../components/buttons";
 
 interface LabActivitySampleRowProps {
   sample: LabActivitySample;
