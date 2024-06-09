@@ -126,7 +126,7 @@ const viewJrf = () => {
                     onSubmit={onSubmit}
                     enableReinitialize
                   >
-                    {({ setFieldValue, submitForm }) => (
+                    {() => (
                       <tbody className="text-sm divide-y divide-gray-100">
                         {verificationList?.map((verification, key) => (
                           <tr key={key}>
