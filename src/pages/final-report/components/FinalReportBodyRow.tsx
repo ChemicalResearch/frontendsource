@@ -1,10 +1,7 @@
 import { FC } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Formik, Field, FormikHelpers } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { FinalReport, submitFinalReport } from "../../../services";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import dayjs from "dayjs";
 import Swal from "sweetalert2";
 import { DownloadLinkButton } from "../../../components/buttons";
 
@@ -41,27 +38,24 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
     formikHelpers: FormikHelpers<FinalReportFormikInitialValues>
   ) => {
     try {
-      const { labReportDate, ...rest } = values;
-      await mutation.mutateAsync(
-        {
-          ...rest,
-          labReportDate: dayjs(labReportDate).format("YYYY-MM-DD"),
+      const { jrfNumber, testReport } = values;
+      const formData = new FormData();
+      formData.append("file", testReport);
+      formData.append("jrfNumber", jrfNumber);
+      await mutation.mutateAsync(formData, {
+        onSuccess(data) {
+          if (data) {
+            queryClient.setQueryData(
+              ["final-reports"],
+              (reports: Array<FinalReport> | undefined) => {
+                return reports?.filter(
+                  (report) => report.jrfNumber !== values.jrfNumber
+                );
+              }
+            );
+          }
         },
-        {
-          onSuccess(data) {
-            if (data) {
-              queryClient.setQueryData(
-                ["final-reports"],
-                (reports: Array<FinalReport> | undefined) => {
-                  return reports?.filter(
-                    (report) => report.jrfNumber !== values.jrfNumber
-                  );
-                }
-              );
-            }
-          },
-        }
-      );
+      });
       Swal.fire("Successfully Submited");
       formikHelpers.resetForm();
     } catch (e) {
@@ -81,34 +75,10 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
           <td className="p-2 whitespace-nowrap">
             <div className="text-left">{values.jrfNumber}</div>
           </td>
-          {/* <td className="p-2 whitespace-nowrap">
-            <Field
-              name="labReportNumber"
-              className="h-10 border mt-1 rounded px-4 w-full min-w-24"
-              type="text"
-            />
-          </td> */}
-          {/* <td className="p-2 whitespace-nowrap">
-            <Field
-              name="reportNumber"
-              className="h-10 border mt-1 rounded px-4 w-full min-w-24"
-              type="text"
-            />
-          </td> */}
-          {/* <td className="p-2 whitespace-nowrap">
-            <DatePicker
-              selected={values.labReportDate}
-              onChange={(date) => setFieldValue("labReportDate", date)}
-              dateFormat="yyyy-MM-dd"
-              placeholderText="YYYY-MM-DD"
-              //   withPortal
-              className="h-10 border rounded px-4 bg-gray-50 w-[100px]"
-            />
-          </td> */}
-            <td className="p-2 whitespace-nowrap">
-                              <input
-                                type="file"
-                                className="block w-48 text-sm text-gray-500
+          <td className="p-2 whitespace-nowrap">
+            <input
+              type="file"
+              className="block w-48 text-sm text-gray-500
                               file:me-4 file:py-2 file:px-4
                               file:rounded-lg file:border-0
                               file:text-sm file:font-semibold
@@ -116,14 +86,11 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
                               hover:file:bg-blue-700
                               file:disabled:opacity-50 file:disabled:pointer-events-none
                             "
-                                onChange={(event) => {
-                                  setFieldValue(
-                                    "testReport",
-                                    event?.currentTarget?.files?.[0]
-                                  );
-                                }}
-                              />
-                            </td>
+              onChange={(event) => {
+                setFieldValue("testReport", event?.currentTarget?.files?.[0]);
+              }}
+            />
+          </td>
           <td className="p-2 whitespace-nowrap">
             <DownloadLinkButton href={values.testReport} className="mx-auto" />
           </td>

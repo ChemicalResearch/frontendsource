@@ -15,15 +15,7 @@ export const getFinalReport = () => {
     `/getfinalreport`
   );
 };
-type SubmitFinalReportBody = {
-  jrfNumber: string;
-  labReportNumber: string;
-  reportNumber: string;
-  labReportDate: string;
-  testReport: string;
-  gcvReport: string;
-};
 
-export const submitFinalReport = (body: SubmitFinalReportBody) => {
+export const submitFinalReport = (body: FormData) => {
   return apiClient.post("/submitfinalreport", body);
 };
