@@ -49,18 +49,22 @@ const LabActivity = () => {
           <ul>
             {data?.map((x, key) => (
               <li key={key}>
-                <label className="flex items-center font-medium text-gray-800 cursor-pointer">
-                  {x.jrfNumber}
-                  <input
-                    type="checkbox"
-                    value={x.jrfNumber}
-                    checked={jrfNumber === x.jrfNumber}
-                    onChange={handleChange}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ml-2 cursor-pointer"
+                <div className="flex flex-row items-center gap-1">
+                  <label className="flex items-center font-medium text-gray-800 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={x.jrfNumber}
+                      checked={jrfNumber === x.jrfNumber}
+                      onChange={handleChange}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 cursor-pointer"
+                    />
+                    {x.jrfNumber}
+                  </label>
+                  <DownloadLinkButton
+                    href={x.jrfDocumentUrl}
+                    className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
                   />
-                   <span> <DownloadLinkButton href={x.jrfDocumentUrl} className="mr-4" /></span>
-                </label>
-               
+                </div>
               </li>
             ))}
           </ul>

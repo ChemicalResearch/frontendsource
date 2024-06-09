@@ -13,6 +13,7 @@ export const DownloadLinkButton: FC<
       className
     )}
     download
+    title="Click here to download"
     {...rest}
   >
     <svg

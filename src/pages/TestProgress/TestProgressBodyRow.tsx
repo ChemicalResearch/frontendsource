@@ -68,7 +68,6 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
     >
       {({ values, isSubmitting, submitForm, setFieldValue }) => (
         <tr>
-          {JSON.stringify(values)}
           <td className="p-2 whitespace-nowrap">
             <div className="text-left">{values.tcrcSampleId}</div>
           </td>
