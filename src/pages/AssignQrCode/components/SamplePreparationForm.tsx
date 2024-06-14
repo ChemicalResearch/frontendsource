@@ -2,15 +2,25 @@ import { FC } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { SamplePreparation, submitSamplePreparation } from "../../../services";
-import { useMutation } from "@tanstack/react-query";
+import {
+  GetsamplepreparationlistResponse,
+  SamplePreparation,
+  submitSamplePreparation,
+} from "../../../services";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  useMutation,
+} from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useAuth } from "../../../context/auth";
 import Swal from "sweetalert2";
 
 interface SamplePreparationFormProps {
   row: SamplePreparation;
-  removeSumittedRow: (collectionSystemId: string) => void;
+  refetch: (
+    options?: RefetchOptions | undefined
+  ) => Promise<QueryObserverResult<GetsamplepreparationlistResponse, Error>>;
 }
 
 interface InitialValues {
@@ -34,7 +44,7 @@ interface InitialValues {
 
 const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
   row,
-  removeSumittedRow,
+  refetch,
 }) => {
   const { user } = useAuth();
   const mutation = useMutation({
@@ -53,7 +63,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
         preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
         ...rest,
       });
-      removeSumittedRow(row.collectionSystemId);
+      refetch();
       Swal.fire("Successfully Inserted!");
       formikHelpers.resetForm();
     } catch (e) {
