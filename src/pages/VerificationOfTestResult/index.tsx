@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import VerificationHeadRow from "./VerificationHeadRow";
 import {
   getVerificationJRFs,
@@ -124,7 +124,7 @@ const VerificationOfTestResult = () => {
                   >
                     {({ setFieldValue, submitForm }) => (
                       <tbody className="text-sm divide-y divide-gray-100">
-                        {verificationList?.map((verification, key) => (
+                        {verificationList?.map((verification, key,arr) => (
                           <tr key={key}>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
@@ -147,11 +147,7 @@ const VerificationOfTestResult = () => {
                                 {verification.tcrcSampleId}
                               </div>
                             </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbTM}
-                              </div>
-                            </td>
+                           
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.adbIM}
@@ -159,18 +155,7 @@ const VerificationOfTestResult = () => {
                             </td>
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
-                                {verification.arbVM}
-                              </div>
-                            </td>
-                            
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
                                 {verification.adbAsh}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbFC}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
@@ -178,6 +163,34 @@ const VerificationOfTestResult = () => {
                                 {verification.adbGCV}
                               </div>
                             </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbFc}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.adbBand}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.arbVM}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.arbTM}
+                              </div>
+                            </td>
+                            
+                           
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.arbFC}
+                              </div>
+                            </td>
+                            
                             {/* <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.adbAsh}
@@ -187,6 +200,11 @@ const VerificationOfTestResult = () => {
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.arbGCV}
+                              </div>
+                            </td>
+                            <td className="p-2 whitespace-nowrap">
+                              <div className="text-left">
+                                {verification.arbBand}
                               </div>
                             </td>
                             <td className="p-2 whitespace-nowrap">
@@ -219,21 +237,8 @@ const VerificationOfTestResult = () => {
                                 {verification.emBand}
                               </div>
                             </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbFc}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbBand}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbBand}
-                              </div>
-                            </td>
+                           
+                           
                             <td className="p-2 whitespace-nowrap">
                               <div className="text-left">
                                 {verification.verificationFlag}
@@ -249,7 +254,8 @@ const VerificationOfTestResult = () => {
                                 {verification.testEndDate}
                               </div>
                             </td> */}
-                            <td className="p-2 whitespace-nowrap">
+                           {key==0?<Fragment>
+                            <td className="p-2 whitespace-nowrap" rowSpan={arr.length}>
                               <input
                                 type="file"
                                 className="block w-48 text-sm text-gray-500
@@ -268,7 +274,7 @@ const VerificationOfTestResult = () => {
                                 }}
                               />
                             </td>
-                            <td className="p-2 whitespace-nowrap">
+                            <td className="p-2 whitespace-nowrap" rowSpan={arr.length}>
                               <input
                                 type="file"
                                 className="block w-48 text-sm text-gray-500
@@ -287,12 +293,24 @@ const VerificationOfTestResult = () => {
                                 }}
                               />
                             </td>
-                            <td
-                              className="p-2 whitespace-nowrap"
+
+                           </Fragment>:null} 
+                           <td
+                              className="p-2 whitespace-nowrap" 
                             >
                                
                               <div className="flex items-center justify-center gap-2">
                               <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
+                                
+                              </div>
+                            </td>
+                           {key==0?<Fragment>
+                            <td
+                              className="p-2 whitespace-nowrap" rowSpan={arr.length}
+                            >
+                               
+                              <div className="flex items-center justify-center gap-2">
+                             
                                 <button
                                   type="button"
                                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
@@ -302,6 +320,8 @@ const VerificationOfTestResult = () => {
                                 </button>
                               </div>
                             </td>
+
+                           </Fragment>:null}
                           </tr>
                         ))}
                       </tbody>

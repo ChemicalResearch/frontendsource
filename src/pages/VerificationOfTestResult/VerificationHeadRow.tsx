@@ -20,26 +20,37 @@ const VerificationHeadRow = () => (
         <div className="font-semibold text-left">TCRC Sample ID</div>
       </th>
       <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB TM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-left">ADB IM</div>
       </th>
       <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB VM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-left">ADB ASH</div>
-      </th>
-    
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB FC</div>
       </th>
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">ADB GCV</div>
       </th>
       <th className="p-2 whitespace-nowrap">
+        <div className="font-semibold text-center">ADB BAND</div>
+      </th>
+      <th className="p-2 whitespace-nowrap">
+        <div className="font-semibold text-center">ADB FC</div>
+      </th>
+      <th className="p-2 whitespace-nowrap">
+        <div className="font-semibold text-left">ARB TM</div>
+      </th>
+     
+      <th className="p-2 whitespace-nowrap">
+        <div className="font-semibold text-left">ARB VM</div>
+      </th>
+     
+      <th className="p-2 whitespace-nowrap">
+        <div className="font-semibold text-left">ARB FC</div>
+      </th>
+      
+      <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">ARB GCV</div>
+      </th>
+      <th className="p-2 whitespace-nowrap">
+        <div className="font-semibold text-center">ARB BAND</div>
       </th>
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">em EM</div>
@@ -60,15 +71,6 @@ const VerificationHeadRow = () => (
         <div className="font-semibold text-center">em Band</div>
       </th>
       <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ADB FC</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ADB BAND</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ARB BAND</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">Verification Flag</div>
       </th>
       
@@ -81,7 +83,7 @@ const VerificationHeadRow = () => (
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">GVC Report</div>
       </th>
-      <th className="p-2 whitespace-nowrap">
+      <th className="p-2 whitespace-nowrap" colSpan={2}>
         <div className="font-semibold text-center">Action</div>
       </th>
     </tr>
