@@ -295,7 +295,7 @@ const VerificationOfTestResult = () => {
                             </td>
 
                            </Fragment>:null} 
-                           <td
+                           {/* <td
                               className="p-2 whitespace-nowrap" 
                             >
                                
@@ -303,12 +303,12 @@ const VerificationOfTestResult = () => {
                               <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
                                 
                               </div>
-                            </td>
+                            </td> */}
                            {key==0?<Fragment>
                             <td
                               className="p-2 whitespace-nowrap" rowSpan={arr.length}
                             >
-                               
+                               <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
                               <div className="flex items-center justify-center gap-2">
                              
                                 <button
