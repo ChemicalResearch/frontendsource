@@ -3,7 +3,7 @@ import { getTmList } from "../../services";
 import FinalReportBodyRow from "./components/TmBodyRow";
 
 function Tm() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["tms"],
     queryFn: async () => {
       const { data } = await getTmList();
@@ -38,7 +38,7 @@ function Tm() {
               </thead>
               <tbody className="text-sm divide-y divide-gray-100">
                 {data?.map((tm, key) => (
-                  <FinalReportBodyRow key={key} tm={tm} />
+                  <FinalReportBodyRow key={key} tm={tm} refetch={refetch} />
                 ))}
               </tbody>
             </table>

@@ -308,9 +308,9 @@ const VerificationOfTestResult = () => {
                             <td
                               className="p-2 whitespace-nowrap" rowSpan={arr.length}
                             >
-                               <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
+                               
                               <div className="flex items-center justify-center gap-2">
-                             
+                              <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
                                 <button
                                   type="button"
                                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"

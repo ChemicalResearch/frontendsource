@@ -13,7 +13,7 @@ const initialValues: FilterAssignQRCodeInitialValues = {
   plannedPrepDate: "",
 };
 
-function assignQr() {
+function AssignQr() {
   const [{ plannedPrepDate, plantId }, setData] =
     useState<FilterAssignQRCodeInitialValues>(initialValues);
 
@@ -63,4 +63,4 @@ function assignQr() {
   );
 }
 
-export default assignQr;
+export default AssignQr;

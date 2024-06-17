@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryObserverResult, RefetchOptions, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Formik, Field, FormikHelpers } from "formik";
 import { TmData, submitTmEntry } from "../../../services";
 import DatePicker from "react-datepicker";
@@ -16,9 +16,10 @@ type TmFormikInitialValues = {
 
 type TmBodyRowProps = {
   tm: TmData;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<TmData[], Error>>
 };
 
-const TmBodyRow: FC<TmBodyRowProps> = ({ tm }) => {
+const TmBodyRow: FC<TmBodyRowProps> = ({ tm , refetch}) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: submitTmEntry,
@@ -57,6 +58,7 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm }) => {
           },
         }
       );
+      refetch();
       Swal.fire("Successfully Submited");
       formikHelpers.resetForm();
     } catch (e) {
