@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import LabActivitySampleHeadRow from "./LabActivitySampleHeadRow";
 import LabActivitySampleBodyRow from "./LabActivitySampleBodyRow";
 import { DownloadLinkButton } from "../../components/buttons";
+
 const LabActivity = () => {
   const { data } = useQuery({
     queryKey: ["laboratory-activity"],
