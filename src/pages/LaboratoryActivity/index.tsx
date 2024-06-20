@@ -1,77 +1,36 @@
-import { useQuery } from "@tanstack/react-query";
-import {
-  getLabactivityJrfs,
-  getLabactivitySamples,
-  GetLabactivitySamplesResponse,
-} from "../../services/lab-activity-jrfs";
-import { useCallback, useEffect, useState } from "react";
+import { getLabactivitySamples } from "../../services/lab-activity-jrfs";
+import { lazy, useState, Suspense, Fragment } from "react";
 import LabActivitySampleHeadRow from "./LabActivitySampleHeadRow";
 import LabActivitySampleBodyRow from "./LabActivitySampleBodyRow";
-import { DownloadLinkButton } from "../../components/buttons";
+import { useQuery } from "@tanstack/react-query";
+
+const JrfNoList = lazy(() => import("./JrfNoList"));
 
 const LabActivity = () => {
-  const { data } = useQuery({
-    queryKey: ["laboratory-activity"],
+  const [jrfNumber, setJrfNumber] = useState<string>("");
+  const { data, refetch } = useQuery({
+    queryKey: ["lab-activity-sample", jrfNumber],
     queryFn: async () => {
-      const { data } = await getLabactivityJrfs();
+      const { data } = await getLabactivitySamples({ jrfNumber });
       return data;
     },
   });
 
-  const [jrfNumber, setJrfNumber] = useState<string>("");
-  const [samples, setSamples] = useState<GetLabactivitySamplesResponse>();
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setJrfNumber((prev) => (prev === value ? "" : value));
   };
 
-  const getSamples = useCallback(async () => {
-    if (!jrfNumber) {
-      setSamples([]);
-      return;
-    }
-    try {
-      const { data } = await getLabactivitySamples({ jrfNumber });
-      setSamples(data);
-    } catch (e) {
-    } finally {
-    }
-  }, [jrfNumber]);
-
-  useEffect(() => {
-    getSamples();
-  }, [getSamples]);
-
   return (
     <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
       <div className="grid gap-4 gap-y-2 text-sm grid-cols-4">
         <div className="col-span-1">
-          <div className="font-semibold text-left mb-2">JRF No. ALIVE33</div>
-          <ul>
-            {data?.map((x, key) => (
-              <li key={key}>
-                <div className="flex flex-row items-center gap-1">
-                  <label className="flex items-center font-medium text-gray-800 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      value={x.jrfNumber}
-                      checked={jrfNumber === x.jrfNumber}
-                      onChange={handleChange}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 cursor-pointer"
-                    />
-                    {x.jrfNumber}
-                  </label>
-                  <DownloadLinkButton
-                    href={x.jrfDocumentUrl}
-                    className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
+          <Suspense fallback={<Fragment />}>
+            <JrfNoList jrfNumber={jrfNumber} onChange={handleChange} />
+          </Suspense>
         </div>
         <div className="col-span-3">
-          {!!samples?.length ? (
+          {!!data?.length ? (
             <div className="p-3">
               <div className="overflow-x-auto">
                 <table className="table-auto w-full">
@@ -79,8 +38,12 @@ const LabActivity = () => {
                     <LabActivitySampleHeadRow />
                   </thead>
                   <tbody className="text-sm divide-y divide-gray-100">
-                    {samples?.map((sample, key) => (
-                      <LabActivitySampleBodyRow key={key} sample={sample} />
+                    {data?.map((sample, key) => (
+                      <LabActivitySampleBodyRow
+                        key={key}
+                        sample={sample}
+                        refetch={refetch}
+                      />
                     ))}
                   </tbody>
                 </table>

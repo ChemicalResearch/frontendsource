@@ -1,17 +1,19 @@
 import { FC } from "react";
 import {
+  GetLabactivitySamplesResponse,
   LabActivitySample,
   submitLabActivity,
 } from "../../services/lab-activity-jrfs";
 import { Field, Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useMutation } from "@tanstack/react-query";
+import { QueryObserverResult, RefetchOptions, useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
 interface LabActivitySampleRowProps {
   sample: LabActivitySample;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<GetLabactivitySamplesResponse, Error>>
 }
 
 interface LabActivitySampleBodyRowInitialValues {
@@ -27,6 +29,7 @@ interface LabActivitySampleBodyRowInitialValues {
 
 const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
   sample,
+  refetch
 }) => {
   const mutation = useMutation({
     mutationFn: submitLabActivity,
@@ -43,6 +46,7 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
         receivedOn: dayjs(receivedOn).format("YYYY-MM-DD"),
         testStartDate: dayjs(testStartDate).format("YYYY-MM-DD"),
       });
+      refetch();
       Swal.fire("Successfully Submited");
       formikHelpers.resetForm();
     } catch (e) {
@@ -52,13 +56,13 @@ const LabActivitySampleBodyRow: FC<LabActivitySampleRowProps> = ({
   };
 
   const initialValues: LabActivitySampleBodyRowInitialValues = {
-    despatchDate: sample.despatchDate,
-    jrfNumber: sample.jrfNumber,
-    jrfUrl:sample.jrfUrl,
-    labcode: sample.labcode,
-    qrcode: sample.qrcode,
+    despatchDate: sample.despatchDate || "",
+    jrfNumber: sample.jrfNumber || "",
+    jrfUrl:sample.jrfUrl || "",
+    labcode: sample.labcode || "",
+    qrcode: sample.qrcode || "",
     receivedOn: null,
-    tcrcSampleId: sample.tcrcSampleId,
+    tcrcSampleId: sample.tcrcSampleId || "",
     testStartDate: null,
   };
   return (
