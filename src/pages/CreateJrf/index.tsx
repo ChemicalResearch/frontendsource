@@ -1,31 +1,55 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
-import { getJRFSelection } from "../../services";
-import Collection from "./components/Collection";
-import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getJRFList } from "../../services";
+import { Fragment, lazy, useState, Suspense } from "react";
+import type { FilterCreateJrfInitialValues, OnSubmit } from "./CreateJrfFilter";
 
-export const getSamplePselectionData = queryOptions({
-  queryKey: ["jrf-selection"],
-  queryFn: async () => {
-    const { data } = await getJRFSelection();
-    return data;
-  },
-});
+const FilterCreateJrf = lazy(() => import("./CreateJrfFilter"));
+const CreateJrfForm = lazy(() => import("./CreateJrfForm"));
 
-function assignQr() {
-  const { data } = useQuery(getSamplePselectionData);
-  const plantModelsByDespatchDate = useMemo(() => {
-    return data?.reduce<
-      Record<string, Array<{ plantId: string; plantName: string }>>
-    >((prev: any, current) => {
-      return { ...prev, [current.despatchDate]: current.plantModels };
-    }, {} as Record<string, Array<{ plantId: string; plantName: string }>>);
-  }, [data]);
-  console.log({ plantModelsByDespatchDate });
+const initialValues: FilterCreateJrfInitialValues = {
+  plantId: "",
+  despatchDate: "",
+};
+
+const CreateJrf = () => {
+  const [{ despatchDate, plantId }, setData] =
+    useState<FilterCreateJrfInitialValues>(initialValues);
+
+  const { data, refetch } = useQuery({
+    queryKey: ["sample-preparation-list", despatchDate, plantId],
+    queryFn: async () => {
+      const { data } = await getJRFList({
+        despatchDate,
+        plantId,
+      });
+      return data;
+    },
+    enabled: Boolean(despatchDate && plantId),
+  });
+
+  const onSubmit: OnSubmit = async (values, formikHelpers) => {
+    try {
+      setData(values);
+    } catch (e) {
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
+  };
+
   return (
     <div className="max-w-screen-xl">
-      <Collection plantModelsByDespatchDate={plantModelsByDespatchDate} />
+      <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
+        <Suspense fallback={<Fragment />}>
+          <FilterCreateJrf initialValues={initialValues} onSubmit={onSubmit} />
+        </Suspense>
+        {data?.length ? (
+          <Suspense fallback={<Fragment />}>
+            <CreateJrfForm plantId={plantId} data={data} refetch={refetch} />
+          </Suspense>
+        ) : null}
+      </div>
     </div>
   );
 }
 
-export default assignQr;
+export default CreateJrf;
