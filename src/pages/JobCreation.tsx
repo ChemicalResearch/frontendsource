@@ -1,7 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Formik, Field, FormikHelpers } from "formik";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import {
   getCreateJob,
   submitJob,
@@ -11,6 +9,8 @@ import {
 import Swal from "sweetalert2";
 import { useAuth } from "../context/auth";
 import dayjs from "dayjs";
+import Dropdown from "../components/Dropdown";
+import DatePicker from "../components/DatePicker";
 
 type CreateJobFormInputes = {
   commodity: string;
@@ -85,106 +85,64 @@ function JobCreation() {
             <div className="flex flex-col">
               <div className="w-full bg-white shadow rounded-sm border border-gray-200 mb-10 px-8 py-10">
                 <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4">
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      For The Month
-                    </label>
-                    <DatePicker
-                      selected={values.fortheMonth}
-                      onChange={(date) => setFieldValue("fortheMonth", date)}
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="YYYY-MM-DD"
-                      withPortal
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-90"
-                    >
-                      Plant
-                    </label>
-                    <Field
-                      as="select"
-                      id="plantId"
-                      name="plantId"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    >
-                      <option>Select</option>
-                      {data?.plantModels?.map((p) => (
-                        <option key={p.plantId} value={p.plantId}>
-                          {p.plantName}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="customer"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Customer
-                    </label>
-                    <Field
-                      as="select"
-                      id="customer"
-                      name="customer"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    >
-                      <option value="">Select</option>
-                      {data?.customers?.map((c) => (
-                        <option key={c.number} value={c.number}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="commodityGroup"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Commodity Group
-                    </label>
-                    <Field
-                      as="select"
-                      id="commodityGroup"
-                      name="commodityGroup"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    >
-                      <option>Select</option>
-                      {data?.commodityGroups?.map((c) => (
-                        <option key={c.number} value={c.number}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="portId"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Port
-                    </label>
-                    <Field
-                      as="select"
-                      id="portId"
-                      name="portId"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    >
-                      <option>Select</option>
-                      {data?.portModels?.map((c) => (
-                        <option key={c.number} value={c.number}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
+                  <DatePicker
+                    label="For The Month"
+                    selected={values.fortheMonth}
+                    onChange={(date) => setFieldValue("fortheMonth", date)}
+                    className="md:col-span-2"
+                  />
+                  <Dropdown
+                    id="plantId"
+                    name="plantId"
+                    label="Plant"
+                    className="md:col-span-2"
+                  >
+                    <option>Select</option>
+                    {data?.plantModels?.map((p) => (
+                      <option key={p.plantId} value={p.plantId}>
+                        {p.plantName}
+                      </option>
+                    ))}
+                  </Dropdown>
+                  <Dropdown
+                    id="customer"
+                    name="customer"
+                    label="Customer"
+                    className="md:col-span-2"
+                  >
+                    <option value="">Select</option>
+                    {data?.customers?.map((c) => (
+                      <option key={c.number} value={c.number}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </Dropdown>
+                  <Dropdown
+                    id="commodityGroup"
+                    name="commodityGroup"
+                    label="Commodity Group"
+                    className="md:col-span-2"
+                  >
+                    <option>Select</option>
+                    {data?.commodityGroups?.map((c) => (
+                      <option key={c.number} value={c.number}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </Dropdown>
+                  <Dropdown
+                    id="portId"
+                    name="portId"
+                    label="Port"
+                    className="md:col-span-2"
+                  >
+                    <option>Select</option>
+                    {data?.portModels?.map((c) => (
+                      <option key={c.number} value={c.number}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </Dropdown>
                   <div className="md:col-span-2">
                     <label
                       htmlFor="tcrcReferenceNumber"
@@ -198,27 +156,19 @@ function JobCreation() {
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                     />
                   </div>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="commodity"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Commodity
-                    </label>
-                    <Field
-                      as="select"
-                      id="commodity"
-                      name="commodity"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    >
-                      <option value="">Select</option>
-                      {data?.commodities?.map((c) => (
-                        <option key={c.number} value={c.number}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </Field>
-                  </div>
+                  <Dropdown
+                    id="commodity"
+                    name="commodity"
+                    label="Commodity"
+                    className="md:col-span-2"
+                  >
+                    <option value="">Select</option>
+                    {data?.commodities?.map((c) => (
+                      <option key={c.number} value={c.number}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </Dropdown>
                 </div>
                 <div>
                   <div className="flex items-center justify-start mt-5">
