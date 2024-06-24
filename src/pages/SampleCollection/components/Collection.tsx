@@ -328,7 +328,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   <Link
                     to={tcrcReferenceNumber}
                     style={{ marginLeft: "15px" }}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="text-blue-500 font-bold py-2 px-4 rounded"
                   >
                     View Details
                   </Link>
