@@ -1,8 +1,6 @@
 import { FC, Fragment } from "react";
 import { Field, FieldArray, Formik, FormikHelpers } from "formik";
 import { Link } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 
 import {
@@ -14,6 +12,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import QRImage from "../../../components/QRImage";
 import { sampleCollectionOptions } from "../index";
 import dayjs from "dayjs";
+import DatePicker from "../../../components/DatePicker";
+import TextInput from "../../../components/TextInput";
+import Dropdown from "../../../components/Dropdown";
 
 interface CollectionProps extends CollectionSummry {
   unitModel: {
@@ -178,123 +179,93 @@ const CollectionCard: FC<CollectionProps> = ({
                 </div>
               </div>
               <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-4 mt-10">
-                <div className="md:col-span-1">
-                  <label htmlFor="email">Start Date Time</label>
-                  <DatePicker
-                    selected={values.startTime}
-                    onChange={(date) => setFieldValue("startTime", date)}
-                    timeInputLabel="Time:"
-                    dateFormat="yyyy-MM-dd HH:mm:ss"
-                    showTimeInput
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="email">End Date Time</label>
-                  <DatePicker
-                    selected={values.endTime}
-                    onChange={(date) => setFieldValue("endTime", date)}
-                    timeInputLabel="Time:"
-                    dateFormat="yyyy-MM-dd HH:mm:ss"
-                    showTimeInput
-                    withPortal
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label>Source</label>
-                  <Field
-                    name="mineText"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-1">
-                  <label>Transportation Mode</label>
-                  <Field
-                    as="select"
-                    name="vehicleTypeNumber"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  >
-                    <option value="">Select</option>
-                    {vehicleType.map((vehicle) => (
-                      <option key={vehicle.number} value={vehicle.number}>
-                        {vehicle.name}
-                      </option>
-                    ))}
-                  </Field>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label htmlFor="vehicleNumber">RR No/Truck No</label>
-                  <Field
-                    id="vehicleNumber"
-                    type="text"
-                    name="vehicleNumber"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-
-                <div className="md:col-span-1">
-                  <label htmlFor="tcrcSampleId">TCRC Sample Id</label>
-                  <Field
-                    id="tcrcSampleId"
-                    type="text"
-                    name="tcrcSampleId"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-
-                <div className="md:col-span-1">
-                  <label htmlFor="quantity">Quantity</label>
-                  <Field
-                    id="quantity"
-                    type="number"
-                    name="quantity"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  />
-                </div>
-                <div className="md:col-span-1">
-                  <label htmlFor="unitNumber">Unit</label>
-                  <Field
-                    as="select"
-                    name="unitNumber"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  >
-                    <option value="">Select</option>
-                    {unitModel.map((unit) => (
-                      <option key={unit.identifier} value={unit.identifier}>
-                        {unit.name}
-                      </option>
-                    ))}
-                  </Field>
-                </div>
-
+                <DatePicker
+                  label="Start Date Time"
+                  selected={values.startTime}
+                  onChange={(date) => setFieldValue("startTime", date)}
+                  showTimeInput
+                  className="md:col-span-1"
+                />
+                <DatePicker
+                  label="End Date Time"
+                  selected={values.endTime}
+                  onChange={(date) => setFieldValue("endTime", date)}
+                  showTimeInput
+                  className="md:col-span-1"
+                />
+                <TextInput
+                  label="Source"
+                  name="mineText"
+                  className="md:col-span-2"
+                />
+                <Dropdown
+                  label="Transportation Mode"
+                  name="vehicleTypeNumber"
+                  className="md:col-span-1"
+                >
+                  <option value="">Select</option>
+                  {vehicleType.map((vehicle) => (
+                    <option key={vehicle.number} value={vehicle.number}>
+                      {vehicle.name}
+                    </option>
+                  ))}
+                </Dropdown>
+                <TextInput
+                  label="RR No/Truck No"
+                  id="vehicleNumber"
+                  name="vehicleNumber"
+                  className="md:col-span-1"
+                />
+                <DatePicker
+                  label="Planned Prep Date"
+                  selected={values.plannedPrepDate}
+                  onChange={(date) => setFieldValue("plannedPrepDate", date)}
+                  className="md:col-span-1"
+                />
+                <TextInput
+                  label="TCRC Sample Id"
+                  id="tcrcSampleId"
+                  name="tcrcSampleId"
+                  className="md:col-span-1"
+                />
+                <TextInput
+                  label="Quantity"
+                  id="quantity"
+                  name="quantity"
+                  className="md:col-span-1"
+                />
+                <Dropdown
+                  label="Unit"
+                  name="unitNumber"
+                  className="md:col-span-1"
+                >
+                  <option value="">Select</option>
+                  {unitModel.map((unit) => (
+                    <option key={unit.identifier} value={unit.identifier}>
+                      {unit.name}
+                    </option>
+                  ))}
+                </Dropdown>
                 {values.vehicleTypeNumber === "10002" ? (
                   <Fragment>
-                    <div className="md:col-span-1">
-                      <label htmlFor="address">No of Wagon</label>
-                      <Field
-                        type="text"
-                        name="noOfWagon"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
-                    </div>
-                    <div className="md:col-span-1">
-                      <label htmlFor="rakeType">Rake Type</label>
-                      <Field
-                        as="select"
-                        name="rakeType"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      >
-                        <option value="">Select</option>
-                        {["OCP", "IR"].map((rake) => (
-                          <option key={rake} value={rake}>
-                            {rake}
-                          </option>
-                        ))}
-                      </Field>
-                    </div>
+                    <TextInput
+                      label="No of Wagon"
+                      id="noOfWagon"
+                      name="noOfWagon"
+                      className="md:col-span-1"
+                    />
+                    <Dropdown
+                      label="Rake Type"
+                      name="rakeType"
+                      className="md:col-span-1"
+                    >
+                      <option value="">Select</option>
+                      {["OCP", "IR"].map((rake) => (
+                        <option key={rake} value={rake}>
+                          {rake}
+                        </option>
+                      ))}
+                    </Dropdown>
                   </Fragment>
                 ) : null}
               </div>
@@ -310,20 +281,16 @@ const CollectionCard: FC<CollectionProps> = ({
                             key={index}
                             className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-4"
                           >
-                            <div className="md:col-span-2">
-                              <label htmlFor="wagonNumber">Wagon Number</label>
-                              <Field
-                                name={`wagonModels.${index}.wagonNumber`}
-                                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                              />
-                            </div>
-                            <div className="md:col-span-2">
-                              <label htmlFor="city">Quantity</label>
-                              <Field
-                                name={`wagonModels.${index}.quantity`}
-                                className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                              />
-                            </div>
+                            <TextInput
+                              label="Wagon Number"
+                              name={`wagonModels.${index}.wagonNumber`}
+                              className="md:col-span-2"
+                            />
+                            <TextInput
+                              label="Quantity"
+                              name={`wagonModels.${index}.quantity`}
+                              className="md:col-span-2"
+                            />
                             <div className="md:col-span-1 mt-4 flex items-center gap-2 pt-2">
                               {values.wagonModels?.length === index + 1 ? (
                                 <button
@@ -346,17 +313,7 @@ const CollectionCard: FC<CollectionProps> = ({
                   />
                 </Fragment>
               ) : null}
-              <div className="md:col-span-1">
-                <label htmlFor="full_name">Planned Prep Date :</label>
-                <DatePicker
-                  selected={values.plannedPrepDate}
-                  onChange={(date) => setFieldValue("plannedPrepDate", date)}
-                  dateFormat="yyyy-MM-dd"
-                  showTimeInput
-                  withPortal
-                  className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                />
-              </div>
+
               <div className="md:col-span-4 text-left mt-10">
                 <div className="inline-flex items-end">
                   <button
