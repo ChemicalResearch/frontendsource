@@ -143,35 +143,6 @@ function JobCreation() {
                       ))}
                     </Field>
                   </div>
-                  {/* <div className="md:col-span-2">
-                    <label
-                      htmlFor="countries"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Job Type
-                    </label>
-                    <div className="flex gap-4 my-2">
-                      {data?.jobtypes?.map((jobtype) => (
-                        <div className="flex items-center" key={jobtype.number}>
-                          <input
-                            type="checkbox"
-                            value={jobtype.number}
-                            checked={values.jobType === jobtype.number}
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-50 focus:ring-2"
-                            onChange={() =>
-                              setFieldValue("jobType", jobtype.number)
-                            }
-                          />
-                          <label
-                            htmlFor="default-checkbox"
-                            className="ms-2 text-sm font-medium text-gray-900"
-                          >
-                            {jobtype.name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </div> */}
                   <div className="md:col-span-2">
                     <label
                       htmlFor="commodityGroup"
