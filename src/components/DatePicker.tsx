@@ -30,7 +30,7 @@ const DatePicker: FC<DatePickerProps> = ({
           dateFormat="yyyy-MM-dd"
           placeholderText="YYYY-MM-DD"
           withPortal
-          className="h-10 border rounded-lg px-4 w-full bg-gray-50"
+          className="h-10 border rounded px-4 w-full bg-gray-50"
         />
       </Suspense>
     </div>

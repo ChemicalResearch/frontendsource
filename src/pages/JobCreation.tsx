@@ -11,6 +11,7 @@ import { useAuth } from "../context/auth";
 import dayjs from "dayjs";
 import Dropdown from "../components/Dropdown";
 import DatePicker from "../components/DatePicker";
+import TextInput from "../components/TextInput";
 
 type CreateJobFormInputes = {
   commodity: string;
@@ -143,19 +144,12 @@ function JobCreation() {
                       </option>
                     ))}
                   </Dropdown>
-                  <div className="md:col-span-2">
-                    <label
-                      htmlFor="tcrcReferenceNumber"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      TCRC Reference No
-                    </label>
-                    <Field
-                      id="tcrcReferenceNumber"
-                      name="tcrcReferenceNumber"
-                      className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    />
-                  </div>
+                  <TextInput
+                    id="tcrcReferenceNumber"
+                    name="tcrcReferenceNumber"
+                    label="TCRC Reference No"
+                    className="md:col-span-2"
+                  />
                   <Dropdown
                     id="commodity"
                     name="commodity"
