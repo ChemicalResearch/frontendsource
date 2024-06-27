@@ -1,6 +1,5 @@
-import { FC } from "react";
+import { FC, Fragment, Suspense, lazy } from "react";
 import { Field, Formik, FormikHelpers } from "formik";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   GetsamplepreparationlistResponse,
@@ -15,6 +14,8 @@ import {
 import dayjs from "dayjs";
 import { useAuth } from "../../../context/auth";
 import Swal from "sweetalert2";
+
+const ReactDatePicker = lazy(() => import("react-datepicker"));
 
 interface SamplePreparationFormProps {
   row: SamplePreparation;
@@ -119,7 +120,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="tmSealNo"
                 name="tmSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
@@ -128,7 +129,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="tcrcSealNo"
                 name="tcrcSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
@@ -137,7 +138,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="plantSealNo"
                 name="plantSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
@@ -146,7 +147,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="refereeSealNo"
                 name="refereeSealNo"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
@@ -155,7 +156,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="tcrcQrCode"
                 name="tcrcQrCode"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
@@ -164,7 +165,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="plantQrCode"
                 name="plantQrCode"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
@@ -173,13 +174,13 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
               <Field
                 id="refereeQrCode"
                 name="refereeQrCode"
-                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-60"
+                className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-center">
-              <DatePicker
+            <Suspense fallback={<Fragment />}>
+              <ReactDatePicker
                 selected={values.preparationDate}
                 onChange={(date) => setFieldValue("preparationDate", date)}
                 dateFormat="yyyy-MM-dd"
@@ -187,11 +188,11 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 withPortal
                 className="h-10 border rounded px-4 bg-gray-50 w-32"
               />
-            </div>
+            </Suspense>
           </td>
           <td className="p-2 whitespace-nowrap">
-            <div className="text-center">
-              <DatePicker
+            <Suspense fallback={<Fragment />}>
+              <ReactDatePicker
                 selected={values.despatchDate}
                 onChange={(date) => setFieldValue("despatchDate", date)}
                 dateFormat="yyyy-MM-dd"
@@ -199,7 +200,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 withPortal
                 className="h-10 border rounded px-4 bg-gray-50 w-32"
               />
-            </div>
+            </Suspense>
           </td>
           <td>
             <button

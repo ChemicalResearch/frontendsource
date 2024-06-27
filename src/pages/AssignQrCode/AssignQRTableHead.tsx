@@ -8,18 +8,18 @@ const AssignQRTableHead = () => {
     { label: "Planned Preparation Date", align: "left" },
     { label: "TM Seal No.", align: "left" },
     { label: "TCRC Seal No.", align: "left" },
-    { label: "Plant Seal No.", align: "center" },
-    { label: "Referee Seal No.", align: "center" },
-    { label: "TCRC QR Code", align: "center" },
-    { label: "Plant QR Code", align: "center" },
-    { label: "Referee QR Code", align: "center" },
-    { label: "Preparation Date", align: "center" },
-    { label: "Despatch Date", align: "center" },
-    { label: "Action", align: "center" },
+    { label: "Plant Seal No.", align: "left" },
+    { label: "Referee Seal No.", align: "left" },
+    { label: "TCRC QR Code", align: "left" },
+    { label: "Plant QR Code", align: "left" },
+    { label: "Referee QR Code", align: "left" },
+    { label: "Preparation Date", align: "left" },
+    { label: "Despatch Date", align: "left" },
+    { label: "Action", align: "left" },
   ];
 
   return (
-    <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
+    <thead className="text-xs font-extrabold bg-gray-50">
       <tr>
         {headers.map((header, index) => (
           <th

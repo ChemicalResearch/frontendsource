@@ -2,6 +2,7 @@ import { FC, Suspense, lazy } from "react";
 import Label from "./Label";
 import "react-datepicker/dist/react-datepicker.css";
 import { twMerge } from "tailwind-merge";
+
 const ReactDatePicker = lazy(() => import("react-datepicker"));
 
 interface DatePickerProps {
