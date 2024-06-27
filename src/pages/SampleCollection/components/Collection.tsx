@@ -194,8 +194,9 @@ const CollectionCard: FC<CollectionProps> = ({
                   className="md:col-span-1"
                 />
                 <TextInput
-                  label="Source"
-                  name="mineText"
+                  label="TCRC Sample Id"
+                  id="tcrcSampleId"
+                  name="tcrcSampleId"
                   className="md:col-span-2"
                 />
                 <Dropdown
@@ -223,11 +224,11 @@ const CollectionCard: FC<CollectionProps> = ({
                   className="md:col-span-1"
                 />
                 <TextInput
-                  label="TCRC Sample Id"
-                  id="tcrcSampleId"
-                  name="tcrcSampleId"
+                  label="Source"
+                  name="mineText"
                   className="md:col-span-1"
                 />
+
                 <TextInput
                   label="Quantity"
                   id="quantity"
