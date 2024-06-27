@@ -9,6 +9,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import dayjs from "dayjs";
+import ViewPreparationTableHead from "./ViewPreparationTableHead";
 
 interface InitialValues {
   fromDate: Date | null;
@@ -149,66 +150,7 @@ function ViewPreparation() {
         <div className="mt-10">
           <div className="overflow-x-auto">
             <table className="table-auto w-full">
-              <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
-                <tr>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      TCRC Reference No.
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      TCRC Sample Id
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      Planned Preparation Date
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">TM Seal No.</div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">TCRC Seal No.</div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Plant Seal No.
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Referee Seal No.
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      TCRC QR Code
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Plant QR Code
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Referee QR Code
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Preparation Date
-                    </div>
-                  </th>
-                  <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      Despatch Date
-                    </div>
-                  </th>
-                </tr>
-              </thead>
+              <ViewPreparationTableHead />
               <tbody className="text-sm divide-y divide-gray-100">
                 {preparations?.map((preparation, key) => (
                   <tr key={key}>
