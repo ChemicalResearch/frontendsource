@@ -27,7 +27,8 @@ const AssignQRTableHead = () => {
             className={twMerge(
               "p-2 whitespace-nowrap",
               `text-${header.align}`,
-              `font-semibold`
+              `font-semibold`,
+              "text-center"
             )}
           >
             {header.label}
