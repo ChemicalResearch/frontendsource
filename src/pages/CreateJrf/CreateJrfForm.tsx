@@ -65,7 +65,7 @@ const CreateJrfForm: FC<CreateJrfFormProps> = ({ data, plantId, refetch }) => {
               <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
                 <tr>
                   <th className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">Sample ID</div>
+                    <div className="font-extrabold text-left">Sample ID</div>
                   </th>
                 </tr>
               </thead>
