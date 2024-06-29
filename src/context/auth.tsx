@@ -4,8 +4,11 @@ type User = {
     name: string;
     phone: string;
     employee_id: string;
-    role: "Job Admin";
+    role: string;
     email: string;
+    plant: string;
+    loginSuccessFlag: "Y" | "N";
+    errorMsg: string | null;
 }
 
 type AuthData = {
