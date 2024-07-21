@@ -70,9 +70,9 @@ const VerificationHeadRow = () => (
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">em Band</div>
       </th>
-      <th className="p-2 whitespace-nowrap">
+      {/* <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">Verification Flag</div>
-      </th>
+      </th> */}
       
       <th className="p-2 whitespace-nowrap">
         <div className="font-semibold text-center">Test End Date</div>
@@ -81,7 +81,7 @@ const VerificationHeadRow = () => (
         <div className="font-semibold text-center">Test Report</div>
       </th>
       <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">GVC Report</div>
+        <div className="font-semibold text-center">GCV Report</div>
       </th>
       <th className="p-2 whitespace-nowrap" colSpan={2}>
         <div className="font-semibold text-center">Action</div>

@@ -59,7 +59,7 @@ function App() {
         <Route path="final-report" element={<FinalReport />} />
         <Route path="tm-entry-at-plant" element={<Tm />} />
         <Route path="view-jrf" element={<ViewJrf />} />
-
+        <Route path="validate-data" element={<FinalReport />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
     </Routes>
