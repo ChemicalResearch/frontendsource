@@ -93,7 +93,7 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm , refetch}) => {
           <td className="p-2 whitespace-nowrap">
             <Field
               name="tmValue"
-              className="h-10 border mt-1 rounded px-4 w-full min-w-24"
+              className="h-10 border mt-1 rounded px-4 w-20"
               type="text"
             />
           </td>

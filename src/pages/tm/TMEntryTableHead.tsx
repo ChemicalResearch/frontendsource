@@ -20,7 +20,6 @@ const TMEntryTableHead = () => {
               "p-2 whitespace-nowrap",
               `text-${header.align}`,
               `font-semibold`,
-              "text-center"
             )}
           >
             {header.label}
