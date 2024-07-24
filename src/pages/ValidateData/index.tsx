@@ -7,7 +7,6 @@ import {
   Tbody,
   Thead,
   Tr,
-  Td,
   Th,
 } from "../../styles/table";
 import ValidateDataRow from "./components/ValidateDataRow";
