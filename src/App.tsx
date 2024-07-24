@@ -24,6 +24,7 @@ import ViewJrf from "./pages/view-jrf";
 import RequiredAuth from "./components/RequiredAuth";
 import FinalReport from "./pages/final-report";
 import Tm from "./pages/tm";
+import ValidateData from "./pages/ValidateData";
 
 function App() {
   return (
@@ -59,7 +60,7 @@ function App() {
         <Route path="final-report" element={<FinalReport />} />
         <Route path="tm-entry-at-plant" element={<Tm />} />
         <Route path="view-jrf" element={<ViewJrf />} />
-        <Route path="validate-data" element={<FinalReport />} />
+        <Route path="validate-data" element={<ValidateData />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
     </Routes>

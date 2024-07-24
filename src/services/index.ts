@@ -15,3 +15,4 @@ export * from "./final-report";
 export * from "./tm";
 export * from "./dashboard";
 export * from "./view-preparation";
+export * from "./validate-data";
