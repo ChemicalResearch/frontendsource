@@ -113,7 +113,7 @@ export const Td: FC<
 > = ({ className, ...props }) => {
   return (
     <td
-      className={twMerge("border border-custom-gray", className)}
+      className={twMerge("px-2 border border-custom-gray", className)}
       {...props}
     />
   );

@@ -1,6 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getSampleCollectionDetails } from "../../../services";
+import {
+  TableContainer,
+  Table,
+  Tbody,
+  Thead,
+  Tr,
+  Th,
+  Td,
+} from "../../../styles/table";
 
 function SampleCollectionDetails() {
   const { tcrcReferenceNumber } = useParams();
@@ -14,116 +23,46 @@ function SampleCollectionDetails() {
     },
   });
   return (
-    <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-      <div>
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full">
-            <thead className="text-xs font-semibold text-gray-400 bg-gray-50">
-              <tr>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    TCRC Reference No.
-                  </div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">TCRC Sample Id</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Customer</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Commodity</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    Planned Preparation Date
-                  </div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">RR No.</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Quantity</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Source</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Start Date</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">End Date</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                   Action
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="text-sm divide-y divide-gray-100">
-              {data?.map((d, k) => (
-                <tr key={k}>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      {tcrcReferenceNumber}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      {d.tcrcSampleId}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      {d.customerText}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      {d.commodityText}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-left">
-                      {d.plannedPrepDate}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      {d.vehicleNumber}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      {d.quantity}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      {d.mineText}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">
-                      {d.startTime}
-                    </div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap">
-                    <div className="font-semibold text-center">{d.endTime}</div>
-                  </td>
-                  <td className="p-2 whitespace-nowrap text-center">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto">
-                      Live
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <TableContainer className="h-[calc(100vh-84px)]">
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>TCRC Reference No.</Th>
+            <Th>TCRC Sample Id</Th>
+            <Th>Customer</Th>
+            <Th>Commodity</Th>
+            <Th>Planned Preparation Date</Th>
+            <Th>RR No.</Th>
+            <Th>Quantity</Th>
+            <Th>Source</Th>
+            <Th>Start Date</Th>
+            <Th>End Date</Th>
+            <Th>Action</Th>
+          </Tr>
+        </Thead>
+        <Tbody className="text-sm divide-y divide-gray-100">
+          {data?.map((d, k) => (
+            <Tr key={k}>
+              <Td>{tcrcReferenceNumber}</Td>
+              <Td>{d.tcrcSampleId}</Td>
+              <Td>{d.customerText}</Td>
+              <Td>{d.commodityText}</Td>
+              <Td>{d.plannedPrepDate}</Td>
+              <Td>{d.vehicleNumber}</Td>
+              <Td>{d.quantity}</Td>
+              <Td>{d.mineText}</Td>
+              <Td>{d.startTime}</Td>
+              <Td>{d.endTime}</Td>
+              <Td>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto">
+                  Live
+                </button>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 }
 
