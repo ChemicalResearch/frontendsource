@@ -22,19 +22,19 @@ function ValidateData() {
 
   return (
     <TableContainer className="h-[calc(100vh-84px)]">
-      <Table>
+      <Table className="min-w-[1800px]">
         <Thead>
           <Tr>
-            <Th className="w-min-[150px]">Job No.</Th>
-            <Th className="w-min-[150px]">Sample ID</Th>
-            <Th className="w-min-[180px]">Rake No.</Th>
-            <Th className="w-min-[150px]">TCRC QR Code</Th>
-            <Th className="w-min-[150px]">TCRC Seal No.</Th>
-            <Th className="w-min-[150px]">Plant Seal No.</Th>
-            <Th className="w-min-[150px]">Plant QR Code</Th>
-            <Th className="w-min-[150px]">Reference Seal No.</Th>
-            <Th className="w-min-[150px]">Reference Qr Code</Th>
-            <Th className="w-min-[150px]">TM Seal No.</Th>
+            <Th>Job No.</Th>
+            <Th>Sample ID</Th>
+            <Th>Rake No.</Th>
+            <Th>TCRC QR Code</Th>
+            <Th>TCRC Seal No.</Th>
+            <Th>Plant Seal No.</Th>
+            <Th>Plant QR Code</Th>
+            <Th>Reference Seal No.</Th>
+            <Th>Reference Qr Code</Th>
+            <Th>TM Seal No.</Th>
             <Th>Despatch Date</Th>
             <Th>Preparation Date</Th>
             <Th>Action</Th>

@@ -5,8 +5,10 @@ import { SampleDataSet, TmData } from "../../../services";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
-
+import { useMutation } from "@tanstack/react-query";
+import { submitSampleDataSet } from "../../../services";
 import { Tr, Td } from "../../../styles/table";
+import dayjs from "dayjs";
 
 type ValidateDataRowProps = {
   data: SampleDataSet;
@@ -31,11 +33,20 @@ type InitialValues = {
 };
 
 const ValidateDataRow: FC<ValidateDataRowProps> = ({ data, refetch }) => {
+  const mutation = useMutation({
+    mutationFn: submitSampleDataSet,
+  });
   const onSubmit = async (
     values: InitialValues,
     formikHelpers: FormikHelpers<InitialValues>
   ) => {
     try {
+      const { despatchDate, preparationDate, ...restValues } = values;
+      await mutation.mutateAsync({
+        ...restValues,
+        despatchDate: dayjs(despatchDate).format("YYYY-MM-DD"),
+        preparationDate: dayjs(preparationDate).format("YYYY-MM-DD"),
+      });
       refetch?.();
       Swal.fire("Successfully Submited");
       formikHelpers.resetForm();
@@ -60,35 +71,35 @@ const ValidateDataRow: FC<ValidateDataRowProps> = ({ data, refetch }) => {
       {({ values, isSubmitting, setFieldValue, submitForm }) => (
         <Tr>
           <Td className="w-[120px] text-center">{values.jobNumber}</Td>
-          <Td>
+          <Td className="w-[132px]">
             <Field
               name="tmSealNo"
               className="h-10 border rounded px-4 py-1 w-full"
               type="text"
             />
           </Td>
-          <Td>
+          <Td className="w-[132px]">
             <Field
               name="rakeNumber"
               className="h-10 border rounded px-4 py-1 w-full"
               type="text"
             />
           </Td>
-          <Td>
+          <Td className="w-[132px]">
             <Field
               name="tcrcQrCode"
               className="h-10 border rounded px-4 py-1 w-full"
               type="text"
             />
           </Td>
-          <Td>
+          <Td className="w-[132px]">
             <Field
               name="tcrcSealNo"
               className="h-10 border rounded px-4 py-1 w-full"
               type="text"
             />
           </Td>
-          <Td>
+          <Td className="w-[132px]">
             <Field
               name="plantSealNo"
               className="h-10 border rounded px-4 py-1 w-full"
