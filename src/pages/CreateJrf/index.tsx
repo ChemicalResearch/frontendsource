@@ -37,19 +37,17 @@ const CreateJrf = () => {
   };
 
   return (
-    <div className="max-w-screen-xl">
-      <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
+    <>
+      <Suspense fallback={<Fragment />}>
+        <FilterCreateJrf initialValues={initialValues} onSubmit={onSubmit} />
+      </Suspense>
+      {data?.length ? (
         <Suspense fallback={<Fragment />}>
-          <FilterCreateJrf initialValues={initialValues} onSubmit={onSubmit} />
+          <CreateJrfForm plantId={plantId} data={data} refetch={refetch} />
         </Suspense>
-        {data?.length ? (
-          <Suspense fallback={<Fragment />}>
-            <CreateJrfForm plantId={plantId} data={data} refetch={refetch} />
-          </Suspense>
-        ) : null}
-      </div>
-    </div>
+      ) : null}
+    </>
   );
-}
+};
 
 export default CreateJrf;
