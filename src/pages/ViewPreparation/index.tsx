@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import dayjs from "dayjs";
 import ViewPreparationTableHead from "./ViewPreparationTableHead";
+import { TableContainer, Table, Tbody, Tr, Td } from "../../styles/table";
 
 interface InitialValues {
   fromDate: Date | null;
@@ -68,7 +69,7 @@ function ViewPreparation() {
   console.log({ preparations, isPreparationPending });
 
   return (
-    <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
+    <>
       <Formik
         initialValues={initialValues}
         enableReinitialize
@@ -77,7 +78,7 @@ function ViewPreparation() {
       >
         {({ submitForm, values, isSubmitting, setFieldValue }) => {
           return (
-            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-7 items-end">
+            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-7 items-end m-3">
               <div className="md:col-span-2">
                 <label
                   htmlFor="countries"
@@ -146,82 +147,78 @@ function ViewPreparation() {
           );
         }}
       </Formik>
-      {preparations?.length ? (
-        <div className="mt-10">
-          <div className="overflow-x-auto">
-            <table className="table-auto w-full">
-              <ViewPreparationTableHead />
-              <tbody className="text-sm divide-y divide-gray-100">
-                {preparations?.map((preparation, key) => (
-                  <tr key={key}>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        {preparation.tcrcReferenceNumber}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        {preparation.tcrcSampleId}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        {preparation.plannedPrepDate}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        {preparation.tmSealNo}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">
-                        {preparation.tcrcSealNo}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.plantSealNo}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.refereeSealNo}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.tcrcQrCode}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.plantQrCode}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.refereeQrCode}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.preparationDate}
-                      </div>
-                    </td>
-                    <td className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-center">
-                        {preparation.despatchDate}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ) : null}
-    </div>
+      <TableContainer className="mx-3">
+        <Table>
+          <ViewPreparationTableHead />
+          <Tbody>
+            {preparations?.map((preparation, key) => (
+              <Tr key={key}>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.tcrcReferenceNumber}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.tcrcSampleId}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.plannedPrepDate}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.tmSealNo}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.tcrcSealNo}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.plantSealNo}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.refereeSealNo}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.tcrcQrCode}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.plantQrCode}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.refereeQrCode}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.preparationDate}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.despatchDate}
+                  </div>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 

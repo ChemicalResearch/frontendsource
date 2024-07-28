@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { twMerge } from "tailwind-merge";
+import { Th, Thead, Tr } from "../../styles/table";
 
 const ViewPreparationTableHead = () => {
   const headers = [
@@ -18,10 +19,10 @@ const ViewPreparationTableHead = () => {
   ];
 
   return (
-    <thead className="text-xs font-extrabold bg-gray-50">
-      <tr>
+    <Thead className="text-xs font-extrabold bg-gray-50">
+      <Tr>
         {headers.map((header, index) => (
-          <th
+          <Th
             key={index}
             className={twMerge(
               "p-2 whitespace-nowrap",
@@ -31,10 +32,10 @@ const ViewPreparationTableHead = () => {
             )}
           >
             {header.label}
-          </th>
+          </Th>
         ))}
-      </tr>
-    </thead>
+      </Tr>
+    </Thead>
   );
 };
 
