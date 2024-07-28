@@ -9,9 +9,7 @@ export const TableContainer: FC<
     >
   >
 > = ({ className, ...props }) => {
-  return (
-    <div className={twMerge("overflow-x-auto", className)} {...props} />
-  );
+  return <div className={twMerge("overflow-x-auto", className)} {...props} />;
 };
 
 export const Table: FC<
@@ -89,7 +87,9 @@ export const Th: FC<
     React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLTableCellElement>,
       HTMLTableCellElement
-    >
+    > & {
+      colSpan?: number | undefined;
+    }
   >
 > = ({ className, ...props }) => {
   return (

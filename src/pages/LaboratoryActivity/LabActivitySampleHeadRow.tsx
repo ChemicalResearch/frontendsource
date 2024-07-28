@@ -1,30 +1,18 @@
+import { Th, Thead, Tr } from "../../styles/table";
+
 const LabActivitySampleHeadRow = () => (
-  <tr>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-left">JRF No.</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-left">Sample ID</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-left">Despatched Date</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-left">TCRC QR Code</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-center">Lab Received Date</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-center">Lab Code</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-right">Test Start Date</div>
-    </th>
-    <th className="p-2 whitespace-nowrap">
-      <div className="font-semibold text-center">Actions</div>
-    </th>
-  </tr>
+  <Thead>
+    <Tr>
+      <Th>JRF No.</Th>
+      <Th>Sample ID</Th>
+      <Th>Despatched Date</Th>
+      <Th>TCRC QR Code</Th>
+      <Th>Lab Received Date</Th>
+      <Th>Lab Code</Th>
+      <Th>Test Start Date</Th>
+      <Th>Actions</Th>
+    </Tr>
+  </Thead>
 );
 
 export default LabActivitySampleHeadRow;

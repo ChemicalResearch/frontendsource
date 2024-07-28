@@ -3,6 +3,7 @@ import { lazy, useState, Suspense, Fragment } from "react";
 import LabActivitySampleHeadRow from "./LabActivitySampleHeadRow";
 import LabActivitySampleBodyRow from "./LabActivitySampleBodyRow";
 import { useQuery } from "@tanstack/react-query";
+import { Table, TableContainer, Tbody, Thead } from "../../styles/table";
 
 const JrfNoList = lazy(() => import("./JrfNoList"));
 
@@ -22,35 +23,29 @@ const LabActivity = () => {
   };
 
   return (
-    <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-      <div className="grid gap-4 gap-y-2 text-sm grid-cols-4">
-        <div className="col-span-1">
-          <Suspense fallback={<Fragment />}>
-            <JrfNoList jrfNumber={jrfNumber} onChange={handleChange} />
-          </Suspense>
-        </div>
-        <div className="col-span-3">
-          {!!data?.length ? (
-            <div className="p-3">
-              <div className="overflow-x-auto">
-                <table className="table-auto w-full">
-                  <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                    <LabActivitySampleHeadRow />
-                  </thead>
-                  <tbody className="text-sm divide-y divide-gray-100">
-                    {data?.map((sample, key) => (
-                      <LabActivitySampleBodyRow
-                        key={key}
-                        sample={sample}
-                        refetch={refetch}
-                      />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : null}
-        </div>
+    <div className="grid gap-4 gap-y-2 text-sm grid-cols-4 m-3">
+      <div className="col-span-1">
+        <Suspense fallback={<Fragment />}>
+          <JrfNoList jrfNumber={jrfNumber} onChange={handleChange} />
+        </Suspense>
+      </div>
+      <div className="col-span-3">
+        {!!data?.length ? (
+          <TableContainer>
+            <Table className="min-w-[1200px]">
+              <LabActivitySampleHeadRow />
+              <Tbody>
+                {data?.map((sample, key) => (
+                  <LabActivitySampleBodyRow
+                    key={key}
+                    sample={sample}
+                    refetch={refetch}
+                  />
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        ) : null}
       </div>
     </div>
   );
