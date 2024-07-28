@@ -1,91 +1,30 @@
-import { Fragment } from "react";
+import { Th, Thead, Tr } from "../../styles/table";
 
 const VerificationHeadRow = () => (
-  <Fragment>
-    <tr>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">Test End Date</div>
-      </th>
-      {/* <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">JRF No.</div>
-      </th> */}
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">TCRC QR Code</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">JRF Number</div>
-      </th>
-      
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">TCRC Sample ID</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB TM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ADB IM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB VM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ADB ASH</div>
-      </th>
-    
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ARB FC</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ADB GCV</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ARB GCV</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">em EM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">em VM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">em Ash</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">em FC</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">em GCV</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">em Band</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ADB FC</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ADB BAND</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">ARB BAND</div>
-      </th>
-      {/* <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">Verification Flag</div>
-      </th>
-      
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">Test End Date</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">Test Report</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">GVC Report</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">Action</div>
-      </th> */}
-    </tr>
-  </Fragment>
+  <Thead>
+    <Tr>
+      <Th>Test End Date</Th>
+      <Th>TCRC QR Code</Th>
+      <Th>JRF Number</Th>
+      <Th>TCRC Sample ID</Th>
+      <Th>ARB TM</Th>
+      <Th>ADB IM</Th>
+      <Th>ARB VM</Th>
+      <Th>ADB ASH</Th>
+      <Th>ARB FC</Th>
+      <Th>ADB GCV</Th>
+      <Th>ARB GCV</Th>
+      <Th>em EM</Th>
+      <Th>em VM</Th>
+      <Th>em Ash</Th>
+      <Th>em FC</Th>
+      <Th>em GCV</Th>
+      <Th>em Band</Th>
+      <Th>ADB FC</Th>
+      <Th>ADB BAND</Th>
+      <Th>ARB BAND</Th>
+    </Tr>
+  </Thead>
 );
 
 export default VerificationHeadRow;

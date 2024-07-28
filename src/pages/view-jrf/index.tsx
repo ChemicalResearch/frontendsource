@@ -10,6 +10,15 @@ import {
 import { Formik, FormikHelpers } from "formik";
 import Swal from "sweetalert2";
 import { DownloadLinkButton } from "../../components/buttons";
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "../../styles/table";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;
   gcvReport: File | null;
@@ -86,15 +95,19 @@ const viewJrf = () => {
   };
 
   return (
-    <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
-      <div className="grid gap-4 gap-y-2 text-sm grid-cols-4">
-        <div className="col-span-1">
-          <div className="font-semibold text-left mb-2">JRF No. Alive</div>
-          <ul>
-            {data?.map((x, key) => (
-              <li key={key}>
-                <div className="flex flex-row items-center gap-1">
-                  <label className="flex items-center font-medium text-gray-800 cursor-pointer">
+    <div className="grid gap-4 gap-y-2 text-sm grid-cols-4 m-2">
+      <div className="col-span-1">
+        <TableContainer className="h-[calc(100vh-100px)]">
+          <Table className="max-w-[320px] min-w-0">
+            <Thead>
+              <Tr>
+                <Th colSpan={3}>JRF No.</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data?.map((x, key) => (
+                <Tr key={key}>
+                  <Td>
                     <input
                       type="checkbox"
                       value={x.jrfNumber}
@@ -102,220 +115,62 @@ const viewJrf = () => {
                       onChange={handleChange}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 cursor-pointer"
                     />
-                    {x.jrfNumber}
-                  </label>
-                  <DownloadLinkButton
-                    href={x.jrfDocumentUrl}
-                    className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="col-span-3">
-          {!!verificationList?.length ? (
-            <div className="p-3">
-              <div className="overflow-x-auto">
-                <table className="table-auto w-full">
-                  <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                    <VerificationHeadRow />
-                  </thead>
-                  <Formik
-                    initialValues={initialValues}
-                    onSubmit={onSubmit}
-                    enableReinitialize
-                  >
-                    {() => (
-                      <tbody className="text-sm divide-y divide-gray-100">
-                        {verificationList?.map((verification, key) => (
-                          <tr key={key}>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.testEndDate}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.tcrcQrCode}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.jrfNumber}
-                              </div>
-                            </td>
-
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.tcrcSampleId}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbTM}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbIM}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbVM}
-                              </div>
-                            </td>
-
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbAsh}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbFC}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbGCV}
-                              </div>
-                            </td>
-                            {/* <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbAsh}
-                              </div>
-                            </td> */}
-
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbGCV}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.emEM}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.emVM}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.emAsh}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.emFC}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.emGCV}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.emBand}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbFc}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.adbBand}
-                              </div>
-                            </td>
-                            <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.arbBand}
-                              </div>
-                            </td>
-                            {/* <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.verificationFlag}
-                              </div>
-                            </td> */}
-                            {/* <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.testReport}
-                              </div>
-                            </td> */}
-                            {/* <td className="p-2 whitespace-nowrap">
-                              <div className="text-left">
-                                {verification.testEndDate}
-                              </div>
-                            </td> */}
-                            {/* <td className="p-2 whitespace-nowrap">
-                              <input
-                                type="file"
-                                className="block w-48 text-sm text-gray-500
-                              file:me-4 file:py-2 file:px-4
-                              file:rounded-lg file:border-0
-                              file:text-sm file:font-semibold
-                              file:bg-blue-600 file:text-white
-                              hover:file:bg-blue-700
-                              file:disabled:opacity-50 file:disabled:pointer-events-none
-                            "
-                                onChange={(event) => {
-                                  setFieldValue(
-                                    "testReport",
-                                    event?.currentTarget?.files?.[0]
-                                  );
-                                }}
-                              />
-                            </td> */}
-                            {/* <td className="p-2 whitespace-nowrap">
-                              <input
-                                type="file"
-                                className="block w-48 text-sm text-gray-500
-                              file:me-4 file:py-2 file:px-4
-                              file:rounded-lg file:border-0
-                              file:text-sm file:font-semibold
-                              file:bg-blue-600 file:text-white
-                              hover:file:bg-blue-700
-                              file:disabled:opacity-50 file:disabled:pointer-events-none
-                            "
-                                onChange={(event) => {
-                                  setFieldValue(
-                                    "gcvReport",
-                                    event?.currentTarget?.files?.[0]
-                                  );
-                                }}
-                              />
-                            </td> */}
-                            {/* <td
-                              className="p-2 whitespace-nowrap"
-                            >
-                               
-                              <div className="flex items-center justify-center gap-2">
-                              <DownloadLinkButton href={verification.jrfLink} className="mx-auto" />
-                                <button
-                                  type="button"
-                                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
-                                  onClick={submitForm}
-                                >
-                                  Save
-                                </button>
-                              </div>
-                            </td> */}
-                          </tr>
-                        ))}
-                      </tbody>
-                    )}
-                  </Formik>
-                </table>
-              </div>
-            </div>
-          ) : null}
-        </div>
+                  </Td>
+                  <Td>{x.jrfNumber}</Td>
+                  <Td>
+                    <DownloadLinkButton
+                      href={x.jrfDocumentUrl}
+                      className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                    />
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </div>
+      <div className="col-span-3">
+        {!!verificationList?.length ? (
+          <TableContainer className="h-[calc(100vh-100px)]">
+            <Table className="min-w-[1800px]">
+              <VerificationHeadRow />
+              <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                enableReinitialize
+              >
+                {() => (
+                  <Tbody className="text-sm divide-y divide-gray-100">
+                    {verificationList?.map((verification, key) => (
+                      <Tr key={key}>
+                        <Td>{verification.testEndDate}</Td>
+                        <Td>{verification.tcrcQrCode}</Td>
+                        <Td>{verification.jrfNumber}</Td>
+                        <Td>{verification.tcrcSampleId}</Td>
+                        <Td>{verification.arbTM}</Td>
+                        <Td>{verification.adbIM}</Td>
+                        <Td>{verification.arbVM}</Td>
+                        <Td>{verification.adbAsh}</Td>
+                        <Td>{verification.arbFC}</Td>
+                        <Td>{verification.adbGCV}</Td>
+                        <Td>{verification.arbGCV}</Td>
+                        <Td>{verification.emEM}</Td>
+                        <Td>{verification.emVM}</Td>
+                        <Td>{verification.emAsh}</Td>
+                        <Td>{verification.emFC}</Td>
+                        <Td>{verification.emGCV}</Td>
+                        <Td>{verification.emBand}</Td>
+                        <Td>{verification.adbFc}</Td>
+                        <Td>{verification.adbBand}</Td>
+                        <Td>{verification.arbBand}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                )}
+              </Formik>
+            </Table>
+          </TableContainer>
+        ) : null}
       </div>
     </div>
   );
