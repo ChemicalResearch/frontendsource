@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
+import { Td, Tr } from "../../../styles/table";
 
 type TmFormikInitialValues = {
   tcrcQRCode: string;
@@ -74,30 +75,30 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm , refetch}) => {
       enableReinitialize
     >
       {({ values, isSubmitting, setFieldValue, submitForm }) => (
-        <tr>
-          <td className="p-2 whitespace-nowrap w-[200px]">
+        <Tr>
+          <Td className="whitespace-nowrap w-[200px]">
             <div className="text-left">{values.tcrcQRCode}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap w-[200px]">
+          </Td>
+          <Td className="whitespace-nowrap w-[200px]">
             <div className="text-left">{values.tmSealNo}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap w-[100px]">
+          </Td>
+          <Td className="whitespace-nowrap w-[200px]">
             <DatePicker
               selected={values.tmEntryDate}
               onChange={(date) => setFieldValue("tmEntryDate", date)}
               dateFormat="yyyy-MM-dd"
               placeholderText="YYYY-MM-DD"
-              className="h-10 border rounded px-4 bg-gray-50 w-[100px]"
+              className="h-10 border rounded px-4 bg-gray-50 w-full"
             />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="whitespace-nowrap">
             <Field
               name="tmValue"
               className="h-10 border mt-1 rounded px-4 w-20"
               type="text"
             />
-          </td>
-          <td className="p-2 whitespace-nowrap w-[80px]">
+          </Td>
+          <Td className="whitespace-nowrap w-[80px]">
             <button
               disabled={isSubmitting}
               className="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mx-auto"
@@ -105,8 +106,8 @@ const TmBodyRow: FC<TmBodyRowProps> = ({ tm , refetch}) => {
             >
               Save
             </button>
-          </td>
-        </tr>
+          </Td>
+        </Tr>
       )}
     </Formik>
   );
