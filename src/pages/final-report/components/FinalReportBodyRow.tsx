@@ -4,6 +4,7 @@ import { Formik, FormikHelpers } from "formik";
 import { FinalReport, submitFinalReport } from "../../../services";
 import Swal from "sweetalert2";
 import { DownloadLinkButton } from "../../../components/buttons";
+import { Td, Tr } from "../../../styles/table";
 
 type FinalReportFormikInitialValues = {
   jrfNumber: string;
@@ -71,11 +72,9 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
       enableReinitialize
     >
       {({ values, isSubmitting, setFieldValue, submitForm }) => (
-        <tr>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{values.jrfNumber}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+        <Tr>
+          <Td>{values.jrfNumber}</Td>
+          <Td>
             <input
               type="file"
               className="block w-48 text-sm text-gray-500
@@ -90,14 +89,14 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
                 setFieldValue("testReport", event?.currentTarget?.files?.[0]);
               }}
             />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td>
             <DownloadLinkButton href={values.testReport} className="mx-auto" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td>
             <DownloadLinkButton href={values.gcvReport} className="mx-auto" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td>
             <button
               disabled={isSubmitting}
               className="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none mx-auto"
@@ -105,8 +104,8 @@ const FinalReportBodyRow: FC<FinalReportBodyRowProps> = ({ report }) => {
             >
               Save
             </button>
-          </td>
-        </tr>
+          </Td>
+        </Tr>
       )}
     </Formik>
   );

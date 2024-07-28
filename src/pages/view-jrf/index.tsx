@@ -98,7 +98,7 @@ const viewJrf = () => {
     <div className="grid gap-4 gap-y-2 text-sm grid-cols-4 m-2">
       <div className="col-span-1">
         <TableContainer className="h-[calc(100vh-100px)]">
-          <Table className="max-w-[320px] min-w-0">
+          <Table className="max-w-[320px] min-w-0 w-full">
             <Thead>
               <Tr>
                 <Th colSpan={3}>JRF No.</Th>
