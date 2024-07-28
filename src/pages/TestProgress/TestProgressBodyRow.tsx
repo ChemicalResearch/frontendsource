@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 import DecimalInput from "../../components/inputs/DecimalInput";
+import { Td, Tr } from "../../styles/table";
 interface TestProgressBodyRowProps {
   progress: TestProgress;
 }
@@ -66,53 +67,47 @@ const TestProgressBodyRow: FC<TestProgressBodyRowProps> = ({ progress }) => {
       enableReinitialize
     >
       {({ values, isSubmitting, submitForm, setFieldValue }) => (
-        <tr>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">{values.tcrcSampleId}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="text-left">
-              <DatePicker
-                selected={values.testEndDate}
-                onChange={(date) => setFieldValue("testEndDate", date)}
-                dateFormat="yyyy-MM-dd"
-                placeholderText="YYYY-MM-DD"
-                withPortal
-                className="h-10 border mt-1 rounded px-4  bg-gray-50 w-32"
-              />
-            </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+        <Tr>
+          <Td>{values.tcrcSampleId}</Td>
+          <Td>
+            <DatePicker
+              selected={values.testEndDate}
+              onChange={(date) => setFieldValue("testEndDate", date)}
+              dateFormat="yyyy-MM-dd"
+              placeholderText="YYYY-MM-DD"
+              withPortal
+              className="h-10 border mt-1 rounded px-4  bg-gray-50 w-32"
+            />
+          </Td>
+          <Td>
             <DecimalInput name="arbTM" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td>
             <DecimalInput name="adbIM" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td>
             <DecimalInput name="adbVM" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td>
             <DecimalInput name="adbAsh" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
-          <DecimalInput name="adbGCV" />                                  
-          </td>
-          <td className="p-2 whitespace-nowrap">
-          <DecimalInput name="ebEM" />
-          </td>
-          <td className="p-2 whitespace-nowrap">
-            <div className="flex items-center justify-center">
-              <button
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
-                onClick={submitForm}
-                disabled={isSubmitting}
-              >
-                Save
-              </button>
-            </div>
-          </td>
-        </tr>
+          </Td>
+          <Td>
+            <DecimalInput name="adbGCV" />
+          </Td>
+          <Td>
+            <DecimalInput name="ebEM" />
+          </Td>
+          <Td>
+            <button
+              type="button"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+              onClick={submitForm}
+              disabled={isSubmitting}
+            >
+              Save
+            </button>
+          </Td>
+        </Tr>
       )}
     </Formik>
   );

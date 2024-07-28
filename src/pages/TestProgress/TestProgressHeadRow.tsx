@@ -1,37 +1,19 @@
-import { Fragment } from "react";
+import { Th, Thead, Tr } from "../../styles/table";
 
 const TestProgressHeadRow = () => (
-  <Fragment>
-    <tr>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">TCRC Sample Id</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">Test End Date</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">TM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">IM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">VM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-left">ASH</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">GCV</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">EM</div>
-      </th>
-      <th className="p-2 whitespace-nowrap">
-        <div className="font-semibold text-center">Actions</div>
-      </th>
-    </tr>
-  </Fragment>
+  <Thead>
+    <Tr>
+      <Th>TCRC Sample Id</Th>
+      <Th>Test End Date</Th>
+      <Th>TM</Th>
+      <Th>IM</Th>
+      <Th>VM</Th>
+      <Th>ASH</Th>
+      <Th>GCV</Th>
+      <Th>EM</Th>
+      <Th>Actions</Th>
+    </Tr>
+  </Thead>
 );
 
 export default TestProgressHeadRow;
