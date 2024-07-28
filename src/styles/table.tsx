@@ -108,7 +108,9 @@ export const Td: FC<
     React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLTableCellElement>,
       HTMLTableCellElement
-    >
+    > & {
+      rowSpan?: number | undefined;
+    }
   >
 > = ({ className, ...props }) => {
   return (
