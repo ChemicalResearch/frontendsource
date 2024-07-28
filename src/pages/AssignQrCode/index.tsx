@@ -7,6 +7,7 @@ import FilterAssignQRCode, {
 } from "./FilterAssignQRCode";
 import AssignQRTableHead from "./AssignQRTableHead";
 import SamplePreparationForm from "./components/SamplePreparationForm";
+import { Table, TableContainer, Tbody } from "../../styles/table";
 
 const initialValues: FilterAssignQRCodeInitialValues = {
   plantId: "",
@@ -39,26 +40,18 @@ function AssignQr() {
   };
 
   return (
-    <div className="w-full bg-white shadow rounded-lg border border-gray-200 mb-5 p-16">
+    <div>
       <FilterAssignQRCode initialValues={initialValues} onSubmit={onSubmit} />
-      {data?.length ? (
-        <div className="mt-10">
-          <div className="overflow-x-auto">
-            <table className="table-auto w-full">
-              <AssignQRTableHead />
-              <tbody className="text-sm divide-y divide-gray-100">
-                {data?.map((row, key) => (
-                  <SamplePreparationForm
-                    key={key}
-                    row={row}
-                    refetch={refetch}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ) : null}
+      <TableContainer className="mx-3">
+        <Table>
+          <AssignQRTableHead />
+          <Tbody>
+            {data?.map((row, key) => (
+              <SamplePreparationForm key={key} row={row} refetch={refetch} />
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

@@ -68,7 +68,7 @@ const FilterAssignQRCode: FC<FilterAssignQRCodeProps> = ({
         }, [plantModelsBydate, values.plannedPrepDate]);
 
         return (
-          <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 items-end">
+          <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 items-end m-3">
             <div className="md:col-span-2">
               <label
                 htmlFor="countries"

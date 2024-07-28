@@ -14,6 +14,7 @@ import {
 import dayjs from "dayjs";
 import { useAuth } from "../../../context/auth";
 import Swal from "sweetalert2";
+import { Tr, Td } from "../../../styles/table";
 
 const ReactDatePicker = lazy(() => import("react-datepicker"));
 
@@ -101,21 +102,21 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
       key={row.collectionSystemId}
     >
       {({ submitForm, setFieldValue, isSubmitting, values }) => (
-        <tr>
-          <td className="p-2 whitespace-nowrap  z-50">
+        <Tr>
+          <Td className="p-2 whitespace-nowrap  z-50">
             <div className="flex items-center">
               <div className="font-medium text-gray-800">
                 {row.tcrcReferenceNumber}
               </div>
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-left">{row.tcrcSampleId}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-left">{row.plannedPrepDate}</div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-left">
               <Field
                 id="tmSealNo"
@@ -123,8 +124,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-left">
               <Field
                 id="tcrcSealNo"
@@ -132,8 +133,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-center">
               <Field
                 id="plantSealNo"
@@ -141,8 +142,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-center">
               <Field
                 id="refereeSealNo"
@@ -150,8 +151,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-center">
               <Field
                 id="tcrcQrCode"
@@ -159,8 +160,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-center">
               <Field
                 id="plantQrCode"
@@ -168,8 +169,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <div className="text-center">
               <Field
                 id="refereeQrCode"
@@ -177,8 +178,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 w-full bg-gray-50 min-w-40"
               />
             </div>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <Suspense fallback={<Fragment />}>
               <ReactDatePicker
                 selected={values.preparationDate}
@@ -189,8 +190,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 bg-gray-50 w-32"
               />
             </Suspense>
-          </td>
-          <td className="p-2 whitespace-nowrap">
+          </Td>
+          <Td className="p-2 whitespace-nowrap">
             <Suspense fallback={<Fragment />}>
               <ReactDatePicker
                 selected={values.despatchDate}
@@ -201,8 +202,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
                 className="h-10 border rounded px-4 bg-gray-50 w-32"
               />
             </Suspense>
-          </td>
-          <td>
+          </Td>
+          <Td>
             <button
               onClick={submitForm}
               disabled={isSubmitting}
@@ -210,8 +211,8 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
             >
               Save
             </button>
-          </td>
-        </tr>
+          </Td>
+        </Tr>
       )}
     </Formik>
   );
