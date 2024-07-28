@@ -107,7 +107,6 @@ const VerificationOfTestResult = () => {
             <Tbody>
               {data?.map((x, key) => (
                 <Tr key={key}>
-                  <Td> {x.jrfNumber}</Td>
                   <Td>
                     <input
                       type="checkbox"
@@ -117,6 +116,7 @@ const VerificationOfTestResult = () => {
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 ml-2 cursor-pointer"
                     />
                   </Td>
+                  <Td>{x.jrfNumber}</Td>
                 </Tr>
               ))}
             </Tbody>
