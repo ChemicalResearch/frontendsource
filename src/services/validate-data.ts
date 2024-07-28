@@ -21,3 +21,7 @@ export const getSampleDataSet = () => {
     `/getsampledataset`
   );
 };
+
+export const submitSampleDataSet = (body: SampleDataSet) => {
+  return apiClient.post('/posttsampledataset', body)
+}
