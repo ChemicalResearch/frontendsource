@@ -95,9 +95,9 @@ const VerificationOfTestResult = () => {
   };
 
   return (
-    <div className="grid gap-4 gap-y-2 text-sm grid-cols-4 m-3">
+    <div className="grid gap-4 gap-y-2 text-sm grid-cols-4 m-2">
       <div className="col-span-1">
-        <TableContainer>
+        <TableContainer className="h-[calc(100vh-100px)]">
           <Table className="max-w-[320px] min-w-0">
             <Thead>
               <Tr>
@@ -125,7 +125,7 @@ const VerificationOfTestResult = () => {
       </div>
       <div className="col-span-3">
         {!!verificationList?.length ? (
-          <TableContainer>
+          <TableContainer className="h-[calc(100vh-100px)]">
             <Table className="min-w-[1800px]">
               <VerificationHeadRow />
               <Formik

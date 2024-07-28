@@ -27,7 +27,7 @@ const JrfNoList: FC<JrfNoListProps> = ({ jrfNumber, onChange }) => {
   });
 
   return (
-    <TableContainer className="mx-3">
+    <TableContainer className="mx-3 h-[calc(100vh-84px)]">
       <Table className="max-w-[320px] min-w-0">
         <Thead>
           <Tr>
