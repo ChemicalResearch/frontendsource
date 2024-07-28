@@ -3,7 +3,7 @@ import { lazy, useState, Suspense, Fragment } from "react";
 import LabActivitySampleHeadRow from "./LabActivitySampleHeadRow";
 import LabActivitySampleBodyRow from "./LabActivitySampleBodyRow";
 import { useQuery } from "@tanstack/react-query";
-import { Table, TableContainer, Tbody, Thead } from "../../styles/table";
+import { Table, TableContainer, Tbody } from "../../styles/table";
 
 const JrfNoList = lazy(() => import("./JrfNoList"));
 
