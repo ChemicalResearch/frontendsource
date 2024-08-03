@@ -204,6 +204,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
             </Suspense>
           </Td>
           <Td>
+            <div className="flex gap-1">
             <button
               onClick={submitForm}
               disabled={isSubmitting}
@@ -214,6 +215,7 @@ const SamplePreparationForm: FC<SamplePreparationFormProps> = ({
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto">
               Live
             </button>
+            </div>
           </Td>
         </Tr>
       )}
