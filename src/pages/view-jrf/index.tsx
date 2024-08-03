@@ -123,6 +123,24 @@ const viewJrf = () => {
                       className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
                     />
                   </Td>
+                  <Td>
+                    <DownloadLinkButton
+                      href={x.finalReportUrl}
+                      className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                    />
+                  </Td>
+                  <Td>
+                    <DownloadLinkButton
+                      href={x.gcvReportUrl}
+                      className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                    />
+                  </Td>
+                  <Td>
+                    <DownloadLinkButton
+                      href={x.testReportUrl}
+                      className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                    />
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
