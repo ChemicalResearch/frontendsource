@@ -109,6 +109,7 @@ export const Td: FC<
       React.HTMLAttributes<HTMLTableCellElement>,
       HTMLTableCellElement
     > & {
+      colSpan?: number | undefined;
       rowSpan?: number | undefined;
     }
   >
