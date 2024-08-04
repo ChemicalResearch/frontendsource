@@ -6,7 +6,12 @@ import "react-datepicker/dist/react-datepicker.css";
 //   getSamplePreparation,
 //   GetSamplePreparationBody,
 // } from "../../services";
-import { viewPlants, GetRefereeBody, getRefereeData ,getRefereeDataSet} from "../../services";
+import {
+  viewPlants,
+  GetRefereeBody,
+  getRefereeData,
+  getRefereeDataSet,
+} from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import dayjs from "dayjs";
@@ -49,10 +54,9 @@ function Referee() {
         toDate,
         sampleId,
       });
-      console.log(`data use ${data}`);
       return data;
     },
-    enabled: Boolean(fromDate && plantId && toDate && sampleId),
+    enabled: Boolean((fromDate && plantId && toDate) || sampleId),
   });
 
   const onSubmit = async (
@@ -93,96 +97,91 @@ function Referee() {
       >
         {({ submitForm, values, isSubmitting, setFieldValue }) => {
           return (
-            <>
-              <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-7 items-end m-3">
-                <div className="md:col-span-2">
-                  <label
-                    htmlFor="countries"
-                    className="block mb-2 text-sm font-medium text-gray-90"
+            <div className="p-2 mt-3 flex flex-row items-center mb-3">
+              <div className="flex flex-row gap-3 items-center">
+                <div className="flex flex-row gap-2 bg-white p-2 items-end rounded">
+                  <div className="w-[180px]">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-90"
+                    >
+                      Collection From Date
+                    </label>
+                    <DatePicker
+                      selected={values.fromDate}
+                      onChange={(date) => setFieldValue("fromDate", date)}
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
+                      withPortal
+                      className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    />
+                  </div>
+                  <div className="w-[180px]">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-90"
+                    >
+                      Collection To Date
+                    </label>
+                    <DatePicker
+                      selected={values.toDate}
+                      onChange={(date) => setFieldValue("toDate", date)}
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
+                      withPortal
+                      className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    />
+                  </div>
+                  <div className="w-[200px]">
+                    <label
+                      htmlFor="countries"
+                      className="block mb-2 text-sm font-medium text-gray-90"
+                    >
+                      Select Plant
+                    </label>
+                    <Field
+                      as="select"
+                      id="plantId"
+                      name="plantId"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      disabled={isPending}
+                    >
+                      <option>Select</option>
+                      {data?.map((plant) => (
+                        <option key={plant.plantId} value={plant.plantId}>
+                          {plant.plantName}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                  <button
+                    onClick={submitForm}
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+                    disabled={isSubmitting}
                   >
-                    Collection From Date
-                  </label>
-                  <DatePicker
-                    selected={values.fromDate}
-                    onChange={(date) => setFieldValue("fromDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    placeholderText="YYYY-MM-DD"
-                    withPortal
-                    className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    Search
+                  </button>
+                </div>
+                <p className="mt-9">OR</p>
+                <div className="flex flex-row gap-2 bg-white p-2 items-end rounded">
+                  <TextInput
+                    label="sampleId"
+                    id="sampleId"
+                    name="sampleId"
+                    className="md:col-span-1"
                   />
-                </div>
-                <div className="md:col-span-2">
-                  <label
-                    htmlFor="countries"
-                    className="block mb-2 text-sm font-medium text-gray-90"
+                  <button
+                    onClick={submitForm}
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+                    disabled={isSubmitting}
                   >
-                    Collection To Date
-                  </label>
-                  <DatePicker
-                    selected={values.toDate}
-                    onChange={(date) => setFieldValue("toDate", date)}
-                    dateFormat="yyyy-MM-dd"
-                    placeholderText="YYYY-MM-DD"
-                    withPortal
-                    className="h-10 border rounded px-4 bg-gray-50 w-full"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label
-                    htmlFor="countries"
-                    className="block mb-2 text-sm font-medium text-gray-90"
-                  >
-                    Select Plant
-                  </label>
-                  <Field
-                    as="select"
-                    id="plantId"
-                    name="plantId"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    disabled={isPending}
-                  >
-                    <option>Select</option>
-                    {data?.map((plant) => (
-                      <option key={plant.plantId} value={plant.plantId}>
-                        {plant.plantName}
-                      </option>
-                    ))}
-                  </Field>
+                    Search
+                  </button>
                 </div>
               </div>
-              <div style={{ textAlign: "center" }}>
-                <h3>OR</h3>
-              </div>
-              <div>
-                {/* <label
-                  htmlFor="sampleid"
-                  className="block mb-2 text-sm font-medium text-gray-90"
-                >
-                  Sample Id:
-                </label> */}
-                {/* <input
-                  name="sampleId"
-                  className="h-12 border rounded px-4 py-1"
-                  type="text"
-                /> */}
-                <TextInput
-                  label="sampleId"
-                  id="sampleId"
-                  name="sampleId"
-                  className="md:col-span-1"
-                />
-              </div>
-              <div className="md:col-span-12" style={{ marginTop: "5px" }}>
-                <button
-                  onClick={submitForm}
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                  disabled={isSubmitting}
-                >
-                  Search
-                </button>
-              </div>
-            </>
+            </div>
           );
         }}
       </Formik>
@@ -325,7 +324,7 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                  <DatePicker
+                    <DatePicker
                       dateFormat="yyyy-MM-dd"
                       placeholderText="YYYY-MM-DD"
                       withPortal
@@ -335,7 +334,7 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                  input field for file upload
+                    input field for file upload
                   </div>
                 </Td>
                 <Td>
@@ -491,7 +490,7 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                  <DatePicker
+                    <DatePicker
                       dateFormat="yyyy-MM-dd"
                       placeholderText="YYYY-MM-DD"
                       withPortal
@@ -501,7 +500,7 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                  input field for file upload
+                    input field for file upload
                   </div>
                 </Td>
                 <Td>
