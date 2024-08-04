@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //   getSamplePreparation,
 //   GetSamplePreparationBody,
 // } from "../../services";
-import { viewPlants,GetRefereeBody,getRefereeData } from "../../services";
+import { viewPlants, GetRefereeBody, getRefereeData ,getRefereeDataSet} from "../../services";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import dayjs from "dayjs";
@@ -18,7 +18,7 @@ interface InitialValues {
   fromDate: Date | null;
   toDate: Date | null;
   plantId: string;
-  sampleId:string;
+  sampleId: string;
 }
 
 function Referee() {
@@ -32,9 +32,16 @@ function Referee() {
       return data;
     },
   });
+  const { data: refereelists, isPending: isRefereePending } = useQuery({
+    queryKey: ["refereelists"],
+    queryFn: async () => {
+      const { data } = await getRefereeDataSet();
+      return data;
+    },
+  });
 
-  const { data: preparations, isPending: isPreparationPending } = useQuery({
-    queryKey: ["preparations", fromDate, plantId, toDate, sampleId],
+  const { data: searchreferee, isPending: isPreparationPending } = useQuery({
+    queryKey: ["searchreferee", fromDate, plantId, toDate, sampleId],
     queryFn: async () => {
       const { data } = await getRefereeData({
         fromDate,
@@ -42,7 +49,7 @@ function Referee() {
         toDate,
         sampleId,
       });
-      console.log(`data use ${data}`)
+      console.log(`data use ${data}`);
       return data;
     },
     enabled: Boolean(fromDate && plantId && toDate && sampleId),
@@ -54,7 +61,7 @@ function Referee() {
   ) => {
     try {
       const { fromDate, plantId, toDate, sampleId } = values;
-      console.log({values})
+      console.log({ values });
       setRefereeBody({
         plantId,
         fromDate: dayjs(fromDate).format("YYYY-MM-DD"),
@@ -74,7 +81,7 @@ function Referee() {
     sampleId: "",
   };
 
-  console.log({ preparations, isPreparationPending });
+  console.log({ searchreferee, isPreparationPending });
 
   return (
     <>
@@ -158,7 +165,7 @@ function Referee() {
                   className="h-12 border rounded px-4 py-1"
                   type="text"
                 /> */}
-                 <TextInput
+                <TextInput
                   label="sampleId"
                   id="sampleId"
                   name="sampleId"
@@ -183,7 +190,7 @@ function Referee() {
         <Table>
           <ViewPreparationTableHead />
           <Tbody>
-            {preparations?.map((preparation, key) => (
+            {searchreferee?.map((preparation, key) => (
               <Tr key={key}>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-left">
@@ -297,38 +304,213 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    {preparation.paymentDate}
+                    {/* {preparation.paymentDate} */}
+                    <DatePicker
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
+                      withPortal
+                      className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    />
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    {preparation.adviceUrl}
+                    input field for file upload
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    {preparation.labDetails}
+                    lab details in text area
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    {preparation.resultDate}
+                  <DatePicker
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
+                      withPortal
+                      className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    />
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    {preparation.resultUrl}
+                  input field for file upload
                   </div>
                 </Td>
                 <Td>
-                <button
-                 
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                 
-                >
-                  Save
-                </button>
+                  <button
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+                  >
+                    Save
+                  </button>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+
+      <TableContainer className="mx-3">
+        <Table>
+          <ViewPreparationTableHead />
+          <Tbody>
+            {refereelists?.map((preparation, key) => (
+              <Tr key={key}>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.tcrcSampleId}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.jrfNumber}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.tcrcQrCode}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.adbIM}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-left">
+                    {preparation.adbVM}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.adbAsh}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.adbFc}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.adbBand}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.adbGCV}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.arbTM}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.arbVM}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.arbAsh}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.arbFC}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.arbGCV}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.arbBand}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.emEM}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.emVM}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.emAsh}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.emFC}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.emGCV}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.emBand}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {preparation.jrfLink}
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    {/* {preparation.paymentDate} */}
+                    <DatePicker
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
+                      withPortal
+                      className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    />
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    input field for file upload
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                    lab details in text area
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                  <DatePicker
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText="YYYY-MM-DD"
+                      withPortal
+                      className="h-10 border rounded px-4 bg-gray-50 w-full"
+                    />
+                  </div>
+                </Td>
+                <Td className="p-2 whitespace-nowrap">
+                  <div className="font-semibold text-center">
+                  input field for file upload
+                  </div>
+                </Td>
+                <Td>
+                  <button
+                    type="button"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
+                  >
+                    Save
+                  </button>
                 </Td>
               </Tr>
             ))}
