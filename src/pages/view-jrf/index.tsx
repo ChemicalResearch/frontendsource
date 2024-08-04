@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import VerificationHeadRow from "./VerificationHeadRow";
 import {
   getVerificationJRFs,
@@ -101,29 +101,67 @@ const viewJrf = () => {
           <Table className="max-w-[320px] min-w-0 w-full">
             <Thead>
               <Tr>
-                <Th colSpan={3}>JRF No.</Th>
+                <Th colSpan={4}>JRF No.</Th>
               </Tr>
             </Thead>
             <Tbody>
               {data?.map((x, key) => (
-                <Tr key={key}>
-                  <Td>
-                    <input
-                      type="checkbox"
-                      value={x.jrfNumber}
-                      checked={jrfNumber === x.jrfNumber}
-                      onChange={handleChange}
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 cursor-pointer"
-                    />
-                  </Td>
-                  <Td>{x.jrfNumber}</Td>
-                  <Td>
-                    <DownloadLinkButton
-                      href={x.jrfDocumentUrl}
-                      className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
-                    />
-                  </Td>
-                </Tr>
+                <Fragment key={key}>
+                  <Tr>
+                    <Td>
+                      <input
+                        type="checkbox"
+                        value={x.jrfNumber}
+                        checked={jrfNumber === x.jrfNumber}
+                        onChange={handleChange}
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 mr-2 cursor-pointer"
+                      />
+                    </Td>
+                    <Td colSpan={3}>{x.jrfNumber}</Td>
+                  </Tr>
+                  <Tr>
+                    <Td colSpan={4} className="py-0">
+                      <div className="flex flex-col">
+                        {x.jrfDocumentUrl ? (
+                          <div className="flex items-center justify-between">
+                            <p>JRF Document</p>
+                            <DownloadLinkButton
+                              href={x.jrfDocumentUrl}
+                              className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                            />
+                          </div>
+                        ) : null}
+                        {x.finalReportUrl ? (
+                          <div className="flex items-center justify-between">
+                            <p>Final Report</p>
+                            <DownloadLinkButton
+                              href={x.finalReportUrl}
+                              className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                            />
+                          </div>
+                        ) : null}
+                        {x.gcvReportUrl ? (
+                          <div className="flex items-center justify-between">
+                            <p>GCV Report</p>
+                            <DownloadLinkButton
+                              href={x.gcvReportUrl}
+                              className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                            />
+                          </div>
+                        ) : null}
+                        {x.testReportUrl ? (
+                          <div className="flex items-center justify-between">
+                            <p>Test Report</p>
+                            <DownloadLinkButton
+                              href={x.testReportUrl}
+                              className="w-8 h-8 bg-transparent text-blue-600 hover:bg-transparent shadow-none"
+                            />
+                          </div>
+                        ) : null}
+                      </div>
+                    </Td>
+                  </Tr>
+                </Fragment>
               ))}
             </Tbody>
           </Table>

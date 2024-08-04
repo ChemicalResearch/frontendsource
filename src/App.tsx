@@ -25,6 +25,7 @@ import RequiredAuth from "./components/RequiredAuth";
 import FinalReport from "./pages/final-report";
 import Tm from "./pages/tm";
 import ValidateData from "./pages/ValidateData";
+import Referee from "./pages/Referee"
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
         <Route path="tm-entry-at-plant" element={<Tm />} />
         <Route path="view-jrf" element={<ViewJrf />} />
         <Route path="validate-data" element={<ValidateData />} />
+        <Route path="referee" element={<Referee />} />
         <Route path="*" element={<h1>No Match</h1>} />
       </Route>
     </Routes>
