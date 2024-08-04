@@ -1,6 +1,17 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
+type ViewSamplePreparationResponse = Array<{
+  plantId: string;
+  plantName: string;
+}>;
+
+export const viewPlants = () => {
+  return apiClient.get<any, AxiosResponse<ViewSamplePreparationResponse>>(
+    `/viewsamplepreparation`
+  );
+};
+
 export type RefereeSetData = {
   tcrcSampleId: string;
   jrfNumber: string;
@@ -34,6 +45,18 @@ export type RefereeSetData = {
 export const getRefereeDataSet = () => {
   return apiClient.get<any, AxiosResponse<Array<RefereeSetData>>>(
     `/getrefereelist`
+  );
+};
+export type GetRefereeBody = {
+  fromDate: string;
+  toDate: string;
+  plantId: string;
+  sampleId:string;
+};
+export const getRefereeData = (body: GetRefereeBody) => {
+  return apiClient.post<any, AxiosResponse<RefereeSetData>>(
+    "/searchsample",
+    body
   );
 };
 
