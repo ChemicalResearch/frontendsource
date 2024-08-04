@@ -54,7 +54,7 @@ export type GetRefereeBody = {
   sampleId:string;
 };
 export const getRefereeData = (body: GetRefereeBody) => {
-  return apiClient.post<any, AxiosResponse<RefereeSetData>>(
+  return apiClient.post<any, AxiosResponse<Array<RefereeSetData>>>(
     "/searchsample",
     body
   );

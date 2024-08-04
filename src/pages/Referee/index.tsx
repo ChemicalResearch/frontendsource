@@ -37,7 +37,7 @@ function Referee() {
       return data;
     },
   });
-  const { data: refereelists, isPending: isRefereePending } = useQuery({
+  const { data: refereelists } = useQuery({
     queryKey: ["refereelists"],
     queryFn: async () => {
       const { data } = await getRefereeDataSet();
@@ -304,12 +304,12 @@ function Referee() {
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
                     {/* {preparation.paymentDate} */}
-                    <DatePicker
+                    {/* <DatePicker
                       dateFormat="yyyy-MM-dd"
                       placeholderText="YYYY-MM-DD"
                       withPortal
                       className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    />
+                    /> */}
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
@@ -324,12 +324,12 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    <DatePicker
+                    {/* <DatePicker
                       dateFormat="yyyy-MM-dd"
                       placeholderText="YYYY-MM-DD"
                       withPortal
                       className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    />
+                    /> */}
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
@@ -470,12 +470,12 @@ function Referee() {
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
                     {/* {preparation.paymentDate} */}
-                    <DatePicker
+                    {/* <DatePicker
                       dateFormat="yyyy-MM-dd"
                       placeholderText="YYYY-MM-DD"
                       withPortal
                       className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    />
+                    /> */}
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
@@ -490,12 +490,12 @@ function Referee() {
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
-                    <DatePicker
+                    {/* <DatePicker
                       dateFormat="yyyy-MM-dd"
                       placeholderText="YYYY-MM-DD"
                       withPortal
                       className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    />
+                    /> */}
                   </div>
                 </Td>
                 <Td className="p-2 whitespace-nowrap">
