@@ -28,7 +28,7 @@ export type GetTestProgressJRFResponse = Array<{
 // };
 export const getVerificationJRFs = () => {
   return apiClient.get<any, AxiosResponse<GetTestProgressJRFResponse>>(
-    "/getallreport"
+    "/verificationjrfs"
   );
 };
 
