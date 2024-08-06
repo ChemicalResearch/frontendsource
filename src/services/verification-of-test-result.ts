@@ -1,19 +1,31 @@
 import { AxiosResponse } from "axios";
 import { apiClient } from "../config/api-client";
 
+// export type GetTestProgressJRFResponse = Array<{
+//   tcrcRefNumber: string;
+//   tcrcSampleId: string;
+//   commodity: string;
+//   dispatchDate: string;
+//   noOfSample: string;
+//   plantEmail: string;
+//   jrfNumber: string;
+//   jrfUrl: string;
+//   jrfTableModels: string;
+//   jrfDocumentUrl:string
+// }>;
 export type GetTestProgressJRFResponse = Array<{
-  tcrcRefNumber: string;
-  tcrcSampleId: string;
-  commodity: string;
-  dispatchDate: string;
-  noOfSample: string;
-  plantEmail: string;
   jrfNumber: string;
-  jrfUrl: string;
-  jrfTableModels: string;
-  jrfDocumentUrl:string
+  jrfDocumentUrl: string;
+  finalReportUrl: string;
+  gcvReportUrl: string;
+  testReportUrl: string;
 }>;
 
+// export const getVerificationJRFs = () => {
+//   return apiClient.get<any, AxiosResponse<GetTestProgressJRFResponse>>(
+//     "/verificationjrfs"
+//   );
+// };
 export const getVerificationJRFs = () => {
   return apiClient.get<any, AxiosResponse<GetTestProgressJRFResponse>>(
     "/verificationjrfs"
@@ -22,7 +34,6 @@ export const getVerificationJRFs = () => {
 
 export type GetVerificationListParams = {
   jrfNumber: string;
-
 };
 
 // export type Verification = {
@@ -40,34 +51,34 @@ export type GetVerificationListParams = {
 //   testReport: string;
 //   gcvReport: string;
 // };
-export type Verification ={
-  tcrcSampleId: string,
-  jrfNumber: string,
-  tcrcQrCode: string,
-  adbIM: string,
-  adbVM: string,
-  adbAsh: string,
-  adbFc: string,
-  adbBand: string,
-  adbGCV: string,
-  arbTM: string,
-  arbVM: string,
-  arbAsh: string,
-  arbFC: string,
-  arbGCV: string,
-  arbBand: string,
-  emEM: string,
-  emVM: string,
-  emAsh: string,
-  emFC: string,
-  emGCV: string,
-  emBand: string,
-  testEndDate: string,
-  verificationFlag: string,
-  testReport: string,
-  gcvReport: string,
-  jrfLink: string
-}
+export type Verification = {
+  tcrcSampleId: string;
+  jrfNumber: string;
+  tcrcQrCode: string;
+  adbIM: string;
+  adbVM: string;
+  adbAsh: string;
+  adbFc: string;
+  adbBand: string;
+  adbGCV: string;
+  arbTM: string;
+  arbVM: string;
+  arbAsh: string;
+  arbFC: string;
+  arbGCV: string;
+  arbBand: string;
+  emEM: string;
+  emVM: string;
+  emAsh: string;
+  emFC: string;
+  emGCV: string;
+  emBand: string;
+  testEndDate: string;
+  verificationFlag: string;
+  testReport: string;
+  gcvReport: string;
+  jrfLink: string;
+};
 
 export type GetVerificationListResponse = Array<Verification>;
 
