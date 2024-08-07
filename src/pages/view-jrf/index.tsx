@@ -6,7 +6,7 @@ import {
   getVerificationList,
   GetVerificationListResponse,
   submitVerification,
-} from "../../services/verification-of-test-result";
+} from "../../services/view-jrf";
 import { Formik, FormikHelpers } from "formik";
 import Swal from "sweetalert2";
 import { DownloadLinkButton } from "../../components/buttons";
