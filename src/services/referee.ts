@@ -60,15 +60,15 @@ export const getRefereeData = (body: GetRefereeBody) => {
   );
 };
 
-// export type RefereeSubmitData = {
-//   advice: string;
-//   paymentDate: string;
-//   labDetail: string;
-//   resultDate: string;
-//   result: string;
-//   qrcode: string;
-// };
-export const submitRefereeData = (body: RefereeSetData) => {
+export type RefereeSubmitData = {
+  advice: string;
+  paymentDate: string;
+  labDetail: string;
+  resultDate: string;
+  result: string;
+  qrcode: string;
+};
+export const submitRefereeData = (body: RefereeSubmitData) => {
   return apiClient.post('/updatereferee', body)
 }
 // export const submitSampleDataSet = (body: SampleDataSet) => {
