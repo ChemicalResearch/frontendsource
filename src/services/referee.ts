@@ -68,7 +68,7 @@ export type RefereeSubmitData = {
   result: string;
   qrcode: string;
 };
-export const submitRefereeData = (body: RefereeSubmitData) => {
+export const submitRefereeData = (body: FormData) => {
   return apiClient.post('/updatereferee', body)
 }
 // export const submitSampleDataSet = (body: SampleDataSet) => {
