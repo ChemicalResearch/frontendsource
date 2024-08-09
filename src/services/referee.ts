@@ -51,7 +51,7 @@ export type GetRefereeBody = {
   fromDate: string;
   toDate: string;
   plantId: string;
-  sampleId:string;
+  sampleId: string;
 };
 export const getRefereeData = (body: GetRefereeBody) => {
   return apiClient.post<any, AxiosResponse<Array<RefereeSetData>>>(
@@ -60,6 +60,17 @@ export const getRefereeData = (body: GetRefereeBody) => {
   );
 };
 
+export type RefereeSubmitData = {
+  advice: string;
+  paymentDate: string;
+  labDetail: string;
+  resultDate: string;
+  result: string;
+  qrcode: string;
+};
+export const submitRefereeData = (body: FormData) => {
+  return apiClient.post('/updatereferee', body)
+}
 // export const submitSampleDataSet = (body: SampleDataSet) => {
 //   return apiClient.post('/posttsampledataset', body)
 // }

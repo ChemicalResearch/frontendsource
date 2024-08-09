@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 import ViewPreparationTableHead from "./ViewPreparationTableHead";
 import { TableContainer, Table, Tbody, Tr, Td } from "../../styles/table";
 import TextInput from "../../components/TextInput";
+import RefereeTableRow from "./RefereeTableRow";
 
 interface InitialValues {
   fromDate: Date | null;
@@ -37,7 +38,7 @@ function Referee() {
       return data;
     },
   });
-  const { data: refereelists } = useQuery({
+  const { data: refereelists, refetch: refetchGetRefereeDataSet } = useQuery({
     queryKey: ["refereelists"],
     queryFn: async () => {
       const { data } = await getRefereeDataSet();
@@ -45,7 +46,11 @@ function Referee() {
     },
   });
 
-  const { data: searchreferee, isPending: isPreparationPending } = useQuery({
+  const {
+    data: searchreferee,
+    isPending: isPreparationPending,
+    refetch: refetchGetRefereeData,
+  } = useQuery({
     queryKey: ["searchreferee", fromDate, plantId, toDate, sampleId],
     queryFn: async () => {
       const { data } = await getRefereeData({
@@ -190,162 +195,11 @@ function Referee() {
           <ViewPreparationTableHead />
           <Tbody>
             {searchreferee?.map((preparation, key) => (
-              <Tr key={key}>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.tcrcSampleId}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.jrfNumber}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.tcrcQrCode}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.adbIM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.adbVM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbAsh}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbFc}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbBand}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbGCV}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbTM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbVM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbAsh}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbFC}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbGCV}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbBand}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emEM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emVM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emAsh}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emFC}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emGCV}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emBand}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.jrfLink}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {/* {preparation.paymentDate} */}
-                    {/* <DatePicker
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="YYYY-MM-DD"
-                      withPortal
-                      className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    /> */}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    input field for file upload
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    lab details in text area
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {/* <DatePicker
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="YYYY-MM-DD"
-                      withPortal
-                      className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    /> */}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    input field for file upload
-                  </div>
-                </Td>
-                <Td>
-                  <button
-                    type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                  >
-                    Save
-                  </button>
-                </Td>
-              </Tr>
+              <RefereeTableRow
+                key={key}
+                preparation={preparation}
+                refetch={refetchGetRefereeData}
+              />
             ))}
           </Tbody>
         </Table>
@@ -356,162 +210,11 @@ function Referee() {
           <ViewPreparationTableHead />
           <Tbody>
             {refereelists?.map((preparation, key) => (
-              <Tr key={key}>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.tcrcSampleId}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.jrfNumber}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.tcrcQrCode}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.adbIM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">
-                    {preparation.adbVM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbAsh}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbFc}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbBand}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.adbGCV}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbTM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbVM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbAsh}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbFC}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbGCV}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.arbBand}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emEM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emVM}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emAsh}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emFC}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emGCV}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.emBand}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {preparation.jrfLink}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {/* {preparation.paymentDate} */}
-                    {/* <DatePicker
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="YYYY-MM-DD"
-                      withPortal
-                      className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    /> */}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    input field for file upload
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    lab details in text area
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    {/* <DatePicker
-                      dateFormat="yyyy-MM-dd"
-                      placeholderText="YYYY-MM-DD"
-                      withPortal
-                      className="h-10 border rounded px-4 bg-gray-50 w-full"
-                    /> */}
-                  </div>
-                </Td>
-                <Td className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">
-                    input field for file upload
-                  </div>
-                </Td>
-                <Td>
-                  <button
-                    type="button"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 focus:outline-none w-[120px]"
-                  >
-                    Save
-                  </button>
-                </Td>
-              </Tr>
+              <RefereeTableRow
+                key={key}
+                preparation={preparation}
+                refetch={refetchGetRefereeDataSet}
+              />
             ))}
           </Tbody>
         </Table>
