@@ -16,7 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import dayjs from "dayjs";
 import ViewPreparationTableHead from "./ViewPreparationTableHead";
-import { TableContainer, Table, Tbody, Tr, Td } from "../../styles/table";
+import { TableContainer, Table, Tbody } from "../../styles/table";
 import TextInput from "../../components/TextInput";
 import RefereeTableRow from "./RefereeTableRow";
 
