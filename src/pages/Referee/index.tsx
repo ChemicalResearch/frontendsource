@@ -196,11 +196,11 @@ function Referee() {
                     {preparation.tcrcSampleId}
                   </div>
                 </Td>
-                <Td className="p-2 whitespace-nowrap">
+                {/* <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-left">
                     {preparation.jrfNumber}
                   </div>
-                </Td>
+                </Td> */}
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-left">
                     {preparation.tcrcQrCode}
@@ -296,11 +296,11 @@ function Referee() {
                     {preparation.emBand}
                   </div>
                 </Td>
-                <Td className="p-2 whitespace-nowrap">
+                {/* <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
                     {preparation.jrfLink}
                   </div>
-                </Td>
+                </Td> */}
                 <Td className="p-2 whitespace-nowrap">
                   <div className="font-semibold text-center">
                     {/* {preparation.paymentDate} */}

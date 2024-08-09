@@ -5,7 +5,7 @@ import { Th, Thead, Tr } from "../../styles/table";
 const ViewPreparationTableHead = () => {
   const headers = [
     { label: "Sample ID.", align: "left" },
-    { label: "JRF No.", align: "left" },
+    // { label: "JRF No.", align: "left" },
     { label: "TCRC QR Code", align: "left" },
     { label: "ADB IM", align: "left" },
     { label: "ADB VM.", align: "left" },
@@ -25,7 +25,7 @@ const ViewPreparationTableHead = () => {
     { label: "EM FC", align: "left" },
     { label: "EM GCV", align: "left" },
     { label: "EM BAND", align: "left" },
-    { label: "jrfLink", align: "left" },
+    // { label: "jrfLink", align: "left" },
     { label: "paymentDate", align: "left" },
     { label: "adviceUrl", align: "left" },
     { label: "labDetails", align: "left" },
