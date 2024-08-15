@@ -1,7 +1,9 @@
 import ActiveNavLink from "./ActiveNavLink";
 import imgLogo from "../assets/images/logo.png";
+import { useAuth } from "../context/auth";
 
 const SideMenu = () => {
+  const { user } = useAuth();
   return (
     <div
       id="application-sidebar"
@@ -17,7 +19,6 @@ const SideMenu = () => {
           <b className="text-[#ef2328]">TCRC</b>
         </a>
       </div>
-
       <nav
         className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
         data-hs-accordion-always-open=""
@@ -288,7 +289,7 @@ const SideMenu = () => {
                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
-             View JRF
+              View JRF
             </ActiveNavLink>
           </li>
           <li>
@@ -308,49 +309,53 @@ const SideMenu = () => {
                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
-            Referee
+              Referee
             </ActiveNavLink>
           </li>
-          <li>
-            <ActiveNavLink to="/lab-head-assignment">
-              <svg
-                className="flex-shrink-0 w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
-              Lab Head Assignment
-            </ActiveNavLink>
-          </li>
-          <li>
-            <ActiveNavLink to="/chemist-action">
-              <svg
-                className="flex-shrink-0 w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
-              Chemmist Action
-            </ActiveNavLink>
-          </li>
+          {["Super Admin"].includes(user?.role as string) && (
+            <li>
+              <ActiveNavLink to="/lab-head-assignment">
+                <svg
+                  className="flex-shrink-0 w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Lab Head Assignment
+              </ActiveNavLink>
+            </li>
+          )}
+          {["Super Admin"].includes(user?.role as string) && (
+            <li>
+              <ActiveNavLink to="/chemist-action">
+                <svg
+                  className="flex-shrink-0 w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Chemmist Action
+              </ActiveNavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </div>
