@@ -167,13 +167,14 @@ const VerificationOfTestResult = () => {
                           <div className="text-left">{verification.adbGCV}</div>
                         </Td>
                         <Td>
-                          <div className="text-left">{verification.adbFc}</div>
-                        </Td>
-                        <Td>
                           <div className="text-left">
                             {verification.adbBand}
                           </div>
                         </Td>
+                        <Td>
+                          <div className="text-left">{verification.adbFc}</div>
+                        </Td>
+                       
                         <Td>
                           <div className="text-left">{verification.arbVM}</div>
                         </Td>

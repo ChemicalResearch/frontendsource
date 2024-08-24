@@ -17,13 +17,13 @@ const VerificationHeadRow = () => (
       <Th>ARB FC</Th>
       <Th>ARB GCV</Th>
       <Th>ARB BAND</Th>
-      <Th>em EM</Th>
-      <Th>em VM</Th>
-      <Th>em Ash</Th>
-      <Th>em FC</Th>
-      <Th>em GCV</Th>
-      <Th>em Band</Th>
-      <Th>Test End Date</Th>
+      <Th>EM EM</Th>
+      <Th>EM VM</Th>
+      <Th>EM Ash</Th>
+      <Th>EM FC</Th>
+      <Th>EM GCV</Th>
+      <Th>EM Band</Th>
+      
       <Th>Test Report</Th>
       <Th>GCV Report</Th>
       <Th colSpan={2}>Action</Th>
