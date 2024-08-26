@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getJRFList } from "../../services";
 import { Fragment, lazy, useState, Suspense } from "react";
 import type { FilterCreateJrfInitialValues, OnSubmit } from "./CreateJrfFilter";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 const FilterCreateJrf = lazy(() => import("./CreateJrfFilter"));
 const CreateJrfForm = lazy(() => import("./CreateJrfForm"));
@@ -50,4 +53,7 @@ const CreateJrf = () => {
   );
 };
 
-export default CreateJrf;
+export default withRole(CreateJrf, {
+  roles: menuRolesMap["Create jrf"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

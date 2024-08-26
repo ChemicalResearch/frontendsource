@@ -16,6 +16,9 @@ import {
   Thead,
   Tr,
 } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 const TestProgress = () => {
   const { data } = useQuery({
@@ -98,4 +101,7 @@ const TestProgress = () => {
   );
 };
 
-export default TestProgress;
+export default withRole(TestProgress, {
+  roles: menuRolesMap["Test progress"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

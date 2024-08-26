@@ -19,6 +19,9 @@ import ViewPreparationTableHead from "./ViewPreparationTableHead";
 import { TableContainer, Table, Tbody, Tr, Td } from "../../styles/table";
 import TextInput from "../../components/TextInput";
 import RefereeTableRow from "./RefereeTableRow";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 interface InitialValues {
   fromDate: Date | null;
@@ -223,4 +226,7 @@ function Referee() {
   );
 }
 
-export default Referee;
+export default withRole(Referee, {
+  roles: menuRolesMap["Referee"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

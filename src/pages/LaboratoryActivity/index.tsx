@@ -4,6 +4,9 @@ import LabActivitySampleHeadRow from "./LabActivitySampleHeadRow";
 import LabActivitySampleBodyRow from "./LabActivitySampleBodyRow";
 import { useQuery } from "@tanstack/react-query";
 import { Table, TableContainer, Tbody } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 const JrfNoList = lazy(() => import("./JrfNoList"));
 
@@ -51,4 +54,7 @@ const LabActivity = () => {
   );
 };
 
-export default LabActivity;
+export default withRole(LabActivity, {
+  roles: menuRolesMap["Laboratory activity"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

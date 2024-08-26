@@ -12,6 +12,9 @@ import dayjs from "dayjs";
 import Dropdown from "../components/Dropdown";
 import DatePicker from "../components/DatePicker";
 import TextInput from "../components/TextInput";
+import { withRole } from "../hooks";
+import { menuRolesMap } from "../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 type CreateJobFormInputes = {
   commodity: string;
@@ -184,4 +187,7 @@ function JobCreation() {
   );
 }
 
-export default JobCreation;
+export default withRole(JobCreation, {
+  roles: menuRolesMap["Job creation"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

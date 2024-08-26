@@ -2,6 +2,9 @@ import { useQuery, queryOptions } from "@tanstack/react-query";
 import { getFinalReport } from "../../services";
 import FinalReportBodyRow from "./components/FinalReportBodyRow";
 import { Table, TableContainer, Th, Thead, Tr } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 export const finalReportsOptions = queryOptions({
   queryKey: ["final-reports"],
@@ -42,4 +45,8 @@ function FinalReport() {
   );
 }
 
-export default FinalReport;
+
+export default withRole(FinalReport, {
+  roles: menuRolesMap["Final report"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

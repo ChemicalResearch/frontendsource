@@ -63,9 +63,7 @@ function App() {
         <Route path="view-jrf" element={<ViewJrf />} />
         <Route path="validate-data" element={<ValidateData />} />
         <Route path="referee" element={<Referee />} />
-        {/* <Route path="lab-head-assignment" element={<Referee />} /> */}
         <Route path="*" element={<h1>No Match</h1>} />
-        
       </Route>
     </Routes>
   );

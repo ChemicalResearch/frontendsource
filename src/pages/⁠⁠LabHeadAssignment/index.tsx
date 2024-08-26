@@ -4,6 +4,7 @@ import Assignments from "./components/Assignments";
 import { useAuth } from "../../context/auth";
 import { withRole } from "../../hooks";
 import { Navigate } from "react-router-dom";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 
 const LabHeadAssignment = () => {
   const { user } = useAuth();
@@ -29,6 +30,6 @@ const LabHeadAssignment = () => {
 };
 
 export default withRole(LabHeadAssignment, {
-  roles: ["Super Admin"],
+  roles: menuRolesMap["Lab head assignment"],
   OnNoAccess: () => <Navigate to="/" replace />,
 });

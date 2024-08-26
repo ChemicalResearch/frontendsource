@@ -19,6 +19,9 @@ import {
   Thead,
   Tr,
 } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { Navigate } from "react-router-dom";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;
   gcvReport: File | null;
@@ -295,4 +298,7 @@ const VerificationOfTestResult = () => {
   );
 };
 
-export default VerificationOfTestResult;
+export default withRole(VerificationOfTestResult, {
+  roles: menuRolesMap["Verification of test result"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

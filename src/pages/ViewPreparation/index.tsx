@@ -11,6 +11,9 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import ViewPreparationTableHead from "./ViewPreparationTableHead";
 import { TableContainer, Table, Tbody, Tr, Td } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 interface InitialValues {
   fromDate: Date | null;
@@ -222,4 +225,7 @@ function ViewPreparation() {
   );
 }
 
-export default ViewPreparation;
+export default withRole(ViewPreparation, {
+  roles: menuRolesMap["View preparation"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});
