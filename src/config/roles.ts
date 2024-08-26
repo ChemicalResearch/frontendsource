@@ -1,0 +1,34 @@
+export const roles = {
+  LAB_HEAD: "Lab Head",
+  NTPC_ROLE: "NTPC Role",
+  SAMPLE_MANAGEMENT: "Sample Management",
+  SUPER_ADMIN: "Super Admin",
+};
+
+export const access = {
+  CHEMMIST_ACTION: [roles.LAB_HEAD, roles.SUPER_ADMIN],
+  CREATE_JRF: [roles.SAMPLE_MANAGEMENT, roles.SUPER_ADMIN],
+  FINAL_REPORT: [roles.SUPER_ADMIN],
+  HOME: [
+    roles.LAB_HEAD,
+    roles.NTPC_ROLE,
+    roles.SAMPLE_MANAGEMENT,
+    roles.SUPER_ADMIN,
+  ],
+  JOB_CREATION: [roles.SAMPLE_MANAGEMENT, roles.SUPER_ADMIN],
+  LAB_HEAD_ASSIGNMENT: [roles.LAB_HEAD, roles.SUPER_ADMIN],
+  LABORATORY_ACTIVITY: [roles.LAB_HEAD, roles.SUPER_ADMIN],
+  REFEREE: [roles.NTPC_ROLE, roles.SUPER_ADMIN],
+  SAMPLE_COLLECTION: [
+    roles.NTPC_ROLE,
+    roles.SAMPLE_MANAGEMENT,
+    roles.SUPER_ADMIN,
+  ],
+  SAMPLE_PREP_AND_QR_ASSIGNMENT: [roles.SAMPLE_MANAGEMENT, roles.SUPER_ADMIN],
+  TEST_PROGRESS: [roles.LAB_HEAD, roles.SUPER_ADMIN],
+  TM_ENTRY_AT_PLANT: [roles.SAMPLE_MANAGEMENT, roles.SUPER_ADMIN],
+  VALIDATE_DATA: [roles.SUPER_ADMIN],
+  VERIFICATION_OF_TEST_RESULT: [roles.LAB_HEAD, roles.SUPER_ADMIN],
+  VIEW_JRF: [roles.NTPC_ROLE, roles.SUPER_ADMIN],
+  VIEW_PREPARATION: [roles.NTPC_ROLE, roles.SUPER_ADMIN],
+};

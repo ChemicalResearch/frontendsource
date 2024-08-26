@@ -19,6 +19,9 @@ import {
   Thead,
   Tr,
 } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;
   gcvReport: File | null;
@@ -214,4 +217,8 @@ const viewJrf = () => {
   );
 };
 
-export default viewJrf;
+export default withRole(viewJrf, {
+  roles: menuRolesMap["View jrf"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});
+

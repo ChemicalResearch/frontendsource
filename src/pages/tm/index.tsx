@@ -3,6 +3,9 @@ import { getTmList } from "../../services";
 import FinalReportBodyRow from "./components/TmBodyRow";
 import TMEntryTableHead from "./TMEntryTableHead";
 import { Table, TableContainer, Tbody } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 function Tm() {
   const { data, isLoading, refetch } = useQuery({
@@ -27,4 +30,7 @@ function Tm() {
   );
 }
 
-export default Tm;
+export default withRole(Tm, {
+  roles: menuRolesMap["Tm entry at plant"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

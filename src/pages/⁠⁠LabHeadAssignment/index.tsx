@@ -1,16 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import { getLabHeadAssignment } from "../../services";
 import Assignments from "./components/Assignments";
 import { useAuth } from "../../context/auth";
+import { withRole } from "../../hooks";
+import { Navigate } from "react-router-dom";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+
 const LabHeadAssignment = () => {
   const { user } = useAuth();
   const { data } = useQuery({
-    queryKey: ['lab-head-assignment'],
+    queryKey: ["lab-head-assignment"],
     queryFn: async () => {
       const { data } = await getLabHeadAssignment(Number(user?.employee_id));
       return data;
-    }
-  })
+    },
+  });
 
   return (
     <div>
@@ -22,7 +26,10 @@ const LabHeadAssignment = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default LabHeadAssignment;
+export default withRole(LabHeadAssignment, {
+  roles: menuRolesMap["Lab head assignment"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});

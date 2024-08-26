@@ -19,6 +19,9 @@ import {
   Thead,
   Tr,
 } from "../../styles/table";
+import { withRole } from "../../hooks";
+import { Navigate } from "react-router-dom";
+import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;
   gcvReport: File | null;
@@ -167,13 +170,14 @@ const VerificationOfTestResult = () => {
                           <div className="text-left">{verification.adbGCV}</div>
                         </Td>
                         <Td>
-                          <div className="text-left">{verification.adbFc}</div>
-                        </Td>
-                        <Td>
                           <div className="text-left">
                             {verification.adbBand}
                           </div>
                         </Td>
+                        <Td>
+                          <div className="text-left">{verification.adbFc}</div>
+                        </Td>
+                       
                         <Td>
                           <div className="text-left">{verification.arbVM}</div>
                         </Td>
@@ -294,4 +298,7 @@ const VerificationOfTestResult = () => {
   );
 };
 
-export default VerificationOfTestResult;
+export default withRole(VerificationOfTestResult, {
+  roles: menuRolesMap["Verification of test result"],
+  OnNoAccess: () => <Navigate to="/" replace />,
+});
