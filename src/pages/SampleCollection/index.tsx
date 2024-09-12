@@ -30,8 +30,7 @@ function SampleCollection() {
   );
 }
 
-
 export default withRole(SampleCollection, {
-  roles: menuRolesMap["Sample collection"],
+  menu: "Sample collection",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

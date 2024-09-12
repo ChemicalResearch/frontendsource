@@ -11,7 +11,6 @@ import {
 } from "../../styles/table";
 import ValidateDataRow from "./components/ValidateDataRow";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 function ValidateData() {
@@ -60,8 +59,7 @@ function ValidateData() {
   );
 }
 
-
 export default withRole(ValidateData, {
-  roles: menuRolesMap["Validate data"],
+  menu: "Validate data",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

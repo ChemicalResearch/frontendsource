@@ -13,7 +13,6 @@ import Dropdown from "../components/Dropdown";
 import DatePicker from "../components/DatePicker";
 import TextInput from "../components/TextInput";
 import { withRole } from "../hooks";
-import { menuRolesMap } from "../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 type CreateJobFormInputes = {
@@ -188,6 +187,6 @@ function JobCreation() {
 }
 
 export default withRole(JobCreation, {
-  roles: menuRolesMap["Job creation"],
+  menu: "Job creation",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

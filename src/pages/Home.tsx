@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { menuRolesMap } from "../constants/roleBasedMenuItemsWithComponent";
 import { withRole } from "../hooks";
 
 function Home() {
@@ -13,6 +12,6 @@ function Home() {
 }
 
 export default withRole(Home, {
-  roles: menuRolesMap["Home"],
+  menu: "Home",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

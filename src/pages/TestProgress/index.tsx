@@ -17,7 +17,6 @@ import {
   Tr,
 } from "../../styles/table";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 const TestProgress = () => {
@@ -102,6 +101,6 @@ const TestProgress = () => {
 };
 
 export default withRole(TestProgress, {
-  roles: menuRolesMap["Test progress"],
+  menu: "Test progress",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

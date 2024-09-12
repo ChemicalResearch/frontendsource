@@ -1,10 +1,13 @@
-import ActiveNavLink from "./ActiveNavLink";
+// import ActiveNavLink from "./ActiveNavLink";
 import imgLogo from "../assets/images/logo.png";
 import { useAuth } from "../context/auth";
-import { roleBasedMenuItemsWithComponent } from "../constants/roleBasedMenuItemsWithComponent";
+// import { roleBasedMenuItemsWithComponent } from "../constants/roleBasedMenuItemsWithComponent";
+import menus from "../config/menus";
 
 const SideMenu = () => {
   const { user } = useAuth();
+  const menusOfUser = (user?.menu || "").split(",") as Array<Menus>;
+  console.log(menusOfUser, "menusOfUser");
   return (
     <div
       id="application-sidebar"
@@ -21,7 +24,8 @@ const SideMenu = () => {
         </a>
       </div>
       <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap space-y-1">
-        {roleBasedMenuItemsWithComponent?.map((item) => {
+        {menusOfUser?.map((menu) => menus[menu])}
+        {/* {roleBasedMenuItemsWithComponent?.map((item) => {
           if (item.roles.includes(user?.role as string))
             return (
               <ActiveNavLink key={item.to} to={item.to}>
@@ -29,7 +33,7 @@ const SideMenu = () => {
               </ActiveNavLink>
             );
           return null;
-        })}
+        })} */}
         {/* <ActiveNavLink to="/">Home</ActiveNavLink>
         <ActiveNavLink to="/job-creation">Job Creation</ActiveNavLink>
         <ActiveNavLink to="/sample-collection">Sample Collection</ActiveNavLink>

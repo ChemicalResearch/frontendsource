@@ -218,7 +218,6 @@ const viewJrf = () => {
 };
 
 export default withRole(viewJrf, {
-  roles: menuRolesMap["View jrf"],
+  menu: "View jrf",
   OnNoAccess: () => <Navigate to="/" replace />,
 });
-

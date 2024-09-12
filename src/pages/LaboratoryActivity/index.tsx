@@ -55,6 +55,6 @@ const LabActivity = () => {
 };
 
 export default withRole(LabActivity, {
-  roles: menuRolesMap["Laboratory activity"],
+  menu: "Laboratory activity",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

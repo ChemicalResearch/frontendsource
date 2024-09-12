@@ -60,6 +60,6 @@ function AssignQr() {
 }
 
 export default withRole(AssignQr, {
-  roles: menuRolesMap["Sample prep and qr assignment"],
+  menu: "Sample prep and qr assignment",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

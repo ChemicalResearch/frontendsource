@@ -4,7 +4,7 @@ import ChemistActionTableHead from "../../components/ChemistActionTableHead";
 import ChemistLabDetails from "./Components/ChemistLabDetails";
 import { useAuth } from "../../context/auth";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
+import { Navigate } from "react-router-dom";
 
 function ChemistAction() {
   const { user } = useAuth();
@@ -59,5 +59,6 @@ function ChemistAction() {
 }
 
 export default withRole(ChemistAction, {
-  roles: menuRolesMap["Chemist action"],
+  menu: "Chemist action",
+  OnNoAccess: () => <Navigate to="/" replace />,
 });

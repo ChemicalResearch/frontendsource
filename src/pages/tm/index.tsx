@@ -31,6 +31,6 @@ function Tm() {
 }
 
 export default withRole(Tm, {
-  roles: menuRolesMap["Tm entry at plant"],
+  menu: "Tm entry at plant",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

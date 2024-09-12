@@ -3,7 +3,6 @@ import { getJRFList } from "../../services";
 import { Fragment, lazy, useState, Suspense } from "react";
 import type { FilterCreateJrfInitialValues, OnSubmit } from "./CreateJrfFilter";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 const FilterCreateJrf = lazy(() => import("./CreateJrfFilter"));
@@ -54,6 +53,6 @@ const CreateJrf = () => {
 };
 
 export default withRole(CreateJrf, {
-  roles: menuRolesMap["Create jrf"],
+  menu: "Create jrf",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

@@ -1,0 +1,17 @@
+type Menus =
+  | "Home"
+  | "Job creation"
+  | "Sample collection"
+  | "Sample prep and qr assignment"
+  | "View preparation"
+  | "Tm entry at plant"
+  | "Validate data"
+  | "Create jrf"
+  | "Laboratory activity"
+  | "Test progress"
+  | "Verification of test result"
+  | "Final report"
+  | "View jrf"
+  | "Referee"
+  | "Lab head assignment"
+  | "Chemist action";

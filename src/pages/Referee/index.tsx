@@ -227,6 +227,6 @@ function Referee() {
 }
 
 export default withRole(Referee, {
-  roles: menuRolesMap["Referee"],
+  menu: "Referee",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

@@ -177,7 +177,7 @@ const VerificationOfTestResult = () => {
                         <Td>
                           <div className="text-left">{verification.adbFc}</div>
                         </Td>
-                       
+
                         <Td>
                           <div className="text-left">{verification.arbVM}</div>
                         </Td>
@@ -299,6 +299,6 @@ const VerificationOfTestResult = () => {
 };
 
 export default withRole(VerificationOfTestResult, {
-  roles: menuRolesMap["Verification of test result"],
+  menu: "Verification of test result",
   OnNoAccess: () => <Navigate to="/" replace />,
 });

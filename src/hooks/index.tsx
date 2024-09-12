@@ -1,11 +1,8 @@
 import { useAuth } from "../context/auth";
 
 type WithRoleProps = {
-  /**
-   * Show a message when redirected to the signin page.
-   */
   OnNoAccess?: () => JSX.Element;
-  roles: Array<string>;
+  menu: Menus;
 };
 
 export const withRole = <P extends object>(
@@ -13,11 +10,11 @@ export const withRole = <P extends object>(
   options: WithRoleProps
 ): React.FC<P> => {
   const displayName = `withRole(${Component.displayName || Component.name})`;
-  const { roles, OnNoAccess = (): JSX.Element => <></> } = options;
+  const { menu, OnNoAccess = (): JSX.Element => <></> } = options;
   const C: React.FC<P> = (props) => {
     const { user } = useAuth();
-    console.log("Roles", roles);
-    if (!roles?.includes(user?.role as string)) return OnNoAccess();
+    const menusOfUser = (user?.menu || "").split(",") as Array<Menus>;
+    if (!menusOfUser?.includes(menu)) return OnNoAccess();
     return <Component {...props} />;
   };
 

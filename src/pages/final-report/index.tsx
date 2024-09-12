@@ -45,8 +45,7 @@ function FinalReport() {
   );
 }
 
-
 export default withRole(FinalReport, {
-  roles: menuRolesMap["Final report"],
+  menu: "Final report",
   OnNoAccess: () => <Navigate to="/" replace />,
 });
