@@ -20,7 +20,6 @@ import { TableContainer, Table, Tbody } from "../../styles/table";
 import TextInput from "../../components/TextInput";
 import RefereeTableRow from "./RefereeTableRow";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 interface InitialValues {

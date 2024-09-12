@@ -3,7 +3,6 @@ import { getFinalReport } from "../../services";
 import FinalReportBodyRow from "./components/FinalReportBodyRow";
 import { Table, TableContainer, Th, Thead, Tr } from "../../styles/table";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 export const finalReportsOptions = queryOptions({

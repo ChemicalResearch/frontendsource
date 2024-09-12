@@ -21,7 +21,6 @@ import {
 } from "../../styles/table";
 import { withRole } from "../../hooks";
 import { Navigate } from "react-router-dom";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;
   gcvReport: File | null;

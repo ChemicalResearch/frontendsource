@@ -8,6 +8,7 @@ type LoginResponse = {
   role: string;
   email: string;
   plant: string;
+  menu: string;
   loginSuccessFlag: "Y" | "N";
   errorMsg: string | null;
 };

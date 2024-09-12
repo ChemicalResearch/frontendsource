@@ -20,7 +20,6 @@ import {
   Tr,
 } from "../../styles/table";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 interface VerificationSubmitFormInitialValues {
   testReport: File | null;

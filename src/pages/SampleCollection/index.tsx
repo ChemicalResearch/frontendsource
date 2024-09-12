@@ -2,7 +2,6 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import { getSampleCollection } from "../../services";
 import Collection from "./components/Collection";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 export const sampleCollectionOptions = queryOptions({

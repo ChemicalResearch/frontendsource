@@ -9,7 +9,6 @@ import AssignQRTableHead from "./AssignQRTableHead";
 import SamplePreparationForm from "./components/SamplePreparationForm";
 import { Table, TableContainer, Tbody } from "../../styles/table";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 const initialValues: FilterAssignQRCodeInitialValues = {

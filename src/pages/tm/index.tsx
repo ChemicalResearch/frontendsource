@@ -4,7 +4,6 @@ import FinalReportBodyRow from "./components/TmBodyRow";
 import TMEntryTableHead from "./TMEntryTableHead";
 import { Table, TableContainer, Tbody } from "../../styles/table";
 import { withRole } from "../../hooks";
-import { menuRolesMap } from "../../constants/roleBasedMenuItemsWithComponent";
 import { Navigate } from "react-router-dom";
 
 function Tm() {
