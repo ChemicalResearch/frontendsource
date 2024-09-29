@@ -78,9 +78,10 @@ type getSamplePselection = [
     plantModels: Array<plantModels>;
   }
 ];
-export const getSamplePselection = () => {
+export const getSamplePselection = (params: any) => {
   return apiClient.get<any, AxiosResponse<getSamplePselection>>(
-    `/getsamplepselection`
+    `/getsamplepselection`,
+    { params }
   );
 };
 
@@ -88,7 +89,6 @@ type GetsamplepreparationlistParams = {
   plantId: string;
   plannedPrepDate: string;
 };
-
 
 export type SamplePreparation = {
   qrcode: string;
@@ -117,7 +117,7 @@ export type SamplePreparation = {
   vehicleNumber: string;
   createdBy: string;
   labNumber: string;
-}
+};
 
 export type GetsamplepreparationlistResponse = Array<SamplePreparation>;
 
