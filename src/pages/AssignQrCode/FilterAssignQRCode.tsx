@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSamplePselection } from "../../services";
 import { FC, useEffect, useMemo } from "react";
 import { Field, Formik, FormikConfig, isObject } from "formik";
+import { useAuth } from "../../context/auth";
 
 export interface FilterAssignQRCodeInitialValues {
   plantId: string;
@@ -21,10 +22,11 @@ const FilterAssignQRCode: FC<FilterAssignQRCodeProps> = ({
   initialValues,
   onSubmit,
 }) => {
+  const { user } = useAuth();
   const { data } = useQuery({
-    queryKey: ["sample-p-selection"],
+    queryKey: ["sample-p-selection", user?.phone],
     queryFn: async () => {
-      const { data } = await getSamplePselection();
+      const { data } = await getSamplePselection({ user: user?.phone });
       return data;
     },
     networkMode: "offlineFirst",

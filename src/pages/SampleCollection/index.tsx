@@ -3,6 +3,7 @@ import { getSampleCollection } from "../../services";
 import Collection from "./components/Collection";
 import { withRole } from "../../hooks";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 
 export const sampleCollectionOptions = queryOptions({
   queryKey: ["sample-collection"],
@@ -13,6 +14,14 @@ export const sampleCollectionOptions = queryOptions({
 });
 
 function SampleCollection() {
+  const { user } = useAuth();
+  const sampleCollectionOptions = queryOptions({
+    queryKey: ["sample-collection", user?.phone],
+    queryFn: async () => {
+      const { data } = await getSampleCollection({ user: user?.phone });
+      return data;
+    },
+  });
   const { data } = useQuery(sampleCollectionOptions);
 
   return (

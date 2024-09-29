@@ -24,9 +24,10 @@ type SampleCollectionResponse = {
   }>;
 };
 
-export const getSampleCollection = () => {
+export const getSampleCollection = (params?: any) => {
   return apiClient.get<any, AxiosResponse<SampleCollectionResponse>>(
-    `/getsamplecollection`
+    `/getsamplecollection`,
+    { params }
   );
 };
 
