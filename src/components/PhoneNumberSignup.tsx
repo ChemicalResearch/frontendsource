@@ -1,4 +1,3 @@
-import PhoneInput from "react-phone-number-input/input";
 import { FC, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../services";
@@ -34,7 +33,7 @@ const PhoneNumberSignup: FC<PhoneNumberSignupProps> = () => {
 
   const _handleSentOTP = () => {
     if (!phone || !password) return;
-    mutation.mutate({ phoneNumber: phone.slice(-10), secret: btoa(password) });
+    mutation.mutate({ phoneNumber: phone, secret: btoa(password) });
     // setData({ isOtpSent: true, phone })
   };
 
@@ -44,12 +43,10 @@ const PhoneNumberSignup: FC<PhoneNumberSignupProps> = () => {
       <h1 className="self-stretch text-center font-black text-3xl text-gray-800 mb-8">
         Sample Analysis
       </h1>
-      <PhoneInput
-        country="IN"
+      <input
         placeholder="Phone number"
         value={phone}
-        onChange={_handlePhoneNumberChange}
-        limitMaxLength
+        onChange={({ target: { value } }) => setPhone(value)}
         className="w-full bg-transparent border border-gray-300 text-gray-800 focus:ring-0 p-2 rounded"
       />
       <input
