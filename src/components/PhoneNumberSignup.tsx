@@ -27,10 +27,6 @@ const PhoneNumberSignup: FC<PhoneNumberSignupProps> = () => {
     },
   });
 
-  const _handlePhoneNumberChange = (value?: string) => {
-    setPhone(value);
-  };
-
   const _handleSentOTP = () => {
     if (!phone || !password) return;
     mutation.mutate({ phoneNumber: phone, secret: btoa(password) });
